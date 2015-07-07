@@ -1,0 +1,157 @@
+#config {repeat enter} on
+
+
+#no
+#no Key aliases and interface changes
+#no
+
+#action {You are hungry.} {eat food}
+#action {You are thirsty.} {drink water}
+#action {You have been idle, and are pulled into a void.} {look}
+
+#alias {umount} {dismount}
+
+#alias {ha} {say Ha!};
+#alias {haha} {laugh};
+#alias {hahaha} {emote laughs heartily.};
+#alias {hahahaha} {emote laughs hysterically.};
+#alias {grin} {emote grins.}
+#alias {peace} {emote makes a peace sign with his fingers.};
+#alias {trash} {emote magically disposes of any trash which litters the street here.};
+
+#highlight {Obvious exits} {<ddd>};
+#highlight {Down   - %1} {<aff>};
+#highlight {Up     - %1} {<aff>};
+
+#substitute {You attempt to move silently.} {<050>You attempt to move silently.};
+
+
+#no
+#no Load component scripts
+#no
+
+#read prompt.tt;
+#read affects.tt;
+
+
+#no
+#no Augmentation of casting details
+#no
+
+#substitute {%1 is burned by the flames of your fireball.} {
+    %1 is <fca>burned<099> by the flames of your <fca>fireball<099>.
+    }
+
+#substitute {%1 burns to death in the maelstrom of magical flame.} {
+    %1 <fca>burns<099> to death in the maelstrom of <fca>magical flame<099>.
+    }
+
+#substitute {%1 chokes and utters some muffled noises.} {
+    %1 <dfa>chokes<099> and <dfa>utters some muffled noises<099>.
+    }
+
+#substitute {%1 appears to block the magic.} {
+    %1 appears to <caf>block the magic<099>
+    }
+
+#substitute {You send a bolt of acid at %1 from your fingertip, striking %2} {
+    You send a <afa>bolt of acid<099> at %1 from your fingertip, <afa>striking<099> %2
+    }
+
+#substitute {You hold your hands out and release a barrage of frost shards at %1} {
+    You hold your hands out and release a <dff>barrage of frost shards<099> at %1
+    }
+
+#substitute {You channel a powerful shockwave at %1} {
+    You <dfa>channel a powerful shockwave<099> at %1
+    }
+
+#substitute {Your manashield crackles and fizzles out.} {
+    ==========
+    Your <bbf>manashield crackles<099> and <faa>fizzles out!<099>
+    ==========
+    }
+
+#substitute {Your Mana Shield crackles, shrinks momentarily and dissipates.} {
+    ==========
+    Your <bbf>manashield crackles<099>, shrinks momentarily and <faa>dissipates.<099>
+    ==========
+    }
+
+#substitute {Your manashield flares emerald and deflects the attack.} {
+    Your <bbf>manashield<099> flares <aca>emerald<099> and deflects the attack.
+    }
+
+#substitute {As your mana reserves dwindle, your shield weakens...} {
+    As your <bbf>mana<099> reserves dwindle, your <bbf>shield<faa> weakens...<099>
+    }
+
+
+#no
+#no Augmentation of distances
+#no
+
+#substitute {, a great distance away} {, a great distance away (92-141)} {Distance}
+#substitute {, close by} {, close by (1)} {Distance}
+#substitute {, many miles away} {, many miles away (67-91)} {Distance}
+#substitute {, not far from here} {, not far from here (2-6)} {Distance}
+#substitute {, off in the distance} {, off in the distance (7-11)} {Distance}
+#substitute {, several miles away} {, several miles away (12-21)} {Distance}
+#substitute {, tens of miles away in the distance} {, tens of miles away in the distance (47-66)} {Distance}
+#substitute {lock a great distance away} {lock a great distance away (101-150)} {Distance}
+#substitute {lock close by} {lock close by (2-5)} {Distance}
+#substitute {lock far off in the distance} {lock far off in the distance (26-50)} {Distance}
+#substitute {lock hundreds of miles in the distance} {lock hundreds of miles in the distance (151-200)} {Distance}
+#substitute {lock in the immediate area} {lock in the immediate area (1)} {Distance}
+#substitute {lock many miles away} {lock many miles away (76-100)} {Distance}
+#substitute {lock not far from here} {lock not far from here (6-10)} {Distance}
+#substitute {lock off in the distance} {lock off in the distance (11-15)} {Distance}
+#substitute {lock on the horizon} {lock on the horizon (201+)} {Distance}
+#substitute {lock several miles away} {lock several miles away (16-25)} {Distance}
+#substitute {lock tens of miles away in the distance} {lock tens of miles away in the distance (51-75)} {Distance}
+#substitute {st, far off in the distance} {st, far off in the distance (22-46)} {Distance}
+#substitute {th, far off in the distance} {th, far off in the distance (22-46)} {Distance}
+
+
+#no
+#no Augmentation of health during combat
+#no
+
+#substitute {; it barely clings to life.} {; it barely clings to life. (1%-9%)} {Health}
+#substitute {; it has quite a few serious wounds.} {; it has quite a few serious wounds. (50%-59%)} {Health}
+#substitute {; it has some big nasty wounds.} {; it has some big nasty wounds. (40%-49%)} {Health}
+#substitute {; it has some gruesome wounds.} {; it has some gruesome wounds. (30%-39%)} {Health}
+#substitute {; it has some large, gaping wounds.} {; it has some large, gaping wounds. (20%-29%)} {Health}
+#substitute {; it has some nasty looking wounds.} {; it has some nasty looking wounds. (60%-69%)} {Health}
+#substitute {; it has some minor wounds.} {; it has some minor wounds. (80%-89%)} {Health}
+#substitute {; it has some serious wounds.} {; it has some serious wounds. (70%-79%)} {Health}
+#substitute {barely clings to life.} {barely clings to life. (1%-7%)} {Health}
+#substitute {grimaces in pain.} {grimaces in pain. (48%-54%)} {Health}
+#substitute {; it looks pretty awful.} {; it looks pretty awful. (10%-19%)} {Health}
+#substitute {grimaces with pain.} {grimaces with pain. (48%-54%)} {Health}
+#substitute {has a few scratches.} {has a few scratches. (90%-99%)} {Health}
+#substitute {has many grievous wounds.} {has many grievous wounds. (22%-28%)} {Health}
+#substitute {has a nasty looking welt on the forehead.} {has a nasty looking welt on the forehead. (83%-89%)} {Health}
+#substitute {has quite a few wounds.} {has quite a few wounds. (55%-61%)} {Health}
+#substitute {has some big nasty wounds and scratches.} {has some big nasty wounds and scratches. (41%-47%)} {Health}
+#substitute {has some large, gaping wounds.} {has some large, gaping wounds. (36%-40%)} {Hfealth}
+#substitute {has some nasty wounds and bleeding cuts.} {has some nasty wounds and bleeding cuts. (41%-47%)} {Health}
+#substitute {has some small wounds and bruises.} {has some small wounds and bruises. (76%-82%)} {Health}
+#substitute {is covered with blood from oozing wounds.} {is covered with blood from oozing wounds. (15%-21%)} {Health}
+#substitute {is in excellent condition.} {is in excellent condition. (100%)} {Health}
+#substitute {has some minor wounds.} {has some minor wounds. (69%-75%)} {Health}
+#substitute {is vomiting blood.} {is vomiting blood. (15%-21%)} {Health}
+#substitute {looks pretty awful.} {looks pretty awful. (29%-35%)} {Health}
+#substitute {pales visibly as death nears.} {pales visibly as death nears. (8%-14%)} {Health}
+#substitute {screams in agony.} {screams in agony. (22%-28%)} {Health}
+#substitute {swimming in excellent condition.} {swimming in excellent condition. (100%)} {Health}
+#substitute {tail in excellent condition.} {tail in excellent condition. (100%)} {Health}
+#substitute {tails in excellent condition.} {tails in excellent condition. (100%)} {Health}
+#substitute {winces in pain.} {winces in pain. (62%-68%)} {Health}
+
+
+#no
+#no Connect!
+#no
+
+#session med medievia.com 4000

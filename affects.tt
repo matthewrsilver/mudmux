@@ -1,0 +1,151 @@
+#alias {af} {explicit af};
+
+#gag {[BEGIN af]};
+#gag {[END af]};
+
+#variable track_affects off;
+
+#list ticks clear;
+#list affects create
+    {Armor               }
+    {Bless               }
+    {Shield              }
+    {Strength            }
+    {Stone Skin          }
+    {Invisibility        }
+    {Detect Invisibility }
+    {Quickness           }
+    {Infravision         }
+    {Sense Life          }
+    {Protection from Evil}
+    {Levitate            }
+    {Sanctuary           };
+
+
+#action {[BEGIN af]} {
+
+    #variable track_affects on;
+
+    #no
+    #no Initialize the tick list
+    #no
+
+    #list ticks clear;
+
+    #foreach $affects[%*] {a} {
+        #list ticks add {  0};
+    };
+
+};
+
+
+#action {  %1: Duration - %2 tick%3} {
+
+    #if { "$track_affects" == "on"} {
+
+        #no
+        #no Grab the affect name and retrieve an index
+        #no
+
+        #variable affect {};
+        #variable affect {%1};
+        #list affects find {$affect} {index};
+
+        #no
+        #no If the affect was found, store ticks
+        #no
+
+        #showme {$index};
+
+        #if {$index > 0} {
+            #list ticks set {$index} {%2};
+        };
+
+        #no
+        #no Now print the line with formatting
+        #no
+
+        #variable affect_color {};
+        #variable affect_color {<149>};
+
+        #if {%2 <= 3} {
+            #variable affect_color {<139>};
+        };
+
+        #echo {  %c%1<149>:<099> Duration - %2 tick%3} {$affect_color};
+        #line gag;
+
+    };
+
+};
+
+
+#action {  %1: Duration - fading} {
+
+    #no
+    #no Grab the affect name and retrieve an index
+    #no
+
+    #variable affect {};
+    #variable affect {%1};
+    #list affects find {$affect} {index};
+
+    #no
+    #no If the affect was found, store ticks
+    #no
+
+    #showme {$index};
+
+    #if {$index > 0} {
+        #list ticks set {$index} {1};
+    };
+
+    #echo {  <119>%1<149>:<099> Duration - fading};
+    #line gag;
+
+};
+
+
+#action {[END af]} {
+
+    #variable track_affects off;
+
+    #no
+    #no Display affects information
+    #no
+
+    #list affects size numel;
+
+    #foreach $affects[%*] {a} {
+
+        #list affects find {$a} {index};
+        #list ticks get {$index} {t};
+
+        #if { $t == 0} {
+            #showme {  <119>$a<099>};
+        };
+
+    };
+
+};
+
+
+#no
+#no Alias for preparing all spells
+#no
+
+#alias {spellup} {
+       c armor;
+       c bless;
+       c prot;
+       c lev;
+       c quick;
+       c d i;
+       c sense li;
+       c infra;
+       c inv;
+       c shield;
+       c stone;
+       c stren;
+       c det ev;
+       };

@@ -1,2 +1,2 @@
 # med-scripts
-Scripts for Medievia text-based RPG (TinTin++)
+Scripts for Medievia text-based RPG
