@@ -1,5 +1,5 @@
-#config {repeat enter} on
-
+#config {repeat enter} on;
+#config charset utf-8;
 
 #no
 #no Key aliases and interface changes

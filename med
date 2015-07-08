@@ -1,0 +1,3 @@
+#! /opt/local/bin/bash
+
+tt++ main.tt;
