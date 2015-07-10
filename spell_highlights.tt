@@ -1,0 +1,47 @@
+#substitute {%1 is burned by the flames of your fireball.} {
+    %1 is <fca>burned<099> by the flames of your <fca>fireball<099>.
+    }
+
+#substitute {%1 burns to death in the maelstrom of magical flame.} {
+    %1 <fca>burns<099> to death in the maelstrom of <fca>magical flame<099>.
+    }
+
+#substitute {%1 chokes and utters some muffled noises.} {
+    %1 <dfa>chokes<099> and <dfa>utters some muffled noises<099>.
+    }
+
+#substitute {%1 appears to block the magic.} {
+    %1 appears to <caf>block the magic<099>
+    }
+
+#substitute {You send a bolt of acid at %1 from your fingertip, striking %2} {
+    You send a <afa>bolt of acid<099> at %1 from your fingertip, <afa>striking<099> %2
+    }
+
+#substitute {You hold your hands out and release a barrage of frost shards at %1} {
+    You hold your hands out and release a <dff>barrage of frost shards<099> at %1
+    }
+
+#substitute {You channel a powerful shockwave at %1} {
+    You <dfa>channel a powerful shockwave<099> at %1
+    }
+
+#substitute {Your manashield crackles and fizzles out.} {
+    ==========
+    Your <bbf>manashield crackles<099> and <faa>fizzles out!<099>
+    ==========
+    }
+
+#substitute {Your Mana Shield crackles, shrinks momentarily and dissipates.} {
+    ==========
+    Your <bbf>manashield crackles<099>, shrinks momentarily and <faa>dissipates.<099>
+    ==========
+    }
+
+#substitute {Your manashield flares emerald and deflects the attack.} {
+    Your <bbf>manashield<099> flares <aca>emerald<099> and deflects the attack.
+    }
+
+#substitute {As your mana reserves dwindle, your shield weakens...} {
+    As your <bbf>mana<099> reserves dwindle, your <bbf>shield<faa> weakens...<099>
+    }

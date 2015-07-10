@@ -31,6 +31,7 @@
     #no
 
     #list ticks clear;
+    #list ticks clear;
 
     #foreach $affects[%*] {a} {
         #list ticks add {  0};
