@@ -1,0 +1,58 @@
+#alias flyfae {explicit faeball};
+
+#variable faeball_distance {};
+#variable faeball_angle {};
+#variable faeball_compass {};
+#variable faeball_coordinates {};
+
+#gag {[BEGIN faeball]};
+#gag {[END faeball]};
+
+#action {%1 is the distance to the ball.} {
+
+    #variable faeball_distance {};
+    #math faeball_distance {%1 / 10};
+
+};
+
+#action {%1 %2 is the heading towards the ball.} {
+
+    #variable faeball_angle {};
+    #variable faeball_angle {%1};
+
+    #variable faeball_compass {};
+    #variable faeball_compass {%2};
+
+};
+
+#action {[END faeball]} {
+
+    #variable faeball_angle {};
+    #variable faeball_distance {};
+
+    #showme {fly dir $faeball_angle $faeball_distance};
+    fly dir $faeball_angle $faeball_distance;
+
+};
+
+#variable faefk_commands {"off"};
+
+#alias {faefk} {
+
+    #if { "$faefk_commands" == "off"} {
+        #variable faefk_commands {};
+        #variable faefk_commands on;
+        #showme {faefk commands on};
+    }{
+        #variable faefk_commands {};
+        #variable faefk_commands off;
+        #showme {faefk commands off};
+    };
+
+};
+
+#action {Vertigo overcomes you as the magical shield on the area collapses.} {
+    #if { "$faefk_commands" == "on"} {
+        #delay {2d9} {st; c sh r; r};
+    };
+};

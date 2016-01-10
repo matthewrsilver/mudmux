@@ -1,6 +1,8 @@
 #config {repeat enter} on;
 #config charset utf-8;
 
+#tick nowhisk stat
+
 #no
 #no Key aliases and interface changes
 #no
@@ -11,12 +13,7 @@
 
 #alias {umount} {dismount}
 
-#alias {ha} {say Ha!};
-#alias {haha} {laugh};
-#alias {hahaha} {emote laughs heartily.};
-#alias {hahahaha} {emote laughs hysterically.};
 #alias {grin} {emote grins.}
-#alias {peace} {emote makes a peace sign with his fingers.};
 #alias {trash} {emote magically disposes of any trash which litters the street here.};
 
 #highlight {Obvious exits} {<ddd>};
@@ -24,6 +21,48 @@
 #highlight {Up     - %1} {<aff>};
 
 #substitute {You attempt to move silently.} {<050>You attempt to move silently.};
+
+#no
+#no Auto-detect context
+#no
+
+#variable char_name {};
+#variable char_level {};
+#variable char_class {};
+
+#action {%1 since Medievia came online.} {
+    explicit score s;
+};
+
+#action {%1 %2 the %3, Level %4 %5} {
+
+    #variable char_name {};
+    #variable char_name {%2};
+
+    #variable char_level {};
+    #variable char_level {%4};
+
+    #variable char_class {};
+    #variable char_class {%5};
+
+    #showme {Detected $char_name a level $char_level $char_class};
+
+};
+
+#action {%1 the %2, Level %3 %4} {
+
+    #variable char_name {};
+    #variable char_name {%1};
+
+    #variable char_level {};
+    #variable char_level {%3};
+
+    #variable char_class {};
+    #variable char_class {%4};
+
+    #showme {Detected $char_name a level $char_level $char_class};
+
+};
 
 
 #no
@@ -35,10 +74,11 @@
 #read combat_health.tt;
 #read distance.tt;
 #read affects.tt;
+#read fae.tt;
 
 
 #no
 #no Connect!
 #no
 
-#session med medievia.com 4000
+#session med medievia.com 4000;
