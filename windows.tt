@@ -1,0 +1,25 @@
+#split 8 1
+
+#var window {{1}{ } {2}{ } {3}{ } {4}{ } {5}{ }}
+
+#act {~%1[%2CLAN%3]%4} {showtowin %1[%2CLAN%3]%4}
+#act {~%1[%2TOWN%3]%4} {showtowin %1[%2TOWN%3]%4}
+#act {~%1[%2FORM%3]%4} {showtowin %1[%2FORM%3]%4}
+
+#alias {showtowin} {
+
+    #format temp {%w} {%0};
+
+    #loop {1} {&temp[]} {cnt} {
+        #list window ins -1 {$temp[$cnt]}
+    };
+
+    #loop {6} {&window[]} {cnt} {
+        #list window del 1
+    };
+
+    #loop {1} {5} {cnt} {
+        #echo {{$window[$cnt]} {-$cnt}}
+    }
+
+}

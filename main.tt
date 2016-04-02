@@ -20,7 +20,7 @@
 #highlight {Down   - %1} {<aff>};
 #highlight {Up     - %1} {<aff>};
 
-#substitute {You attempt to move silently.} {<050>You attempt to move silently.};
+#substitute {You attempt to move silently.} {<caf>You attempt to move silently.<099>};
 
 #no
 #no Auto-detect context
@@ -69,13 +69,14 @@
 #no Load component scripts
 #no
 
+#read chat.tt;
 #read prompt.tt;
 #read spell_highlights.tt;
 #read combat_health.tt;
 #read distance.tt;
 #read affects.tt;
 #read fae.tt;
-
+#read windows.tt;
 
 #no
 #no Connect!

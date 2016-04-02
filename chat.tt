@@ -1,0 +1,6 @@
+#chat initialize;
+#chat name Ohruunuruus;
+#chat call knightstemplar.no-ip.org 4646;
+#chat message all 1
+
+#alias {cht} {#chat message all %1};
