@@ -7,7 +7,7 @@
     }
 
 #substitute {%1 chokes and utters some muffled noises.} {
-    %1 <dfa>chokes<099> and <dfa>utters some muffled noises<099>.
+    %1 <caf>chokes<099> and <caf>utters some muffled noises<099>.
     }
 
 #substitute {%1 appears to block the magic.} {
