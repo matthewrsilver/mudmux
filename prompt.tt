@@ -1,5 +1,6 @@
 #alias {init} {
        sc;
+       setitem both;
        prompt set #b[^--*.%)&u**``..<-]#x[&k]#y[[ #x&h#w/#b&H#y | #x&m#w/#b&M#y | #x&v #y| #x&b #y| #x&A #y]]#lw[&FM&FP&FF&FI&FS&FL&FQ&FV&FW&FB&FC&FG&FO#lw]#g.::end::.
        }
 

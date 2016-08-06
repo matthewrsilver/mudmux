@@ -3,4 +3,8 @@
 #chat call knightstemplar.no-ip.org 4646;
 #chat message all 1
 
-#alias {cht} {#chat message all %1};
+#alias {cht %1} {
+
+    #chat {emote} {all} {<128>:: <178>%1 <128>::<088> };
+
+};

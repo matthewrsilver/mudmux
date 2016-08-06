@@ -138,7 +138,6 @@
 #alias {spellup} {
        c armor;
        c bless;
-       c prot;
        c lev;
        c quick;
        c d i;
@@ -146,7 +145,5 @@
        c infra;
        c inv;
        c shield;
-       c stone;
        c stren;
-       c det ev;
        };
