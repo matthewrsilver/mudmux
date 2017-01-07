@@ -11,12 +11,17 @@
 #action {You are thirsty.} {drink water}
 #action {You have been idle, and are pulled into a void.} {look}
 
-#alias {umount} {dismount}
+#alias {umount} {dismount};
+#alias {ssrr} {st; c sh r; r;};
 
 #alias {grin} {emote grins.}
 #alias {trash} {emote magically disposes of any trash which litters the street here.};
 
 #alias {run} {--; q menthol};
+
+#alias {ec} {hold %1; use held; rem %1; c attune %1;};
+#alias {ecfg} {c tel; get fg01 sack; get fg02 sack; ec fg01; ec fg02; put fg01 sack; put fg02 sack; hold doll; look};
+
 
 #highlight {Obvious exits} {<ddd>};
 #highlight {Down   - %1} {<aff>};

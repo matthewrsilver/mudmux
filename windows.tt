@@ -1,25 +1,35 @@
-#split 8 1
+#split
 
-#var window {{1}{ } {2}{ } {3}{ } {4}{ } {5}{ }}
+#list {comms} {create} {TOWN} {CLAN} {FORM} {IMM};
 
-#act {~%1[%2CLAN%3]%4} {showtowin %1[%2CLAN%3]%4}
-#act {~%1[%2TOWN%3]%4} {showtowin %1[%2TOWN%3]%4}
-#act {~%1[%2FORM%3]%4} {showtowin %1[%2FORM%3]%4}
+#function {comm_tracked} {
+    #list {comms} {find} {%1} {tracked};
+    #var {result} {$tracked != 0};
+};
 
-#alias {showtowin} {
+#alias {logcomm} {
+    #system echo "%0" >> communications.log;
+};
 
-    #format temp {%w} {%0};
-
-    #loop {1} {&temp[]} {cnt} {
-        #list window ins -1 {$temp[$cnt]}
+#alias {remcom} {
+    #if {@comm_tracked{%1}} {
+        #list {comms} {find} {%1} {index};
+        #list {comms} {delete} {$index};
+        #showme {%1 will no longer be tracked.};
     };
+};
 
-    #loop {6} {&window[]} {cnt} {
-        #list window del 1
+#alias {addcom} {
+    #if {@comm_tracked{%1}} {
+        #showme {%1 is already tracked.};
+    } {
+        #list {comms} {insert} {1} {%1};
+        #showme {%1 is now tracked.};
     };
+};
 
-    #loop {1} {5} {cnt} {
-        #echo {{$window[$cnt]} {-$cnt}}
-    }
+#act {~%1[%2CLAN%3]%4} { #if { @comm_tracked{CLAN} } { logcomm %0 } };
+#act {~%1[%2TOWN%3]%4} { #if { @comm_tracked{TOWN} } { logcomm %0 } };
+#act {~%1[%2FORM%3]%4} { #if { @comm_tracked{FORM} } { logcomm %0 } };
+#act {~%1[%2IMM%3]%4}  { #if { @comm_tracked{IMM}  } { logcomm %0 } };
 
-}
