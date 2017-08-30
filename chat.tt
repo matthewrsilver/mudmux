@@ -1,10 +1,35 @@
 #chat initialize;
-#chat name Ohruunuruus;
-#chat call knightstemplar.no-ip.org 4646;
-#chat message all 1
+#chat name ohr;
+
+#alias {chat connect}{
+    #chat call chat.mikejsavage.co.uk 4050;
+}
+
+#var current_hit_points 0;
+#var current_hit_points_color {};
+
+#var current_mana 0;
+#var current_mana_color {};
+
+#var colors {{0} {<118>} {1} {<138>} {2} {<128>} {3} {<148>} {4} {<148>}};
+#no #var colors {{0} {red} {1} {yellow} {2} {green} {3} {blue} {4} {blue}};
+
+#action {%1[[ %2/%3 | %4/%5 | %6 | %7 | %8 ]][%9]}{
+
+    #var current_hit_points {};
+    #var current_hit_points {%2};
+    #math current_hit_points_idx {((%2*100)/%3) / 25};
+    #var current_hit_points_color {};
+    #var current_hit_points_color {$colors[$current_hit_points_idx]$current_hit_points};
+
+    #var current_mana {};
+    #var current_mana {%4};
+    #math current_mana_idx {((%4*100)/%5) / 25};
+    #var current_mana_color {};
+    #var current_mana_color {$colors[$current_mana_idx]$current_mana};
+
+};
 
 #alias {cht %1} {
-
-    #chat {emote} {all} {<128>:: <178>%1 <128>::<088> };
-
+    #chat {emote} {all} {<128>:: <178>%1 <128>::<088> <138>[[<088> $current_hit_points_color <138>| $current_mana_collor <138>]]<088>};
 };

@@ -76,6 +76,7 @@
 #no Load component scripts
 #no
 
+#read sneak.tt;
 #read chat.tt;
 #read prompt.tt;
 #read spell_highlights.tt;

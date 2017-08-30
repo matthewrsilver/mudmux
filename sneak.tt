@@ -1,0 +1,154 @@
+#variable sneak_tag {<159>[SNEAK!!]<099>};
+
+#action {You stop sneaking.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {~You attempt to move silently.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {};
+};
+
+#alias {snch} {
+    #if { "$sneak_tag" == "<159>[SNEAK!!]<099>" }{
+        #showme {You are not sneaking.};
+    }{
+        #showme {<caf>You are sneaking.<009>};
+    };
+};
+
+#action {Your %1 misses %2!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your %1 maims %2!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your %1 devastates %2!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your %1 eviscerates %2!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your %1 disembowels %2!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your %1 decapitates %2!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your %1 mutilates %2!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your %1 dismembers %2!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your %1 pulverizes %2!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your %1 demolishes %2!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {You dodge a %1 attack.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {You parry a %1 attack.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {A %1 dodges your attack.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {A %1 parries your attack.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your %1 kills %3!} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your beautiful full-circle kick misses %1 by a mile.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your boots need polishing again - blood all over.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {%1 is shaken violently from the force of the tremor.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {You send a bolt of acid at %1 from your fingertip, striking %2.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {You channel a powerful shockwave at %1.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {Your shockwave hits a clergyman with full force, causing an immediate death.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {You raise your hands to the heavens and %1 is consumed in a column of flame.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {You hold your hands out and release a barrage of frost shards at %1.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {You lay a hand upon %1 and the remaining flesh withers away.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {%1 screams in pain as %1 flesh withers away at your touch.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {You jump up and mount %1.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};
+
+#action {You jump down and dismount %1.} {
+    #variable sneak_tag {};
+    #variable sneak_tag {<159>[SNEAK!!]<099>};
+};

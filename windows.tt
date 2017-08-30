@@ -1,10 +1,22 @@
 #split
 
-#list {comms} {create} {TOWN} {CLAN} {FORM} {IMM};
+#no #list {comms} {create} {TOWN} {CLAN} {FORM} {IMM};
+
+#var {comms} {
+    {TOWN} {1}
+    {CLAN} {1}
+    {FORM} {1}
+    {IMM}  {1}
+    {BL}   {0}
+    {CHAT} {0}
+    {TEL}  {1}
+    {SAY}  {1}
+};
 
 #function {comm_tracked} {
-    #list {comms} {find} {%1} {tracked};
-    #var {result} {$tracked != 0};
+    #no #list {comms} {find} {%1} {tracked};
+    #no #var {result} {$tracked != 0};
+    #var {result} {$comms[%1] == 1}
 };
 
 #alias {logcomm} {
@@ -12,24 +24,41 @@
 };
 
 #alias {remcom} {
-    #if {@comm_tracked{%1}} {
-        #list {comms} {find} {%1} {index};
-        #list {comms} {delete} {$index};
-        #showme {%1 will no longer be tracked.};
+
+    #format comm_name {%u} {%1};
+
+    #if {@comm_tracked{$comm_name}} {
+        #var comms[$comm_name] 0;
+        #showme {$comm_name will no longer be tracked.};
     };
 };
 
 #alias {addcom} {
-    #if {@comm_tracked{%1}} {
-        #showme {%1 is already tracked.};
+
+    #format comm_name {%u} {%1};
+
+    #if {@comm_tracked{$comm_name}} {
+        #showme {$comm_name is already tracked.};
     } {
-        #list {comms} {insert} {1} {%1};
-        #showme {%1 is now tracked.};
+        #var comms[$comm_name] 1;
+        #showme {$comm_name is now tracked.};
     };
 };
 
-#act {~%1[%2CLAN%3]%4} { #if { @comm_tracked{CLAN} } { logcomm %0 } };
+#act {~%1[%2CLAN%3]%4} { #if { @comm_tracked{CLAN} } { logcomm %0} };
 #act {~%1[%2TOWN%3]%4} { #if { @comm_tracked{TOWN} } { logcomm %0 } };
 #act {~%1[%2FORM%3]%4} { #if { @comm_tracked{FORM} } { logcomm %0 } };
 #act {~%1[%2IMM%3]%4}  { #if { @comm_tracked{IMM}  } { logcomm %0 } };
 
+#no #act {~%1[%2CHAT about anything%3]%4} { #if { @comm_tracked{CHAT} } { logcomm %0 } };
+
+#no #act {~%1 telepaths you, %2} { #if { @comm_tracked{TEL} } { logcomm %0 } };
+#no #act {~%1 telepath %2, %3} { #if { @comm_tracked{TEL} } { logcomm %0 } };
+
+#no #act {~%1 says, %2} { #if { @comm_tracked{SAY} } { logcomm %0 } };
+#no #act {~%1 say, %2} { #if { @comm_tracked{SAY} } { logcomm %0 } };
+
+#alias {store} {
+    #class storeall read store.tt;
+    explicit %0;
+}
