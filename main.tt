@@ -23,7 +23,7 @@
 #alias {ecfg} {c tel; get fg01 sack; get fg02 sack; ec fg01; ec fg02; put fg01 sack; put fg02 sack; hold doll; look};
 
 
-#highlight {Obvious exits} {<ddd>};
+#highlight {Obvious exits:} {<ddd>};
 #highlight {Down   - %1} {<aff>};
 #highlight {Up     - %1} {<aff>};
 
@@ -36,10 +36,6 @@
 #variable char_name {};
 #variable char_level {};
 #variable char_class {};
-
-#no #action {%1 since Medievia came online.} {
-#no    explicit score s;
-#no };
 
 #action {%1 %2 the %3, Level %4 %5} {
 

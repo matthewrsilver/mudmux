@@ -1,0 +1,12 @@
+#act {[BEGIN %1]}{
+    #log append stored.log;
+    #line gag;
+}
+
+#act {[END %1]}{
+    #system echo "" >> stored.log;
+    #class storeall kill;
+    #log off;
+    #line gag;
+};
+

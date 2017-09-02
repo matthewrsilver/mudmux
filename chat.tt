@@ -1,8 +1,13 @@
-#chat initialize;
-#chat name ohr;
+#alias {serv %1}{
+    #chat message 1 %1;
+}
 
-#alias {chat connect}{
+#alias {chat_connect}{
+    #chat uninitialize;
+    #chat initialize;
+    #chat name ohr;
     #chat call chat.mikejsavage.co.uk 4050;
+    serv 123;
 }
 
 #var current_hit_points 0;
@@ -11,8 +16,13 @@
 #var current_mana 0;
 #var current_mana_color {};
 
-#var colors {{0} {<118>} {1} {<138>} {2} {<128>} {3} {<148>} {4} {<148>}};
-#no #var colors {{0} {red} {1} {yellow} {2} {green} {3} {blue} {4} {blue}};
+#var colors {
+    {0} {<118>}
+    {1} {<138>}
+    {2} {<128>}
+    {3} {<148>}
+    {4} {<148>}
+};
 
 #action {%1[[ %2/%3 | %4/%5 | %6 | %7 | %8 ]][%9]}{
 
@@ -30,6 +40,63 @@
 
 };
 
-#alias {cht %1} {
-    #chat {emote} {all} {<128>:: <178>%1 <128>::<088> <138>[[<088> $current_hit_points_color <138>| $current_mana_collor <138>]]<088>};
+#var combat_rep_enabled false;
+
+#function {do_combatrep}{
+
+    #if {"%1" == "enable"}{
+        #if {"$combat_rep_enabled" == "false"}{
+            #chat {emote} {all} {<138>[[<088> <148>Combat spam now<088> <128>ENABLED<088> <138>]]<088>};
+            #var combat_rep_enabled {};
+            #var combat_rep_enabled true;
+        };
+    }{
+
+    #if {"%1" == "disable"}{
+        #if {"$combat_rep_enabled" == "true"}{
+            #chat {emote} {all} {<138>[[<088> <148>Combat spam now<088> <118>DISABLED<088> <138>]]<088>};
+            #var combat_rep_enabled {};
+            #var combat_rep_enabled false;
+        };
+    }{
+
+    #if {"%1" == "good"}{
+        #if {"$combat_rep_enabled" == "true"}{
+            #chat {emote} {all} {<138>[[<088> <148>Woop!<088> <138>|<088> %2 <138>]]<088>};
+        };
+    }{
+
+    #if {"%1" == "bad"}{
+        #if {"$combat_rep_enabled" == "true"}{
+            #chat {emote} {all} {<138>[[<088> <148>Dang!<088> <138>|<088> %2 <138>]]<088>};
+        };
+    };
+
+    };};};
+
+    #var result {#no};
+
 };
+
+
+#no #action {The white aura around your body fades.} {;
+#no     @do_combatrep{bad; <148>My <178>SANC<148> just faded!<088>};
+#no };
+
+#action {%1 chokes and utters some muffled noises.} {
+    @do_combatrep{good; <148>%1 just got <158>PLAGUED<148> in the face!<088>};
+};
+
+#action {%1 chokes and gasps for breath.} {
+    @do_combatrep{good; <148>%1 is <128>MUFFLED<148> like a chump!<088>};
+};
+
+#alias {cc %1} {
+    #chat {emote} {all} {<138>[[<088> $current_hit_points_color <138>| $current_mana_color <138>]] <128>:: <178>%1 <128>::<088>};
+};
+
+#alias {combatrep %1}{
+    @do_combatrep{%1};
+};
+
+
