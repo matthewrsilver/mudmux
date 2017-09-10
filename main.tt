@@ -1,20 +1,20 @@
 #config {repeat enter} on;
 #config charset utf-8;
 
-#tick nowhisk stat
+#tick nowhisk stat;
 
-#no
-#no Key aliases and interface changes
-#no
+#no;
+#no Key aliases and interface changes;
+#no;
 
-#action {You are hungry.} {eat food}
-#action {You are thirsty.} {drink water}
-#action {You have been idle, and are pulled into a void.} {look}
+#action {You are hungry.} {eat food};
+#action {You are thirsty.} {drink water};
+#action {You have been idle, and are pulled into a void.} {look};
 
 #alias {umount} {dismount};
 #alias {ssrr} {st; c sh r; r;};
 
-#alias {grin} {emote grins.}
+#alias {grin} {emote grins.};
 #alias {trash} {emote magically disposes of any trash which litters the street here.};
 
 #alias {run} {--; q menthol};
@@ -29,9 +29,9 @@
 
 #substitute {You attempt to move silently.} {<caf>You attempt to move silently.<099>};
 
-#no
-#no Auto-detect context
-#no
+#no;
+#no Auto-detect context;
+#no;
 
 #variable char_name {};
 #variable char_level {};
@@ -39,38 +39,26 @@
 
 #action {%1 %2 the %3, Level %4 %5} {
 
-    #variable char_name {};
     #variable char_name {%2};
-
-    #variable char_level {};
     #variable char_level {%4};
-
-    #variable char_class {};
     #variable char_class {%5};
-
-    #showme {Detected $char_name a level $char_level $char_class};
+    #showme {Detected $char_name a level $char_level $char_class<148>};
 
 };
 
 #action {%1 the %2, Level %3 %4} {
 
-    #variable char_name {};
     #variable char_name {%1};
-
-    #variable char_level {};
     #variable char_level {%3};
-
-    #variable char_class {};
     #variable char_class {%4};
-
-    #showme {Detected $char_name a level $char_level $char_class};
+    #showme {Detected $char_name a level $char_level $char_class<148>};
 
 };
 
 
-#no
-#no Load component scripts
-#no
+#no;
+#no Load component scripts;
+#no;
 
 #read sneak.tt;
 #read chat.tt;
@@ -82,8 +70,8 @@
 #read fae.tt;
 #read windows.tt;
 
-#no
-#no Connect!
-#no
+#no;
+#no Connect!;
+#no;
 
 #session med medievia.com 4000;

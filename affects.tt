@@ -26,11 +26,10 @@
 
     #variable track_affects on;
 
-    #no
-    #no Initialize the tick list
-    #no
+    #no;
+    #no Initialize the tick list;
+    #no;
 
-    #list ticks clear;
     #list ticks clear;
 
     #foreach $affects[%*] {a} {
@@ -44,29 +43,25 @@
 
     #if { "$track_affects" == "on"} {
 
-        #no
-        #no Grab the affect name and retrieve an index
-        #no
+        #no;
+        #no Grab the affect name and retrieve an index;
+        #no;
 
-        #variable affect {};
         #variable affect {%1};
         #list affects find {$affect} {index};
 
-        #no
-        #no If the affect was found, store ticks
-        #no
-
-        #showme {$index};
+        #no;
+        #no If the affect was found, store ticks;
+        #no;
 
         #if {$index > 0} {
             #list ticks set {$index} {%2};
         };
 
-        #no
-        #no Now print the line with formatting
-        #no
+        #no;
+        #no Now print the line with formatting;
+        #no;
 
-        #variable affect_color {};
         #variable affect_color {<149>};
 
         #if {%2 <= 3} {
@@ -83,19 +78,16 @@
 
 #action {  %1: Duration - fading} {
 
-    #no
-    #no Grab the affect name and retrieve an index
-    #no
+    #no;
+    #no Grab the affect name and retrieve an index;
+    #no;
 
-    #variable affect {};
     #variable affect {%1};
     #list affects find {$affect} {index};
 
-    #no
-    #no If the affect was found, store ticks
-    #no
-
-    #showme {$index};
+    #no;
+    #no If the affect was found, store ticks;
+    #no;
 
     #if {$index > 0} {
         #list ticks set {$index} {1};
@@ -111,9 +103,9 @@
 
     #variable track_affects off;
 
-    #no
-    #no Display affects information
-    #no
+    #no;
+    #no Display affects information;
+    #no;
 
     #list affects size numel;
 
@@ -131,9 +123,9 @@
 };
 
 
-#no
-#no Alias for preparing all spells
-#no
+#no;
+#no Alias for preparing all spells;
+#no;
 
 #alias {spellup} {
        c armor;

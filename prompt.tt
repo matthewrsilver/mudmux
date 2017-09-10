@@ -75,7 +75,7 @@
 
 #substitute {)~^:} {<079>):} {5};
 
-#substitute {.:|snk|:.}{$sneak_tag};
+#substitute {.:|snk|:.}{@get_sneak_tag{}};
 
 #substitute {.:|[]|:.} {} {};
 #substitute {:|[]|:} {} {};
