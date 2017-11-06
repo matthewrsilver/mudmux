@@ -41,8 +41,40 @@
 
 #var combat_rep_enabled true;
 #var spin_count 0;
-#list good_words create {Woop!} {Snap!} {Huzzah!} {Whoopee!} {Whoa!};
 
+#list formies create {};
+#action {Your formation consists of:}{#list formies clear;};
+
+#function {add_formie}{
+    #format formie_name {%p} {%1};
+    #if {"$formie_name" != "$char_name"}{
+        #format lower_name {%l} {$formie_name};
+        #list formies insert {-1} {$lower_name};
+    };
+    #var result {#no;};
+};
+
+#action {OK! %1 allows you, and you start following.}{
+    #list formies clear;
+    freport;
+}
+
+#action {%1 starts following %2.}{
+    #format lower_name {%l} {%2};
+    #list formies find {$lower_name} {in_form};
+    #if {$in_form}{#list formies insert {-1} {$lower_name}};
+};
+
+
+#action {%1 [%2][%3][%4| %5/%6hp %7/%8m %9]}{@add_formie{%2};};
+#action {%1 becomes very passive and starts following you.}{@add_formie{%1};};
+
+
+#list good_words create {Woop!} {Snap!} {Huzzah!} {Whoopee!} {Whoa!} {Zomg!} {Bingo!} {Whammy!} {Booyah!} {Yesss!} {Haha!};
+#list bad_words create {Dang!} {Snap!} {Crap!} {Gahhh!} {Wtf!} {Shit!} {Noooo!};
+#list start_words create {has been} {just got} {was just};
+#list good_end_words create {real hard!} {like a chump!} {in the face!} {what a loser!} { -- total jerk!} {and cried about it!} {what a dumbass!} {big time!} {and also sucks.} {bigly!} {like a turd!};
+#list bad_end_words create {and it was awful.} {how terrible!} {and needs our compassion.} {and is probably sad.} {-- somebody help!};
 
 #function {do_combatrep}{
 
@@ -50,7 +82,6 @@
         #if {"$combat_rep_enabled" == "false"}{
             #var message {<138>[[<088> <148>Combat spam now<088> <128>ENABLED<088> <138>]]<088>};
             #chat {emote} {all} {$message};
-            #var combat_rep_enabled {};
             #var combat_rep_enabled true;
         };
     }{
@@ -59,7 +90,6 @@
         #if {"$combat_rep_enabled" == "false"}{
             #var message {<138>[[<088> <148>Combat spam now<088> <128>ENABLED<088> <138>]]<088>};
             #showme $message;
-            #var combat_rep_enabled {};
             #var combat_rep_enabled true;
         };
     }{
@@ -68,7 +98,6 @@
         #if {"$combat_rep_enabled" == "true"}{
             #var message {<138>[[<088> <148>Combat spam now<088> <118>DISABLED<088> <138>]]<088>};
             #chat {emote} {all} {$message};
-            #var combat_rep_enabled {};
             #var combat_rep_enabled false;
         };
     }{
@@ -77,7 +106,6 @@
         #if {"$combat_rep_enabled" == "true"}{
             #var message {<138>[[<088> <148>Combat spam now<088> <118>DISABLED<088> <138>]]<088>};
             #showme $message;
-            #var combat_rep_enabled {};
             #var combat_rep_enabled false;
         };
     }{
@@ -91,7 +119,8 @@
 
     #if {"%1" == "bad"}{
         #if {"$combat_rep_enabled" == "true"}{
-            #chat {emote} {all} {<138>[[<088> <148>Dang!<088> <138>|<088> %2 <138>]]<088>};
+            #math word_idx 1d&bad_words[];
+            #chat {emote} {all} {<138>[[<088> <118>$bad_words[$word_idx]<088> <138>|<088> %2 <138>]]<088>};
         };
     }{
 
@@ -107,28 +136,90 @@
 
 };
 
+#function {random_element}{
+    #math word_idx 1d&{%1}[];
+    #var result {${%1}[$word_idx]};
+};
+
 #action {You step into the portal, and the world spins madly...} {
     #math new_count {$spin_count + 1};
-    #var spin_count {};
     #var spin_count $new_count;
-    #showme {Spin count: $spin_count};
-}
+    #if {$spin_count < 2}{
+        @do_combatrep{bad; <168>$char_name <148>just spun, and is pretty annoyed about it.};
+    }{
+        @do_combatrep{bad; <168>$char_name <148>just spun AGAIN!!!!};
+    };
+};
 
 #action {You step into the portal and the world fades into the mist.}{
-    #var spin_count {};
     #var spin_count 0;
 }
 
-#no #action {The white aura around your body fades.} {;
-#no     @do_combatrep{bad; <148>My <178>SANC<148> just faded!<088>};
-#no };
+#action {%1 skillfully stabs at your back with %2 and tears through your defenses, landing a devastating backstab.}{
+    @do_combatrep{bad; <168>%1 <148>just stabbed me right in the back!};
+};
+
+#action {%1's assault slices open your thigh. Your leg gives out and you crumple under your own weight.} {
+    @do_combatrep{bad; <168>%1 <148>just stabbed me right in the back!};
+};
+
+#action {The bright burst of colors has blinded you!} {
+    @do_combatrep{bad; <148>I just got <138>BLINDED<148> and can't see shit!<088>};
+};
+
+
+#function {valence}{
+    #format lower_name {%l} {%1};
+    #list formies find {$lower_name} {in_form};
+    #if {$in_form}{#var result bad;}{#var result good;};
+};
+
+#function {fancy_end_words}{
+    #format victim_name {%n} {%1};
+    #if {"@valence{%1}" == "good"}{
+        #var result @random_element{good_end_words};
+    }{
+        #var result @random_element{bad_end_words};
+    };
+};
+
+#action {%1 is surrounded by a pink outline.} {
+    #format victim_name {%n} {%1};
+    @do_combatrep{@valence{%1}; <168>$victim_name <148>got surrounded by <158>FAERIE FIRE<148> ... meh...<088>};
+};
+
+#action {%1 seems to be blinded!} {
+    #format victim_name {%n} {%1};
+    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <138>BLINDED<148> and can't see shit!<088>};
+};
+
+#action {%1 turns %2 eyes away and screams!} {
+    #format victim_name {%n} {%1};
+    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <138>BLINDED<148> and can't see shit!<088>};
+};
+
+#action {%1 briefly reveals a red aura!} {
+    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <118>CURSED<148> @fancy_end_words{%1}<088>};
+};
+
+#action {%1 winces as the poison enters %2 body.} {
+    #format victim_name {%n} {%1};
+    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <138>POISONED<148> @fancy_end_words{%1}<088>};
+};
+
+#action {The white glow around %1's body fades.} {
+    #format victim_name {%n} {%1};
+    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <178>DISSED<148> @fancy_end_words{%1}<088>};
+};
 
 #action {%1 chokes and utters some muffled noises.} {
-    @do_combatrep{good; <148>%1 just got <158>PLAGUED<148> in the face!<088>};
+    #format victim_name {%n} {%1};
+    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <158>PLAGUED<148> @fancy_end_words{%1}<088>};
 };
 
 #action {%1 chokes and gasps for breath.} {
-    @do_combatrep{good; <148>%1 is <128>MUFFLED<148> like a chump!<088>};
+    #format victim_name {%n} {%1};
+    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <128>MUFFLED<148> @fancy_end_words{%1}<088>};
 };
 
 #alias {cc %1} {
@@ -138,4 +229,5 @@
 #alias {combatrep %1}{
     @do_combatrep{%1};
 };
+
 

@@ -1,15 +1,17 @@
 #split;
 
 #var {comms} {
-    {TOWN} {1}
-    {CLAN} {1}
-    {FORM} {1}
-    {IMM}  {1}
-    {BL}   {1}
-    {CHAT} {1}
-    {TEL}  {1}
-    {SAY}  {1}
-    {SERV} {1}
+    {TOWN}  {1}
+    {CLAN}  {1}
+    {FORM}  {1}
+    {TALK}  {1}
+    {SHOUT} {1}
+    {IMM}   {1}
+    {BL}    {1}
+    {CHAT}  {1}
+    {TEL}   {1}
+    {SAY}   {1}
+    {SERV}  {1}
 };
 
 #alias {remcom} {
@@ -55,6 +57,10 @@
 #act {%1 telepath %2, %3} {logcom TEL;};
 #act {%1 says, %2} {logcom SAY;};
 #act {%1 say, %2} {logcom SAY;};
+#act {%1 says to you, %2} {logcom TALK;};
+#act {%1 say to %2} {logcom TALK;};
+#act {%1 shout, %2} {logcom SHOUT;};
+#act {You hear %1 shout, %2} {logcom SHOUT;};
 
 #alias {store} {
     #class storeall read store.tt;
