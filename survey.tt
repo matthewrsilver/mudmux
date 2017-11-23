@@ -1,0 +1,301 @@
+#var survey_flight 1;
+
+#var ignore_nothing 0;
+#var ignore_altars 0;
+#var ignore_inns 0;
+#var ignore_ships 0;
+
+#var show_zone_names 1;
+#var zone_col_width 18;
+
+#var autoland_halloween 0;
+#var autoland_thanksgiving 1;
+#var autoland_caravan 0;
+
+#action {Flying %1bound...} {
+    #if {$survey_flight} {page -none explicit survey};
+};
+#action {Flying %1 towards a destination...} {
+    #if {$survey_flight} {page -none explicit survey};
+};
+
+#action {Your survey of the area yields nothing special.}{
+    #if {$ignore_nothing} {#line gag;};
+};
+
+#action {[BEGIN survey]}{
+    #var ignore_nothing 1;
+    #var ignore_altars 1;
+    #var ignore_inns 1;
+    #var ignore_ships 1;
+    #line gag;
+};
+
+#action {[END survey]}{
+    #var ignore_nothing 0;
+    #var ignore_altars 0;
+    #var ignore_inns 0;
+    #var ignore_ships 0;
+    #line gag;
+};
+
+#function {label_zone}{
+
+    #if {$show_zone_names}{
+
+        #if {"%3" == ""}{
+            #var zone_color {<138>};
+        } {
+            #var zone_color {%3};
+        };
+
+        #format zone_name {%.${zone_col_width}s} {%1};
+
+        #echo {<158>[%c %-${zone_col_width}s<158> ]<099> %2} {$zone_color} {$zone_name};
+        #line gag;
+
+    };
+    #var result {#no;};
+};
+
+#function {get_direction}{
+
+    #var direction_codes[north] N;
+    #var direction_codes[north by northeast] NNE;
+    #var direction_codes[northeast] NE;
+    #var direction_codes[east by northeast] ENE;
+    #var direction_codes[east] N;
+    #var direction_codes[east by southeast] ESE;
+    #var direction_codes[southeast] SE;
+    #var direction_codes[south by southeast] SSE;
+    #var direction_codes[south] N;
+    #var direction_codes[south by southwest] SSW;
+    #var direction_codes[southwest] SW;
+    #var direction_codes[west by southwest] WSW;
+    #var direction_codes[west] N;
+    #var direction_codes[west by northwest] WNW;
+    #var direction_codes[northwest] Nw;
+    #var direction_codes[north by northwest] NNW;
+
+    #var result $direction_codes[$direction_str];
+
+};
+
+#action {%1 you see the silhouette of a %2.}{
+    #if {$ignore_ships} {
+        #line gag;
+    }{
+        @label_zone{Ship;%0;<148>};
+    };
+};
+
+#action {%1 you see the white fleck of a sail.}{
+    #if {$ignore_ships} {
+        #line gag;
+    }{
+        @label_zone{Ship;%0;<148>};
+    };
+};
+
+#action {%1 you see the %2. She's %3. %4.}{
+    #if {$ignore_ships} {
+        #line gag;
+    }{
+        @label_zone{Ship;%0;<148>};
+    };
+};
+
+#action {%1 you sense a holy place touched by the Gods.}{
+    #if {$ignore_altars} {
+        #line gag;
+    }{
+        @label_zone{Altar;%0;<128>};
+    };
+};
+
+#action {%1 you see a large house bustling with activity and the sound of music.}{
+    #if {$ignore_inns} {
+        #line gag;
+    }{
+        @label_zone{Inn;%0;<148>};
+    };
+};
+
+#action {%1 you see a castle towering above the forest primeval.}{
+    @label_zone{Foxstalker Castle;%0;<158>};
+};
+
+#action {%1 a large manor house is visible....}{
+    @label_zone{Magentia's Manor;%0;<158>};
+};
+
+#action {%1 you see a small caravan of wagons protectively surrounding a campfire.}{
+    @label_zone{Caravan;%0;<118>};
+    #if {$autoland_caravan} {land};
+};
+
+#action {%1 a tall, colorful wheel rises over a hastily erected fence.}{
+    @label_zone{Carnival;%0;<118>};
+};
+
+#action {%1 you notice the super, secret Halloween Crypt.}{
+    @label_zone{Halloween;%0;<118>};
+    #if {$autoland_halloween} {land};
+};
+#action {%1 a strange, fog-covered area.}{
+    @label_zone{Halloween;%0;<118>};
+    #if {$autoland_halloween} {land};
+};
+
+#action {%1 a strange, farm-like area.}{
+    @label_zone{Thanksgiving;%0;<118>};
+    #if {$autoland_thanksgiving} {land};
+};
+
+#action {%1 you see a snow-covered inn.}{
+    @label_zone{Holiday Inn;%0;<118>};
+};
+
+#action {%1 you catch quick glimpses of motion out of the corner of your eye.}{
+    @label_zone{Den of Thieves;%0;<148>};
+};
+
+#action {%1 beavers are building a dam across a sparkling river.}{
+    @label_zone{Ryvaera;%0;};
+};
+
+#action {%1 you see the towering, rocky steeps of Mt. Vryce.}{
+    @label_zone{Mt. Vryce;%0;};
+}
+
+#action {%1 you see a small country church amidst the infinite sea of prairie grass.}{
+    @label_zone{Sceptrum Ishachi;%0;};
+};
+
+#action {%1 you see an enormous, sheer-faced mountain shrouded in fog and capped with ice.}{
+    @label_zone{Berkovic;%0;};
+};
+
+#action {%1 you can see a dense grove of trees, much taller than the rest.}{
+    @label_zone{Aeketh;%0;};
+};
+
+#action {%1 you see the faint outline of a small, weather-battered keep.}{
+    @label_zone{Shadowclaw;%0;};
+};
+
+#action {%1 you see an ancient battleground amidst billowy fog and swamp growth.}{
+    @label_zone{Alcord;%0;};
+};
+
+#action {%1 you smell a wicked stench rising from a hole in the ground.}{
+    @label_zone{Warrens;%0;};
+};
+
+#action {%1 you see the top of the Great Tree.}{
+    @label_zone{Great Tree;%0;};
+};
+
+#action {%1 you see the shimmering golden spires of Castle Medievia.}{
+    @label_zone{Medievia;%0;};
+};
+
+#action {%1 you see pinpoints of phosphorescent green and yellow light prod through a canopy of forest leaves.}{
+    @label_zone{Alendora;%0;};
+};
+
+#action {%1 is an ancient manor, surrounded by darkness.}{
+    @label_zone{Caverns;%0;};
+};
+
+#action {%1 you see several small columns of smoke, probably made by cooking fires.}{
+    @label_zone{DeRah Villadom;%0;};
+};
+
+#action {%1 you see the top of a white marble temple from behind tall city walls.}{
+    @label_zone{Trellor;%0;};
+};
+
+#action {%1 you hear the gruesome cry of a voracious beast.}{
+    @label_zone{Vatos;%0;};
+};
+
+#action {%1 you see that a wide belt of silvery trees lines the topmost edge of a steep, mountainous cliff.  Salty breezes push the pungent scent of menthol and a soft mist from that direction.}{
+    @label_zone{E'urdin Zilartzen;%0;};
+};
+
+#action {%1 you see a ring of snow-capped mountain peaks.}{
+    @label_zone{Lost Civilization;%0;};
+};
+
+#action {%1 you sense a dark, malevolent presence lurking around in the wilderness.}{
+    @label_zone{Shadmire;%0;};
+};
+
+#action {%1 you see a tower completely encompassed by a magical nimbus.}{
+    @label_zone{Tasnica Castle;%0;};
+};
+
+#action {%1 a decrepit fortress squats amid the crags.}{
+    @label_zone{Castle Glaak;%0;};
+};
+
+#action {%1 you see the rooftops of a city hidden in the center of a dark forest.}{
+    @label_zone{E'nat'dae;%0;};
+};
+
+#action {%1 you see the smoke rising from several cooking fires of a nearby village.}{
+    @label_zone{Gypsy Camp;%0;};
+};
+
+#action {%1 you see a huge, jagged spire of obsidian towering above the trees.}{
+    @label_zone{Kirys Ayr;%0;};
+};
+
+#action {%1 you see two volcanos rising from a small, forested island.}{
+    @label_zone{Mystical Forest;%0;};
+};
+
+#action {%1 you see an old keep or tower on the edge of a particularly tall mountain top.}{
+    @label_zone{Asnor;%0;};
+};
+
+#action {%1 you see the rim of a massive volcano rising above some mountain peaks.}{
+    @label_zone{Elysium;%0;};
+};
+
+#action {%1 a darkling citadel broods upon a grassy knoll.}{
+    @label_zone{Citadel of Shadows;%0;};
+};
+
+#action {%1 you see an oddly shaped structure jutting from the surface.}{
+    @label_zone{Xezadha;%0;};
+};
+
+#action {%1 you sense a great, blood-chilling evil.}{
+    @label_zone{Thanos;%0;};
+};
+
+#action {%1 you see the twisted spires of an ancient castle rising out of the gloomy swamp.}{
+    @label_zone{Wytherwind;%0;};
+};
+
+#action {%1 you see a village with a bell tower and a lighthouse, adjacent to a bustling trade post.}{
+    @label_zone{G'dangus;%0;};
+};
+
+#action {%1 you see a giant granite pillar rising into the sky.}{
+    @label_zone{New Genesia;%0;};
+};
+
+#action {%1 you see a forest of tall trees rise up into the sky, looming above the surrounding wilderness with majestic dignity.}{
+    @label_zone{Akenuas Glade;%0;};
+};
+
+#action {%1 a palace sits amidst the clouds.}{
+    @label_zone{Le Chateau du Ciel;%0;};
+};
+
+#action {%1 you see a large, thriving trade city sparkling with a natural light.}{
+    @label_zone{Riverton;%0;};
+};

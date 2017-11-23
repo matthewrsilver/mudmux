@@ -1,4 +1,5 @@
 #config {repeat enter} on;
+#config {color patch} on;
 #config charset utf-8;
 
 #tick nowhisk stat;
