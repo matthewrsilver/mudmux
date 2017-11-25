@@ -63,6 +63,7 @@
 #no Load component scripts;
 #no;
 
+#read survey.tt;
 #read sneak.tt;
 #read chat.tt;
 #read prompt.tt;

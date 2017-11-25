@@ -1,16 +1,100 @@
 #var survey_flight 1;
-
-#var ignore_nothing 0;
-#var ignore_altars 0;
-#var ignore_inns 0;
-#var ignore_ships 0;
-
 #var show_zone_names 1;
 #var zone_col_width 18;
 
-#var autoland_halloween 0;
-#var autoland_thanksgiving 1;
-#var autoland_caravan 0;
+#var in_flight 0;
+
+#var direction_codes[north] N;
+#var direction_codes[north by northeast] NNE;
+#var direction_codes[northeast] NE;
+#var direction_codes[east by northeast] ENE;
+#var direction_codes[east] N;
+#var direction_codes[east by southeast] ESE;
+#var direction_codes[southeast] SE;
+#var direction_codes[south by southeast] SSE;
+#var direction_codes[south] N;
+#var direction_codes[south by southwest] SSW;
+#var direction_codes[southwest] SW;
+#var direction_codes[west by southwest] WSW;
+#var direction_codes[west] N;
+#var direction_codes[west by northwest] WNW;
+#var direction_codes[northwest] NW;
+#var direction_codes[north by northwest] NNW;
+
+#var zone_types[ship]    { {color}{<148>} {autoland}{0} {ignore_during_flight}{1} }; 
+#var zone_types[inn]     { {color}{<148>} {autoland}{0} {ignore_during_flight}{1} };
+#var zone_types[altar]   { {color}{<128>} {autoland}{0} {ignore_during_flight}{1} };
+#var zone_types[clan]    { {color}{<158>} {autoland}{0} {ignore_during_flight}{0} };
+#var zone_types[special] { {color}{<118>} {autoland}{0} {ignore_during_flight}{0} };
+#var zone_types[holo]    { {color}{<118>} {autoland}{0} {ignore_during_flight}{0} };
+#var zone_types[normal]  { {color}{<138>} {autoland}{0} {ignore_during_flight}{0} };
+#var zone_types[other]   { {color}{<148>} {autoland}{0} {ignore_during_flight}{1} }; 
+
+#var zone_surveys[you sense a holy place touched by the Gods.]                                              { {name}{Altar}              {type}{altar} };
+#var zone_surveys[you catch quick glimpses of motion out of the corner of your eye.]                        { {name}{Den of Thieves}     {type}{other} };
+#var zone_surveys[you see a huge, smoldering volcano.]                                                      { {name}{New Ashton Volcano} {type}{other} };
+#var zone_surveys[you see the white fleck of a sail.]                                                       { {name}{Ship}               {type}{ship} };
+#var zone_surveys[you see a snow-covered inn.]                                                              { {name}{Holiday Inn}        {type}{inn} };
+#var zone_surveys[you see a large house bustling with activity and the sound of music.]                     { {name}{Inn}                {type}{inn} };
+#var zone_surveys[you see a castle towering above the forest primeval.]                                     { {name}{Foxstalker Castle}  {type}{clan} };
+#var zone_surveys[a large manor house is visible....]                                                       { {name}{Magentia's Manor}   {type}{clan} };
+#var zone_surveys[A fortress engulfed in a vortex of mystical fire..]                                       { {name}{Insurrection: 5}    {type}{clan} };
+#var zone_surveys[heat rises from a charred battleground.]                                                  { {name}{Rise of Mayhem: 76} {type}{clan} };
+#var zone_surveys[a strange, farm-like area.] 		       						    { {name}{Thanksgiving Holo}  {type}{holo} };
+#var zone_surveys[you notice the super, secret Halloween Crypt.]                                            { {name}{Halloween Holo}     {type}{holo} };
+#var zone_surveys[a strange, fog-covered area.]                                                             { {name}{Halloween Holo}     {type}{holo} };
+#var zone_surveys[you see a small caravan of wagons protectively surrounding a campfire.]                   { {name}{Caravan}            {type}{special} };
+#var zone_surveys[a tall, colorful wheel rises over a hastily erected fence.]                               { {name}{Carnival}           {type}{special} };
+#var zone_surveys[you see the teetering mast of a small, moored ship.]                                      { {name}{The Fury}           {type}{special} };
+
+#var zone_surveys[you see the gleaming white walls and towers of a desert city.]                            { {name}{El Cantara}         {type}{normal} };
+#var zone_surveys[you see the weather-worn stone walls of a city at the base of the volcano.]               { {name}{New Ashton}         {type}{normal} };
+#var zone_surveys[you see gigantic, black flames licking the horizon above a small forest.]                 { {name}{Condemned Arena}    {type}{normal} };
+#var zone_surveys[you see a city in ruins atop a plateau.]                                                  { {name}{Ulhazzen Mines}     {type}{normal} }; 
+#var zone_surveys[you see the boundaries of the Rhaiaden Desert.]                                           { {name}{The Rhaiaden}       {type}{normal} };
+#var zone_surveys[you see a petrified palm tree stretching up its eerie crown into the sky.]                { {name}{Tomb of Oblivion}   {type}{normal} };
+#var zone_surveys[several large buildings rise from the midst of dense trees and foliage.]                  { {name}{Villa Ohala}        {type}{normal} };
+#var zone_surveys[you see a massive volcano with a thin stream of smoke rising from it.]                    { {name}{Fire Giants' Keep}  {type}{normal} };
+#var zone_surveys[you spot the stone walls of a stark desert city.]                                         { {name}{Dray'mar}           {type}{normal} };
+#var zone_surveys[you see a ring of clouds circling the peak of Mount Seryrd.]                              { {name}{Arcadia}            {type}{normal} };
+#var zone_surveys[you spot a golden ladder ascending into the sky.]                                         { {name}{Cloud Giants}       {type}{normal} };
+#var zone_surveys[a small crevice lies within the jagged, snow-covered peaks of a mountain.]                { {name}{G. of Reminiscence} {type}{normal} };
+#var zone_surveys[you see the boundaries of the Rhaiaden Desert.]                                           { {name}{The Rhaiaden}       {type}{normal} };
+#var zone_surveys[beavers are building a dam across a sparkling river.]                                     { {name}{Ryvaera}            {type}{normal} };
+#var zone_surveys[you see the towering, rocky steeps of Mt. Vryce.]                                         { {name}{Mt. Vryce}          {type}{normal} };
+#var zone_surveys[you see a small country church amidst the infinite sea of prairie grass.]                 { {name}{Sceptrum Ishachi}   {type}{normal} };
+#var zone_surveys[you see an enormous, sheer-faced mountain shrouded in fog and capped with ice.]           { {name}{Berkovic}           {type}{normal} };
+#var zone_surveys[you can see a dense grove of trees, much taller than the rest.]                           { {name}{Aeketh}             {type}{normal} };
+#var zone_surveys[you see the faint outline of a small, weather-battered keep.]                             { {name}{Shadowclaw}         {type}{normal} };
+#var zone_surveys[you see an ancient battleground amidst billowy fog and swamp growth.]		            { {name}{Alcord}             {type}{normal} };
+#var zone_surveys[you smell a wicked stench rising from a hole in the ground.]  			    { {name}{Warrens}	         {type}{normal} };
+#var zone_surveys[you see the top of the Great Tree.]	       	      				            { {name}{Great Tree}         {type}{normal} };
+#var zone_surveys[you see the shimmering golden spires of Castle Medievia.]			            { {name}{Medievia}	         {type}{normal} };
+#var zone_surveys[is an ancient manor, surrounded by darkness.]	       	     	  	                    { {name}{Caverns}            {type}{normal} };
+#var zone_surveys[you see several small columns of smoke, probably made by cooking fires.]	            { {name}{DeRah Villadom}     {type}{normal} };
+#var zone_surveys[you see the top of a white marble temple from behind tall city walls.]		    { {name}{Trellor}            {type}{normal} };
+#var zone_surveys[you hear the gruesome cry of a voracious beast.]      	    	 		    { {name}{Vatos}	         {type}{normal} };
+#var zone_surveys[you see a ring of snow-capped mountain peaks.]					    { {name}{Lost Civilization}  {type}{normal} };
+#var zone_surveys[you sense a dark, malevolent presence lurking around in the wilderness.]	            { {name}{Shadmire}           {type}{normal} };
+#var zone_surveys[you see a tower completely encompassed by a magical nimbus.] 			            { {name}{Tasnica Castle}     {type}{normal} };
+#var zone_surveys[a decrepit fortress squats amid the crags.]  	      				            { {name}{Castle Glaak}       {type}{normal} };
+#var zone_surveys[you see the rooftops of a city hidden in the center of a dark forest.]		    { {name}{E'nat'dae}          {type}{normal} };
+#var zone_surveys[you see the smoke rising from several cooking fires of a nearby village.]	            { {name}{Gypsy Camp}         {type}{normal} };
+#var zone_surveys[you see a huge, jagged spire of obsidian towering above the trees.]		            { {name}{Kirys Ayr}          {type}{normal} };
+#var zone_surveys[you see two volcanos rising from a small, forested island.]  			            { {name}{Mystical Forest}    {type}{normal} };
+#var zone_surveys[you see an old keep or tower on the edge of a particularly tall mountain top.]            { {name}{Asnor}              {type}{normal} };
+#var zone_surveys[you see the rim of a massive volcano rising above some mountain peaks.]                   { {name}{Elysium}            {type}{normal} };
+#var zone_surveys[a darkling citadel broods upon a grassy knoll.]    	 	  		            { {name}{Citadel of Shadows} {type}{normal} };
+#var zone_surveys[you see an oddly shaped structure jutting from the surface.]			            { {name}{Xezadha}   	 {type}{normal} };
+#var zone_surveys[you sense a great, blood-chilling evil.]   	     				            { {name}{Thanos}	         {type}{normal} };
+#var zone_surveys[you see the twisted spires of an ancient castle rising out of the gloomy swamp.]          { {name}{Wytherwind}         {type}{normal} };
+#var zone_surveys[you see a village with a bell tower and a lighthouse, adjacent to a bustling trade post.] { {name}{G'dangus}           {type}{normal} };
+#var zone_surveys[you see a giant granite pillar rising into the sky.]                                      { {name}{New Genesia}        {type}{normal} };
+#var zone_surveys[a palace sits amidst the clouds.]                                                         { {name}{Le Chateau du Ciel} {type}{normal} };
+#var zone_surveys[you see a large, thriving trade city sparkling with a natural light.]			    { {name}{Riverton}           {type}{normal} };
+#var zone_surveys[you see a forest of tall trees rise up into the sky, looming above the surrounding wilderness with majestic dignity.] { {name}{Akenuas Glade}  {type}{normal} };
+#var zone_surveys[you see pinpoints of phosphorescent green and yellow light prod through a canopy of forest leaves.]                   { {name}{Alendora}       {type}{normal} };
+#var zone_surveys[you see that a wide belt of silvery trees lines the topmost edge of a steep, mountainous cliff.  Salty breezes push the pungent scent of menthol and a soft mist from that direction.] { {name}{E'urdin Zilartzen} {type}{normal} };
 
 #action {Flying %1bound...} {
     #if {$survey_flight} {page -none explicit survey};
@@ -19,283 +103,77 @@
     #if {$survey_flight} {page -none explicit survey};
 };
 
-#action {Your survey of the area yields nothing special.}{
-    #if {$ignore_nothing} {#line gag;};
-};
-
 #action {[BEGIN survey]}{
-    #var ignore_nothing 1;
-    #var ignore_altars 1;
-    #var ignore_inns 1;
-    #var ignore_ships 1;
+    #var in_flight 1;
     #line gag;
 };
 
 #action {[END survey]}{
-    #var ignore_nothing 0;
-    #var ignore_altars 0;
-    #var ignore_inns 0;
-    #var ignore_ships 0;
+    #var in_flight 0;
     #line gag;
 };
 
 #function {label_zone}{
 
     #if {$show_zone_names}{
-
-        #if {"%3" == ""}{
-            #var zone_color {<138>};
-        } {
-            #var zone_color {%3};
-        };
-
         #format zone_name {%.${zone_col_width}s} {%1};
-
         #echo {<158>[%c %-${zone_col_width}s<158> ]<099> %2} {$zone_color} {$zone_name};
         #line gag;
-
     };
+
     #var result {#no;};
 };
 
-#function {get_direction}{
+#function {fancy_survey}{
 
-    #var direction_codes[north] N;
-    #var direction_codes[north by northeast] NNE;
-    #var direction_codes[northeast] NE;
-    #var direction_codes[east by northeast] ENE;
-    #var direction_codes[east] N;
-    #var direction_codes[east by southeast] ESE;
-    #var direction_codes[southeast] SE;
-    #var direction_codes[south by southeast] SSE;
-    #var direction_codes[south] N;
-    #var direction_codes[south by southwest] SSW;
-    #var direction_codes[southwest] SW;
-    #var direction_codes[west by southwest] WSW;
-    #var direction_codes[west] N;
-    #var direction_codes[west by northwest] WNW;
-    #var direction_codes[northwest] Nw;
-    #var direction_codes[north by northwest] NNW;
+    #var zone_name %1;
+    #var zone_type %2;
+    #var original_text %3;
+  
+    #var zone_spec $zone_types[$zone_type];
 
-    #var result $direction_codes[$direction_str];
+    #if { !$in_flight || !$zone_spec[ignore_during_flight] }{
 
+        #var zone_color $zone_spec[color];
+        @label_zone{$zone_name;$original_text;$zone_color};
+
+    }{
+        #line gag;
+    };
+
+    #var result {#no;};
+};
+
+#function {fancy_survey_if_possible}{
+	  
+    #var survey_text %1;
+    #var whole_text %2;
+    #var known_zone &zone_surveys[$survey_text];
+
+    #if {$known_zone} {
+        #var zone $zone_surveys[$survey_text];	
+        @fancy_survey{$zone[name];$zone[type];$whole_text};
+    };
+
+    #var result {#no;};
+};
+
+#action {Your survey of the area yields nothing special.}{
+    #if {$in_flight} {#line gag;};
 };
 
 #action {%1 you see the silhouette of a %2.}{
-    #if {$ignore_ships} {
-        #line gag;
-    }{
-        @label_zone{Ship;%0;<148>};
-    };
-};
-
-#action {%1 you see the white fleck of a sail.}{
-    #if {$ignore_ships} {
-        #line gag;
-    }{
-        @label_zone{Ship;%0;<148>};
-    };
+    @fancy_survey{Ship;ship;%0};
 };
 
 #action {%1 you see the %2. She's %3. %4.}{
-    #if {$ignore_ships} {
-        #line gag;
-    }{
-        @label_zone{Ship;%0;<148>};
-    };
+    @fancy_survey{Ship;ship;%0};
 };
 
-#action {%1 you sense a holy place touched by the Gods.}{
-    #if {$ignore_altars} {
-        #line gag;
-    }{
-        @label_zone{Altar;%0;<128>};
-    };
+#action {In the immediate area, %1}{
+    @fancy_survey_if_possible{%1;%0}; 
 };
 
-#action {%1 you see a large house bustling with activity and the sound of music.}{
-    #if {$ignore_inns} {
-        #line gag;
-    }{
-        @label_zone{Inn;%0;<148>};
-    };
-};
-
-#action {%1 you see a castle towering above the forest primeval.}{
-    @label_zone{Foxstalker Castle;%0;<158>};
-};
-
-#action {%1 a large manor house is visible....}{
-    @label_zone{Magentia's Manor;%0;<158>};
-};
-
-#action {%1 you see a small caravan of wagons protectively surrounding a campfire.}{
-    @label_zone{Caravan;%0;<118>};
-    #if {$autoland_caravan} {land};
-};
-
-#action {%1 a tall, colorful wheel rises over a hastily erected fence.}{
-    @label_zone{Carnival;%0;<118>};
-};
-
-#action {%1 you notice the super, secret Halloween Crypt.}{
-    @label_zone{Halloween;%0;<118>};
-    #if {$autoland_halloween} {land};
-};
-#action {%1 a strange, fog-covered area.}{
-    @label_zone{Halloween;%0;<118>};
-    #if {$autoland_halloween} {land};
-};
-
-#action {%1 a strange, farm-like area.}{
-    @label_zone{Thanksgiving;%0;<118>};
-    #if {$autoland_thanksgiving} {land};
-};
-
-#action {%1 you see a snow-covered inn.}{
-    @label_zone{Holiday Inn;%0;<118>};
-};
-
-#action {%1 you catch quick glimpses of motion out of the corner of your eye.}{
-    @label_zone{Den of Thieves;%0;<148>};
-};
-
-#action {%1 beavers are building a dam across a sparkling river.}{
-    @label_zone{Ryvaera;%0;};
-};
-
-#action {%1 you see the towering, rocky steeps of Mt. Vryce.}{
-    @label_zone{Mt. Vryce;%0;};
-}
-
-#action {%1 you see a small country church amidst the infinite sea of prairie grass.}{
-    @label_zone{Sceptrum Ishachi;%0;};
-};
-
-#action {%1 you see an enormous, sheer-faced mountain shrouded in fog and capped with ice.}{
-    @label_zone{Berkovic;%0;};
-};
-
-#action {%1 you can see a dense grove of trees, much taller than the rest.}{
-    @label_zone{Aeketh;%0;};
-};
-
-#action {%1 you see the faint outline of a small, weather-battered keep.}{
-    @label_zone{Shadowclaw;%0;};
-};
-
-#action {%1 you see an ancient battleground amidst billowy fog and swamp growth.}{
-    @label_zone{Alcord;%0;};
-};
-
-#action {%1 you smell a wicked stench rising from a hole in the ground.}{
-    @label_zone{Warrens;%0;};
-};
-
-#action {%1 you see the top of the Great Tree.}{
-    @label_zone{Great Tree;%0;};
-};
-
-#action {%1 you see the shimmering golden spires of Castle Medievia.}{
-    @label_zone{Medievia;%0;};
-};
-
-#action {%1 you see pinpoints of phosphorescent green and yellow light prod through a canopy of forest leaves.}{
-    @label_zone{Alendora;%0;};
-};
-
-#action {%1 is an ancient manor, surrounded by darkness.}{
-    @label_zone{Caverns;%0;};
-};
-
-#action {%1 you see several small columns of smoke, probably made by cooking fires.}{
-    @label_zone{DeRah Villadom;%0;};
-};
-
-#action {%1 you see the top of a white marble temple from behind tall city walls.}{
-    @label_zone{Trellor;%0;};
-};
-
-#action {%1 you hear the gruesome cry of a voracious beast.}{
-    @label_zone{Vatos;%0;};
-};
-
-#action {%1 you see that a wide belt of silvery trees lines the topmost edge of a steep, mountainous cliff.  Salty breezes push the pungent scent of menthol and a soft mist from that direction.}{
-    @label_zone{E'urdin Zilartzen;%0;};
-};
-
-#action {%1 you see a ring of snow-capped mountain peaks.}{
-    @label_zone{Lost Civilization;%0;};
-};
-
-#action {%1 you sense a dark, malevolent presence lurking around in the wilderness.}{
-    @label_zone{Shadmire;%0;};
-};
-
-#action {%1 you see a tower completely encompassed by a magical nimbus.}{
-    @label_zone{Tasnica Castle;%0;};
-};
-
-#action {%1 a decrepit fortress squats amid the crags.}{
-    @label_zone{Castle Glaak;%0;};
-};
-
-#action {%1 you see the rooftops of a city hidden in the center of a dark forest.}{
-    @label_zone{E'nat'dae;%0;};
-};
-
-#action {%1 you see the smoke rising from several cooking fires of a nearby village.}{
-    @label_zone{Gypsy Camp;%0;};
-};
-
-#action {%1 you see a huge, jagged spire of obsidian towering above the trees.}{
-    @label_zone{Kirys Ayr;%0;};
-};
-
-#action {%1 you see two volcanos rising from a small, forested island.}{
-    @label_zone{Mystical Forest;%0;};
-};
-
-#action {%1 you see an old keep or tower on the edge of a particularly tall mountain top.}{
-    @label_zone{Asnor;%0;};
-};
-
-#action {%1 you see the rim of a massive volcano rising above some mountain peaks.}{
-    @label_zone{Elysium;%0;};
-};
-
-#action {%1 a darkling citadel broods upon a grassy knoll.}{
-    @label_zone{Citadel of Shadows;%0;};
-};
-
-#action {%1 you see an oddly shaped structure jutting from the surface.}{
-    @label_zone{Xezadha;%0;};
-};
-
-#action {%1 you sense a great, blood-chilling evil.}{
-    @label_zone{Thanos;%0;};
-};
-
-#action {%1 you see the twisted spires of an ancient castle rising out of the gloomy swamp.}{
-    @label_zone{Wytherwind;%0;};
-};
-
-#action {%1 you see a village with a bell tower and a lighthouse, adjacent to a bustling trade post.}{
-    @label_zone{G'dangus;%0;};
-};
-
-#action {%1 you see a giant granite pillar rising into the sky.}{
-    @label_zone{New Genesia;%0;};
-};
-
-#action {%1 you see a forest of tall trees rise up into the sky, looming above the surrounding wilderness with majestic dignity.}{
-    @label_zone{Akenuas Glade;%0;};
-};
-
-#action {%1 a palace sits amidst the clouds.}{
-    @label_zone{Le Chateau du Ciel;%0;};
-};
-
-#action {%1 you see a large, thriving trade city sparkling with a natural light.}{
-    @label_zone{Riverton;%0;};
+#action {%1, %2, %3}{
+    @fancy_survey_if_possible{%3;%0};
 };
