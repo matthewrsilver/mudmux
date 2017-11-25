@@ -92,8 +92,12 @@
 #var zone_surveys[you see a giant granite pillar rising into the sky.]                                      { {name}{New Genesia}        {type}{normal} };
 #var zone_surveys[a palace sits amidst the clouds.]                                                         { {name}{Le Chateau du Ciel} {type}{normal} };
 #var zone_surveys[you see a large, thriving trade city sparkling with a natural light.]			    { {name}{Riverton}           {type}{normal} };
-#var zone_surveys[you see a forest of tall trees rise up into the sky, looming above the surrounding wilderness with majestic dignity.] { {name}{Akenuas Glade}  {type}{normal} };
-#var zone_surveys[you see pinpoints of phosphorescent green and yellow light prod through a canopy of forest leaves.]                   { {name}{Alendora}       {type}{normal} };
+#var zone_surveys[you see the top of a rocky pinnacle protruding above the tops of the trees.]              { {name}{Spirited Heights}   {type}{normal} };
+#var zone_surveys[you see the outline of an ancient keep built atop a mist-shrouded butte.]                 { {name}{Horneg's Keep}      {type}{normal} };
+#var zone_surveys[you see the crumbling remains of an enormous mansion rising out of the forest.]           { {name}{Van'Kyln's Estate}  {type}{normal} };
+#var zone_surveys[you see the dual towers of an ancient stone keep, piercing through the thick forest canopy.]                          { {name}{Quinstone's Keep} {type}{normal} };
+#var zone_surveys[you see a forest of tall trees rise up into the sky, looming above the surrounding wilderness with majestic dignity.] { {name}{Akenuas Glade}    {type}{normal} };
+#var zone_surveys[you see pinpoints of phosphorescent green and yellow light prod through a canopy of forest leaves.]                   { {name}{Alendora}         {type}{normal} };
 #var zone_surveys[you see that a wide belt of silvery trees lines the topmost edge of a steep, mountainous cliff.  Salty breezes push the pungent scent of menthol and a soft mist from that direction.] { {name}{E'urdin Zilartzen} {type}{normal} };
 
 #action {Flying %1bound...} {
@@ -136,6 +140,8 @@
 
         #var zone_color $zone_spec[color];
         @label_zone{$zone_name;$original_text;$zone_color};
+	
+	#if {$zone_spec[autoland]}{land};
 
     }{
         #line gag;
