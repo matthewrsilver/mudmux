@@ -71,6 +71,16 @@
 #var zone_surveys[you see a small cave nestled in a shadowy ravine.]                                                                     { {name}{A Frigid Cave}        {type}{special}  };
 #var zone_surveys[you see a shimmering silver light filtering through the trees.]                                                        { {name}{The Silver Shrine}    {type}{special}  };
 
+#var zone_surveys[the truth is in there.]                                                                                                { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you hear a chuffing-chugging-pounding-stamping-banging noise.]                                                         { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you hear the sounds of summer festivities.]                                                                            { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you see a shimmering, white gazebo in the midst of a beautiful garden.]                                                { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you see a small, snowy town with many smoking chimneys.]	 							 { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you see a small village, but you're not sure of the gnomenclature.]                                                    { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you see a strange monument of eggs.]                                                                                   { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you see where a beautiful rainbow touches the ground.]                                                                 { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you smell turkey and gravy.]                                                                                           { {name}{UNKNOWN}              {type}{unknown}  };
+
 #var zone_surveys[you see the top of a foreboding, black stone temple above the trees.]                                                  { {name}{Temple of Bloodstone} {type}{normal}   };
 #var zone_surveys[you sense a place of great evil.]                                                                                      { {name}{Island of Xanthal}    {type}{normal}   };
 #var zone_surveys[a grim prison darkens the view.]                                                                                       { {name}{Trell. Penitentiary}  {type}{normal}   };
