@@ -1,6 +1,10 @@
 #variable sneaking false;
 #variable sneak_tag {<159>[SNEAK!!]<099>};
 
+
+#no You rush into the fray!;
+
+
 #action {You stop sneaking.} {
     #variable sneaking false;
 };

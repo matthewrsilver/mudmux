@@ -9,6 +9,7 @@
     #chat call chat.mikejsavage.co.uk 4050;
 }
 
+
 #var current_hit_points 0;
 #var current_hit_points_color {};
 
@@ -25,21 +26,17 @@
 
 #action {%1[[ %2/%3 | %4/%5 | %6 | %7 | %8 ]][%9]}{
 
-    #var current_hit_points {};
     #var current_hit_points {%2};
     #math current_hit_points_idx {((%2*100)/%3) / 25};
-    #var current_hit_points_color {};
     #var current_hit_points_color {$colors[$current_hit_points_idx]$current_hit_points};
 
-    #var current_mana {};
     #var current_mana {%4};
     #math current_mana_idx {((%4*100)/%5) / 25};
-    #var current_mana_color {};
     #var current_mana_color {$colors[$current_mana_idx]$current_mana};
 
 };
 
-#var combat_rep_enabled true;
+#var combat_rep_enabled false;
 #var spin_count 0;
 
 #list formies create {};
@@ -70,10 +67,10 @@
 #action {%1 becomes very passive and starts following you.}{@add_formie{%1};};
 
 
-#list good_words create {Woop!} {Snap!} {Huzzah!} {Whoopee!} {Whoa!} {Zomg!} {Bingo!} {Whammy!} {Booyah!} {Yesss!} {Haha!};
-#list bad_words create {Dang!} {Snap!} {Crap!} {Gahhh!} {Wtf!} {Shit!} {Noooo!};
+#list good_words create {Woop!} {Snap!} {Huzzah!} {Whoopee!} {Whoa!} {Zomg!} {Bingo!} {Whammy!} {Booyah!} {Yesss!} {Haha!} {Wowzer!} {Bam!} {Booyakasha!};
+#list bad_words create {Dang!} {Snap!} {Crap!} {Gahhh!} {Wtf!} {Shit!} {Noooo!} {Fake News!} {Fuck!} {D'oh!};
 #list start_words create {has been} {just got} {was just};
-#list good_end_words create {real hard!} {like a chump!} {in the face!} {what a loser!} { -- total jerk!} {and cried about it!} {what a dumbass!} {big time!} {and also sucks.} {bigly!} {like a turd!};
+#list good_end_words create {real hard!} {like a chump!} {in the face!} {what a loser!} { -- total jerk!} {and cried about it!} {what a dumbass!} {big time!} {and also sucks.} {bigly!} {like a turd!} {what an idiot!} { -- moron!} {and is a dumbass} {like a total dotard!} {super hard!} {what a dingbat!} {with unbelievable skill!} {what a pinhead!} {and eats shit!};
 #list bad_end_words create {and it was awful.} {how terrible!} {and needs our compassion.} {and is probably sad.} {-- somebody help!};
 
 #function {do_combatrep}{
@@ -139,6 +136,18 @@
 #function {random_element}{
     #math word_idx 1d&{%1}[];
     #var result {${%1}[$word_idx]};
+};
+
+#action {You attempt to hide yourself.} {
+    #if {"$combat_rep_enabled" == "true"}{
+        #chat {emote} {all} {<138>[[<088> <148>Shhhhh.<088> <138>|<088><148> I hide. <138>]]<088>};
+    };
+};
+
+#action {You attempt to blend into your surroundings.} {
+    #if {"$combat_rep_enabled" == "true"}{
+        #chat {emote} {all} {<138>[[<088> <148>Shhhhh.<088> <138>|<088><148> I hide. <138>]]<088>};
+    };
 };
 
 #action {You step into the portal, and the world spins madly...} {

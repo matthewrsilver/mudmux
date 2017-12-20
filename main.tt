@@ -20,11 +20,12 @@
 #alias {grin} {emote grins.};
 #alias {trash} {emote magically disposes of any trash which litters the street here.};
 
-#alias {run} {--; q stim};
+#alias {run} {--; q menthol};
+#alias {mm} {c mal; mal %1};
 
 #alias {ec} {hold %1; use held; rem %1; c attune %1;};
 #alias {ecfg} {c tel; get fg01 sack; get fg02 sack; ec fg01; ec fg02; put fg01 sack; put fg02 sack; hold runes; map; whe; c s p wemic};
-
+#alias {eccasti} {c tel; get ca01 sack; ec ca01; put ca01 sack; hold runes; map; whe};
 
 #highlight {Obvious exits:} {<ddd>};
 #highlight {Down   - %1} {<aff>};
