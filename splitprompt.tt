@@ -76,7 +76,7 @@
         };
     };
     
-    #var result {};	
+    #var result {@get_sneak_tag{}};	
 
     #foreach {$tags[%*]} {current_tag} {
         #if {&tag_strings[$current_tag]}{

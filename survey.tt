@@ -4,22 +4,33 @@
 
 #var in_flight 0;
 
-#var direction_codes[north] N;
-#var direction_codes[north by northeast] NNE;
-#var direction_codes[northeast] NE;
-#var direction_codes[east by northeast] ENE;
-#var direction_codes[east] N;
-#var direction_codes[east by southeast] ESE;
-#var direction_codes[southeast] SE;
-#var direction_codes[south by southeast] SSE;
-#var direction_codes[south] N;
-#var direction_codes[south by southwest] SSW;
-#var direction_codes[southwest] SW;
-#var direction_codes[west by southwest] WSW;
-#var direction_codes[west] N;
-#var direction_codes[west by northwest] WNW;
-#var direction_codes[northwest] NW;
-#var direction_codes[north by northwest] NNW;
+#var direction_codes[in the immediate area]     { {chars}{XXX} {symbols}{--} };
+#var direction_codes[to the north]              { {chars}{N}   {symbols}{^^} };
+#var direction_codes[to the north by northeast] { {chars}{NNE} {symbols}{,^} };
+#var direction_codes[to the northeast]          { {chars}{NE}  {symbols}{,^} };
+#var direction_codes[to the east by northeast]  { {chars}{ENE} {symbols}{,>} };
+#var direction_codes[to the east]               { {chars}{E}   {symbols}{>>} };
+#var direction_codes[to the east by southeast]  { {chars}{ESE} {symbols}{'>} };
+#var direction_codes[to the southeast]          { {chars}{SE}  {symbols}{'v} }; 
+#var direction_codes[to the south by southeast] { {chars}{SSE} {symbols}{'v} };
+#var direction_codes[to the south]              { {chars}{S}   {symbols}{vv} };
+#var direction_codes[to the south by southwest] { {chars}{SSW} {symbols}{v'} };
+#var direction_codes[to the southwest]          { {chars}{SW}  {symbols}{v'} };
+#var direction_codes[to the west by southwest]  { {chars}{WSW} {symbols}{<'} };
+#var direction_codes[to the west]               { {chars}{W}   {symbols}{<<} };
+#var direction_codes[to the west by northwest]  { {chars}{WNW} {symbols}{<,} };
+#var direction_codes[to the northwest]          { {chars}{NW}  {symbols}{^,} };
+#var direction_codes[to the north by northwest] { {chars}{NNW} {symbols}{^,} };
+
+#var distance_amounts[in the immediate area] {0};
+#var distance_amounts[close by] {1};
+#var distance_amounts[not far from here] {2-6};
+#var distance_amounts[off in the distance] {7-11};
+#var distance_amounts[several miles away] {12-21};
+#var distance_amounts[far off in the distance] {22-46};
+#var distance_amounts[tens of miles away in the distance] {47-66};
+#var distance_amounts[many miles away] {67-91};
+#var distance_amounts[a great distance away] {92-141};
 
 #var zone_types[ship]     { {color}{<148>} {autoland}{0} {ignore_during_flight}{1} }; 
 #var zone_types[inn]      { {color}{<148>} {autoland}{0} {ignore_during_flight}{1} };
@@ -33,6 +44,14 @@
 #var zone_types[trade]    { {color}{<148>} {autoland}{0} {ignore_during_flight}{1} };
 #var zone_types[other]    { {color}{<148>} {autoland}{0} {ignore_during_flight}{1} };
 #var zone_types[unknown]  { {color}{<118>} {autoland}{1} {ignore_during_flight}{0} }; 
+
+#var zone_surveys[the truth is in there.]                                                                                                { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you hear a chuffing-chugging-pounding-stamping-banging noise.]                                                         { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you hear the sounds of summer festivities.]                                                                            { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you see a shimmering, white gazebo in the midst of a beautiful garden.]                                                { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you see a small village, but you're not sure of the gnomenclature.]                                                    { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you see a strange monument of eggs.]                                                                                   { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you see where a beautiful rainbow touches the ground.]                                                                 { {name}{UNKNOWN}              {type}{unknown}  };
 
 #var zone_surveys[you sense a holy place touched by the Gods.]                                                                           { {name}{Altar}                {type}{altar}    };
 #var zone_surveys[you see the white fleck of a sail.]                                                                                    { {name}{Ship}                 {type}{ship}     };
@@ -60,9 +79,11 @@
 #var zone_surveys[you see a large adamantite barracks nestled between mighty city walls.]                                                { {name}{Discipline: 20}       {type}{clan}     };
 #var zone_surveys[What a horrible night to have a curse.]                                                                                { {name}{Warlords Masada: 1}   {type}{clan}     };
 #var zone_surveys[a strange, farm-like area.] 		       						                                 { {name}{Thanksgiving Holo}    {type}{holo}     };
+#var zone_surveys[you smell turkey and gravy.]                                                                                           { {name}{Thanksgiving}         {type}{holo}     };
 #var zone_surveys[you notice the super, secret Halloween Crypt.]                                                                         { {name}{Halloween Holo}       {type}{holo}     };
 #var zone_surveys[a strange, fog-covered area.]                                                                                          { {name}{Halloween Holo}       {type}{holo}     };
 #var zone_surveys[you see a small house covered in icicles.]                                                                             { {name}{Christmas Holo}       {type}{holo}     };
+#var zone_surveys[you see a small, snowy town with many smoking chimneys.]	 							 { {name}{Christmas Holo}       {type}{holo}     };
 #var zone_surveys[you see a small caravan of wagons protectively surrounding a campfire.]                                                { {name}{Caravan}              {type}{special}  };
 #var zone_surveys[a tall, colorful wheel rises over a hastily erected fence.]                                                            { {name}{Carnival}             {type}{special}  };
 #var zone_surveys[you see the teetering mast of a small, moored ship.]                                                                   { {name}{The Fury}             {type}{special}  };
@@ -70,16 +91,6 @@
 #var zone_surveys[you see a massive volcano towering over the surrounding mountains, with thin rivulets of lava pouring down its sides.] { {name}{Volcano Zone Thing?}  {type}{special}  };
 #var zone_surveys[you see a small cave nestled in a shadowy ravine.]                                                                     { {name}{A Frigid Cave}        {type}{special}  };
 #var zone_surveys[you see a shimmering silver light filtering through the trees.]                                                        { {name}{The Silver Shrine}    {type}{special}  };
-
-#var zone_surveys[the truth is in there.]                                                                                                { {name}{UNKNOWN}              {type}{unknown}  };
-#var zone_surveys[you hear a chuffing-chugging-pounding-stamping-banging noise.]                                                         { {name}{UNKNOWN}              {type}{unknown}  };
-#var zone_surveys[you hear the sounds of summer festivities.]                                                                            { {name}{UNKNOWN}              {type}{unknown}  };
-#var zone_surveys[you see a shimmering, white gazebo in the midst of a beautiful garden.]                                                { {name}{UNKNOWN}              {type}{unknown}  };
-#var zone_surveys[you see a small, snowy town with many smoking chimneys.]	 							 { {name}{UNKNOWN}              {type}{unknown}  };
-#var zone_surveys[you see a small village, but you're not sure of the gnomenclature.]                                                    { {name}{UNKNOWN}              {type}{unknown}  };
-#var zone_surveys[you see a strange monument of eggs.]                                                                                   { {name}{UNKNOWN}              {type}{unknown}  };
-#var zone_surveys[you see where a beautiful rainbow touches the ground.]                                                                 { {name}{UNKNOWN}              {type}{unknown}  };
-#var zone_surveys[you smell turkey and gravy.]                                                                                           { {name}{UNKNOWN}              {type}{unknown}  };
 
 #var zone_surveys[you see the top of a foreboding, black stone temple above the trees.]                                                  { {name}{Temple of Bloodstone} {type}{normal}   };
 #var zone_surveys[you sense a place of great evil.]                                                                                      { {name}{Island of Xanthal}    {type}{normal}   };
@@ -134,7 +145,7 @@
 #var zone_surveys[the high walls of an ancient city surround a towering castle.]                                                         { {name}{Evermist}             {type}{normal}   };
 #var zone_surveys[you see a gloomy, fog-enshrouded keep sitting atop a crumbling precipice.]                                             { {name}{Ruins of Czareran}    {type}{normal}   };
 #var zone_surveys[you hear the sounds of animals.]                                                                                       { {name}{The Preserve}         {type}{normal}   };
-#var zone_surveys[you see the towers of an old castle deep within a series of outer stone walls.]                                        { {name}{The Labyrinth}        {type}{normal}   }; #no different zone?
+#var zone_surveys[you see the towers of an old castle deep within a series of outer stone walls.]                                        { {name}{The Labyrinth}        {type}{normal}   };
 #var zone_surveys[you sense people learning.]                                                                                            { {name}{Academy of Braneri}   {type}{normal}   };
 #var zone_surveys[you see a small cemetery at the edge of a tall, dark wood.]                                                            { {name}{Eldrick's Tomb}       {type}{normal}   };
 #var zone_surveys[you see a tall lighthouse.]                                                                                            { {name}{Abandoned Lighthouse} {type}{normal}   };
@@ -207,7 +218,6 @@
 #var zone_surveys[you see pinpoints of phosphorescent green and yellow light prod through a canopy of forest leaves.]                    { {name}{Alendora}             {type}{normal}   };
 #var zone_surveys[you see that a wide belt of silvery trees lines the topmost edge of a steep, mountainous cliff.  Salty breezes push the pungent scent of menthol and a soft mist from that direction.] { 
                                                                                                                                          {name}{E'urdin Zilartzen}    {type}{normal}   };
-
 #action {Flying %1bound...} {
     #if {$survey_flight} {page -none explicit survey};
 };
@@ -225,71 +235,95 @@
     #line gag;
 };
 
-#function {label_zone}{
-
-    #if {$show_zone_names}{
-        #format zone_name {%.${zone_col_width}s} {%1};
-        #echo {<158>[%c %-${zone_col_width}s<158> ]<099> %2} {$zone_color} {$zone_name};
-        #line gag;
-    };
-
-    #var result {#no;};
-};
-
-#function {fancy_survey}{
-
-    #var zone_name %1;
-    #var zone_type %2;
-    #var original_text %3;
-  
-    #var zone_spec $zone_types[$zone_type];
-
-    #if { !$in_flight || !$zone_spec[ignore_during_flight] }{
-
-        #var zone_color $zone_spec[color];
-        @label_zone{$zone_name;$original_text;$zone_color};
-	
-	#if {$zone_spec[autoland]}{land};
-
-    }{
-        #line gag;
-    };
-
-    #var result {#no;};
-};
-
-#function {fancy_survey_if_possible}{
-	  
-    #var survey_text %1;
-    #var whole_text %2;
-    #var known_zone &zone_surveys[$survey_text];
-
-    #if {$known_zone} {
-        #var zone $zone_surveys[$survey_text];	
-        @fancy_survey{$zone[name];$zone[type];$whole_text};
-    };
-
-    #var result {#no;};
+#function {summarize_direction}{ 
+    #format raw_direction_text %l {%1};
+    #var direction_info $direction_codes[$raw_direction_text];
+    #format result {<158>[ <169>%+3s %s<158> ]<099>} {$direction_info[chars]} {$direction_info[symbols]}; 
 };
 
 #action {Your survey of the area yields nothing special.}{
     #if {$in_flight} {#line gag;};
 };
 
-#action {%1 you see the silhouette of a %2.}{
-    @fancy_survey{Ship;ship;%0};
+#function {fancy_survey}{
+
+    #var zone_name %1;
+    #var zone_type %2;
+    #var direction_text %3;
+    #var distance_text %4;
+    #var survey_text %5;
+
+    #var zone_spec $zone_types[$zone_type];
+    #var zone_color $zone_spec[color];		
+
+    #if { !$in_flight || !$zone_spec[ignore_during_flight] }{
+        
+        #format printed_zone_name {%.${zone_col_width}s} {$zone_name};
+ 
+        #var direction_info $direction_codes[$direction_text];
+	#var printed_distance $distance_amounts[$distance_text];
+
+        #format printed_direction {<158>[ <169>%+3s %-8s<158> ]<099>} {$direction_info[chars]} {($distance_amounts[$distance_text])}; 
+
+        #echo {<158>[%c %-${zone_col_width}s<158> ]<099>$printed_direction $survey_text} {$zone_color} {$printed_zone_name};
+	#if {$zone_spec[autoland]}{land};
+
+    };
+        
+    #line gag;
+    #var result {#no;};
 };
 
-#action {%1 you see the %2. She's %3. %4.}{
-    @fancy_survey{Ship;ship;%0};
+#function {fancy_survey_if_possible}{
+	  
+    #var survey_text %1;
+    #var direction_text %2;
+    #var distance_text %3;
+
+    #var known_zone &zone_surveys[$survey_text];
+
+    #if {$known_zone} {
+        #var zone $zone_surveys[$survey_text];
+        #var zone_name $zone[name];
+        #var zone_type $zone[type];
+        @fancy_survey{$zone_name;$zone_type;$direction_text;$distance_text;$survey_text};
+    }{
+        #regex {$survey_text} {you see the silhouette of a %+.} {
+	    @fancy_survey{Ship;ship;$direction_text;$distance_text;$survey_text};
+        }{
+	    #regex {$survey_text} {you see the %+. She's %+. %+.} {
+	        @fancy_survey{Ship;ship;$direction_text;$distance_text;$survey_text};
+            };
+        };
+    };
+
+    #var result {#no;};
 };
 
 #action {In the immediate area, %1}{
-    @fancy_survey_if_possible{%1;%0}; 
+
+    #format direction_text %l {In the immediate area};
+    #format distance_text %l {In the immediate area};
+    #format survey_text %s {%1};
+
+    @fancy_survey_if_possible{$survey_text;$direction_text;$distance_text};
+ 
 };
 
 #action {%1, %2, %3}{
-    #if {"%3" != ""}{
-        @fancy_survey_if_possible{%3;%0};
+
+    #format direction_text %l {%1};
+    #format distance_text %l {%2};
+    #format survey_text %s {%3};
+
+    #no When in the immediate area of a zone with a comma in the description, funny things happen...;
+    #if {"$direction_text" == "in the immediate area"}{
+        #format direction_text %l {In the immediate area};
+        #format distance_text %l {In the immediate area};
+        #var survey_text {%2, %3};
+    };
+
+    #if {"$survey_text" != ""}{
+        @fancy_survey_if_possible{$survey_text;$direction_text;$distance_text;};
     };
 };
