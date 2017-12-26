@@ -1,0 +1,151 @@
+#var pretty_prompt {};
+
+#var current_hit_points 0;
+#var current_hit_points_color {};
+
+#var current_mana 0;
+#var current_mana_color {};
+
+#var colors {
+    {0} {<118>}
+    {1} {<138>}
+    {2} {<128>}
+    {3} {<148>}
+    {4} {<148>}
+};
+
+#var align_colors {
+    {0} {<faa>}       
+    {1} {<ebb>}
+    {2} {<dcc>}
+    {3} {<ccc>}
+    {4} {<ccc>}
+    {5} {<ddd>}
+    {6} {<eee>}
+    {7} {<fff>}
+    {8} {<fff>}
+};
+
+#var tag_strings {
+    {S}     {<129>[S]}
+    {AFK}   {<169>[AFK]}
+    {MAIL}  {<119>[MAIL]}
+    {LPK}   {}
+    {NPK}   {<139>[NPK]}
+    {CPK}   {<119>[CPK]}
+    {Mount} {<149>[MOUNT]}
+    {DH}    {<159>[DH]}
+    {SH}    {<159>[SH]}
+    {MH}    {<159>[MH]}
+    {CH}    {<159>[CH]}
+};
+
+#var spell_letters {
+    {M} {<149>M}
+    {P} {<159>P}
+    {F} {<119>F}
+    {I} {<169>I}
+    {S} {<179>S}
+    {L} {<129>L} {l} {<079>l}
+    {Q} {<129>Q} {q} {<079>q}
+    {V} {<129>V} {v} {<079>v}
+    {W} {<149>W}
+    {B} {<131>B}
+    {C} {<131>C}
+    {G} {<131>G}
+    {O} {<131>O}
+};
+
+
+#function {cleanup_tags}{
+
+    #var current_tag {};
+    #list tags create;
+
+    #parse {%0} {char} {
+        #if {"$char" == "]"}{
+	    #if {"$current_tag" != ""}{
+	        #no #showme {TAG DETECTED: $current_tag};
+                #list tags add $current_tag;
+                #var current_tag {};
+            };
+	}{
+	    #if {"$char" != "["}{
+	        #var current_tag {${current_tag}$char};
+            };
+        };
+    };
+    
+    #var result {};	
+
+    #foreach {$tags[%*]} {current_tag} {
+        #if {&tag_strings[$current_tag]}{
+	    #no #echo $tag_strings[$current_tag];
+	    #var result {${result}$tag_strings[$current_tag]};
+        }{
+	    #var result {${result}[$current_tag]};
+        };
+
+    };
+
+};
+
+#function {cleanup_spells}{
+
+    #var result {<079>[};
+
+    #parse {%0} {char} {
+        #if {&spell_letters[$char]}{
+	    #var result {${result}$spell_letters[$char]};
+        };
+    };
+
+    #var result {${result}<079>]};
+
+};
+
+#function {get_color}{
+    #math current_value_idx {((%1*100)/%2) / 25};
+    #var result {$colors[$current_value_idx]};
+};
+
+#function {get_align_color}{
+    #format current_align_idx %d {(((%1+1000)*100)/2000) / 12.5};
+    #echo $current_align_idx;
+    #var result {$align_colors[$current_align_idx]};
+}; 
+
+#act {%1[[ %2/%3 | %4/%5 | %6/%7 | %8 | %9 ]] [%10]}{
+
+    #var current_hit_points_color {@get_color{%2;%3}%2};
+    #var current_mana_color {@get_color{%4;%5}%4};
+    #var current_move_color {@get_color{%6;%7}%6};
+    #var current_breathe_color {@get_color{%8;100}%8};
+    #var current_align_color {@get_align_color{%9}%9};
+    #var tag_string @cleanup_tags{%1};		
+    #var spells_string @cleanup_spells{%10};
+
+    #var pretty_prompt {$tag_string<139>[[ $current_hit_points_color<179>/<149>%3 <139>| $current_mana_color<179>/<149>%5 <139>| <149>$current_move_color <139>| <149>$current_breathe_color <139>| <179>$current_align_color <139>]] $spells_string<099>};
+
+};
+
+#alias {splitprompt} {
+    prompt set #b[&u]#x[&k]#y[[ #x&h#w/#b&H#y | #x&m#w/#b&M#y | #x&v/&V #y| #x&b #y| #x&A #y]] #lw[&FM&FP&FF&FI&FS&FL&FQ&FV&FW&FB&FC&FG&FO#lw];
+};
+
+#alias {cleanprompt} {
+    prompt set #b[&u]#x[&k]#y[[ #x&h#w/#b&H#y | #x&m#w/#b&M#y | #x&v #y| #x&b #y| #x&A #y]] #lw[&FM&FP&FF&FI&FS&FL&FQ&FV&FW&FB&FC&FG&FO#lw];
+};
+
+#alias {init} {   
+    sc;           
+    setitem both; 
+    compact;
+};                
+
+init;
+splitprompt;
+#prompt {%1[[ %2/%3 | %4/%5 | %6/%7 | %8 | %9 ]] [%10]} {$pretty_prompt};
+
+
+

@@ -9,33 +9,6 @@
     #chat call chat.mikejsavage.co.uk 4050;
 }
 
-
-#var current_hit_points 0;
-#var current_hit_points_color {};
-
-#var current_mana 0;
-#var current_mana_color {};
-
-#var colors {
-    {0} {<118>}
-    {1} {<138>}
-    {2} {<128>}
-    {3} {<148>}
-    {4} {<148>}
-};
-
-#action {%1[[ %2/%3 | %4/%5 | %6 | %7 | %8 ]][%9]}{
-
-    #var current_hit_points {%2};
-    #math current_hit_points_idx {((%2*100)/%3) / 25};
-    #var current_hit_points_color {$colors[$current_hit_points_idx]$current_hit_points};
-
-    #var current_mana {%4};
-    #math current_mana_idx {((%4*100)/%5) / 25};
-    #var current_mana_color {$colors[$current_mana_idx]$current_mana};
-
-};
-
 #var combat_rep_enabled false;
 #var spin_count 0;
 
@@ -229,6 +202,16 @@
 #action {%1 chokes and gasps for breath.} {
     #format victim_name {%n} {%1};
     @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <128>MUFFLED<148> @fancy_end_words{%1}<088>};
+};
+
+#action {Your supercharged bolt of pure magic shatters %1 into sparkling motes of dust.}{
+    #format victim_name {%n} {%1};
+    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <118>MALEDICTED TO DEATH<148> @fancy_end_words{%1}<088>};   
+};
+
+#action {You focus and send a deadly blast of power at %1.}{
+    #format victim_name {%n} {%1};
+    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <118>MALEDICTED<148> @fancy_end_words{%1}<088>};   
 };
 
 #alias {cc %1} {
