@@ -111,7 +111,6 @@
 
 #function {get_align_color}{
     #format current_align_idx %d {(((%1+1000)*100)/2000) / 12.5};
-    #echo $current_align_idx;
     #var result {$align_colors[$current_align_idx]};
 }; 
 
