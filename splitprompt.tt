@@ -6,6 +6,8 @@
 #var current_mana 0;
 #var current_mana_color {};
 
+#var weakest_formie {};
+
 #var colors {
     {0} {<118>}
     {1} {<138>}
@@ -69,7 +71,7 @@
 
         #if {"$char" == "<"}{
             #var in_health_tag 1;
-            #var form_health_tag {<159>$char};
+            #var form_health_tag {$char};
             #continue;
         };
 
@@ -98,7 +100,13 @@
 
     };
     
-    #var result {$form_health_tag};	
+    #var form_health_color {};
+    #regexp {$form_health_tag} {<[%+%%]%+>} {
+        #var form_health_color @get_color{&1;100};
+        #var weakest_formie &2;
+    };
+
+    #var result {${form_health_color}$form_health_tag};	
 
     #foreach {$tags[%*]} {current_tag} {
         #if {&tag_strings[$current_tag]}{
