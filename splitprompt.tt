@@ -38,6 +38,7 @@
     {SH}    {<159>[SH]}
     {MH}    {<159>[MH]}
     {CH}    {<159>[CH]}
+    {NEWS}  {<139>[NEWS]}
 };
 
 #var spell_letters {
@@ -59,24 +60,45 @@
 
 #function {cleanup_tags}{
 
+    #var in_health_tag 0;
+    #var form_health_tag {};
     #var current_tag {};
     #list tags create;
 
     #parse {%0} {char} {
+
+        #if {"$char" == "<"}{
+            #var in_health_tag 1;
+            #var form_health_tag {<159>$char};
+            #continue;
+        };
+
+        #if {"$char" == ">" && $in_health_tag}{
+            #var in_health_tag 0;
+            #var form_health_tag {${form_health_tag}$char};
+            #continue;
+        };
+
+        #if {$in_health_tag}{
+	    #var form_health_tag {${form_health_tag}$char};
+	    #continue;
+        };
+	
         #if {"$char" == "]"}{
-	    #if {"$current_tag" != ""}{
-	        #no #showme {TAG DETECTED: $current_tag};
+            #if {"$current_tag" != ""}{
                 #list tags add $current_tag;
                 #var current_tag {};
             };
-	}{
-	    #if {"$char" != "["}{
-	        #var current_tag {${current_tag}$char};
-            };
+            #continue;
+	}
+	    
+        #if {"$char" != "["}{
+	    #var current_tag {${current_tag}$char};
         };
+
     };
     
-    #var result {@get_sneak_tag{}};	
+    #var result {$form_health_tag};	
 
     #foreach {$tags[%*]} {current_tag} {
         #if {&tag_strings[$current_tag]}{
@@ -87,6 +109,8 @@
         };
 
     };
+
+    #var result {${result}@get_sneak_tag{}};
 
 };
 
