@@ -2,6 +2,7 @@
 #var show_zone_names 1;
 #var zone_col_width 20;
 
+#var need_survey 0;
 #var in_flight 0;
 
 #var direction_codes[in the immediate area]     { {chars}{XXX} {symbols}{--} };
@@ -84,6 +85,7 @@
 #var zone_surveys[a strange, fog-covered area.]                                                                                          { {name}{Halloween Holo}       {type}{holo}     };
 #var zone_surveys[you see a small house covered in icicles.]                                                                             { {name}{Christmas Holo}       {type}{holo}     };
 #var zone_surveys[you see a small, snowy town with many smoking chimneys.]	 							 { {name}{Christmas Holo}       {type}{holo}     };
+#var zone_surveys[you see a large pendulum casting a shadow over the land.]                                                              { {name}{New Years Holo}       {type}{holo}     };
 #var zone_surveys[you see a small caravan of wagons protectively surrounding a campfire.]                                                { {name}{Caravan}              {type}{special}  };
 #var zone_surveys[a tall, colorful wheel rises over a hastily erected fence.]                                                            { {name}{Carnival}             {type}{special}  };
 #var zone_surveys[you see the teetering mast of a small, moored ship.]                                                                   { {name}{The Fury}             {type}{special}  };
@@ -219,10 +221,16 @@
 #var zone_surveys[you see that a wide belt of silvery trees lines the topmost edge of a steep, mountainous cliff.  Salty breezes push the pungent scent of menthol and a soft mist from that direction.] { 
                                                                                                                                          {name}{E'urdin Zilartzen}    {type}{normal}   };
 #action {Flying %1bound...} {
-    #if {$survey_flight} {page -none explicit survey};
+    #if {$survey_flight} {
+        #var need_survey 1;
+        page -none explicit survey;
+    };
 };
 #action {Flying %1 towards a destination...} {
-    #if {$survey_flight} {page -none explicit survey};
+    #if {$survey_flight} {
+        #var need_survey 1;
+        page -none explicit survey;
+    };
 };
 
 #action {[BEGIN survey]}{
@@ -232,6 +240,7 @@
 
 #action {[END survey]}{
     #var in_flight 0;
+    #var need_survey 0;
     #line gag;
 };
 
@@ -256,7 +265,7 @@
     #var zone_spec $zone_types[$zone_type];
     #var zone_color $zone_spec[color];		
 
-    #if { !$in_flight || !$zone_spec[ignore_during_flight] }{
+    #if { !$in_flight || (!$zone_spec[ignore_during_flight] && $need_survey) }{
         
         #format printed_zone_name {%.${zone_col_width}s} {$zone_name};
  

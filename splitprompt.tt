@@ -29,18 +29,20 @@
 };
 
 #var tag_strings {
-    {S}     {<129>[S]}
-    {AFK}   {<169>[AFK]}
-    {MAIL}  {<119>[MAIL]}
-    {LPK}   {}
-    {NPK}   {<139>[NPK]}
-    {CPK}   {<119>[CPK]}
-    {Mount} {<149>[MOUNT]}
-    {DH}    {<159>[DH]}
-    {SH}    {<159>[SH]}
-    {MH}    {<159>[MH]}
-    {CH}    {<159>[CH]}
-    {NEWS}  {<139>[NEWS]}
+    {S}            {<129>[S]}
+    {AFK}          {<169>[AFK]}
+    {MAIL}         {<119>[MAIL]}
+    {LPK}          {}
+    {NPK}          {<139>[NPK]}
+    {CPK}          {<119>[CPK]}
+    {Mount}        {<149>[MOUNT]}
+    {DH}           {<159>[DH]}
+    {SH}           {<159>[SH]}
+    {MH}           {<159>[MH]}
+    {CH}           {<159>[CH]}
+    {NEWS}         {<139>[NEWS]}
+    {CLNEWS}       {<139>[CLNEWS]}
+    {ANNOUNCEMENT} {<139>[ANNOUNCEMENT]}
 };
 
 #var spell_letters {
@@ -171,12 +173,11 @@
 #alias {init} {   
     sc;           
     setitem both; 
-    compact;
 };                
 
 init;
 splitprompt;
 #prompt {%1[[ %2/%3 | %4/%5 | %6/%7 | %8 | %9 ]] [%10]} {$pretty_prompt};
-
+#prompt {<MedLink>} {<148><MedLink>$pretty_prompt};
 
 
