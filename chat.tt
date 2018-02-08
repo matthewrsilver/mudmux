@@ -224,6 +224,10 @@
     #chat {emote} {all} {<138>[[<088> $current_hit_points_color <138>| $current_mana_color <138>]] <128>:: <178>%1 <128>::<088>};
 };
 
+#alias {pm %1 %2} {
+    serv pmsg %1 {%2};
+};
+
 #alias {combatrep %1}{
     @do_combatrep{%1};
 };
