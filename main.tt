@@ -1,3 +1,5 @@
+#kill all
+
 #config {repeat enter} on;
 #config {color patch} on;
 #config charset utf-8;
@@ -13,23 +15,84 @@
 #action {You are thirsty.} {drink water};
 #action {You have been idle, and are pulled into a void.} {look};
 
+#alias sph {get retribution hole; hold retribution;};
+#alias mask {get alluring hole; wear alluring;};
+#alias kahn {get kahn hole; hold kahn;};
+
+#var base_held {bouquet};
+
+#alias org {
+    c d i;
+    mode mal; 
+    mode comb;
+    mode shield;
+    mode mana; 
+    mode hp;
+    mode ww;
+    mode base;
+    put kahn hole;
+    put retribution hole;
+    put all.heal arch;
+    put all sack;
+};
+
+#alias ofo {order followers %0};
+#alias daga {order %1 drop all.egg; get all.egg;};
+
+#alias j {drink jug};
+#alias {t} {trip};
+#alias {ttt} {#3 {cast minor creation trap; trap;};};
+
+#alias {sr} {cast shield room};
+#alias {ssrr} {st; c sh r; r;};
+
+#alias {disp} {cast dispel magic};
+
 #tab {umount}
 #alias {umount} {dismount};
-#alias {ssrr} {st; c sh r; r;};
 
 #alias {grin} {emote grins.};
 #alias {trash} {emote magically disposes of any trash which litters the street here.};
 
+#alias {res} {hold soulgem; c res};
+
 #alias {run} {--; q menthol};
 #alias {mm} {c mal; #regex {%2}{^{[}nsewud{]}$}{%2}; mal %1;};
 
-#alias {ec} {hold %1; use held; rem %1; c attune %1;};
-#alias {ecfg} {c tel; get fg01 sack; get fg02 sack; ec fg01; ec fg02; put fg01 sack; put fg02 sack; hold runes; map; whe; c s p wemic};
-#alias {eccasti} {c tel; get ca01 sack; ec ca01; put ca01 sack; hold runes; map; whe};
+#alias {ec} {hold %1; use held; rem %1; map; whe; c attune %1;};
+#alias {ecfg} {c tel; get fg01 sack; get fg02 sack; ec fg01; ec fg02; put fg01 sack; put fg02 sack; hold runes; c s p wemic};
+#alias {eccasti} {c tel; get ca01 sack; ec ca01; put ca01 sack; hold $base_held;};
+
+#var do_on_land stat;
+
+#act {%1 banks slowly and descends in small circles until you land.}{
+    $do_on_land;
+    #var do_on_land stat;
+};
+
+#alias {onland} {
+    #var do_on_land {%0};
+    #echo {Ok. On landing, will do "$do_on_land"};
+};
 
 #highlight {Obvious exits:} {<ddd>};
 #highlight {Down   - %1} {<aff>};
 #highlight {Up     - %1} {<aff>};
+#highlight {Down   - A Powerful Waterfall} {<158>};
+
+#substitute {%1 sends you sprawling with a powerful bash.} {%1 sends you <fbc>sprawling<088> with a <fbc>powerful bash<088>.}
+
+#substitute { ![ pristine] a belt pouch(invisible)}{ <128>!<088>[ <158>pristine<088>] <158>a belt pouch(invisible)<088>};
+#substitute { ![ pristine] a griffon-hide pack(invisible)}{ <128>!<088>[ <158>pristine<088>] <158>a griffon-hide pack(invisible)<088>};
+#substitute { ![ pristine] a band of skin, sewn together to form a small pouch(invisible)..humming quietly}{ <128>!<088>[ <158>pristine<088>] <158>a band of skin, sewn together to form a small pouch(invisible)..humming quietly<088>};
+#substitute { ![ pristine]%1a multi-colored key ring(invisible)}{ <128>!<088>[ <158>pristine<088>]<158>%1a multi-colored key ring(invisible)<088>};
+#substitute { ![     good]%1a flask filled with a translucent violet liquid%2}{ <128>!<088>[ <148>    good<088>]<148>%1a flask filled with a translucent violet liquid%2<088>};
+#substitute { ![ pristine]%1a flask filled with a translucent violet liquid%2}{ <128>!<088>[ <148>pristine<088>]<148>%1a flask filled with a translucent violet liquid%2<088>};
+#substitute { ![excellent]%1a flask filled with a translucent violet liquid%2}{ <128>!<088>[ <148>pristine<088>]<148>%1a flask filled with a translucent violet liquid%2<088>};
+#substitute { ![ pristine]%1a menthol potion%2}{ <128>!<088>[ <148>pristine<088>]<148>%1a menthol potion%2<088>};
+#substitute { ![ pristine] the Gem of Souls(invisible)%1}{ <128>!<088>[ <148>pristine<088>] <148>the Gem of Souls(invisible)%1<088>};
+
+
 
 #highlight {A rather shy and retiring vampire stands here.} {<faa>};
 

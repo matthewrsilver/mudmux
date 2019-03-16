@@ -138,4 +138,28 @@
        c inv;
        c shield;
        c stren;
-       };
+};
+
+#alias {quickspell} {
+       c d i;
+       c armor;
+       c bless;
+       c shield;
+       c q; 
+       c stren;
+};
+       
+#alias {smartspell} {
+
+    #foreach $affects[%*] {a} {
+
+        #list affects find {$a} {index};
+        #list ticks get {$index} {t};
+
+        #if { $t < 3} {
+            cast $a;
+        };
+
+    };
+
+};
