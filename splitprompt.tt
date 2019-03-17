@@ -6,6 +6,29 @@
 #var current_mana 0;
 #var current_mana_color {};
 
+#var jug_empty true;
+#var show_jug_tag true;
+
+#act {It's empty already.}{#var jug_empty true;};
+#act {You empty a jug of bright green liquid.}{#var jug_empty true;};
+#act {A jug of bright green liquid is filled.}{#var jug_empty false;};
+#act {You fill a jug of bright green liquid with %1.}{#var jug_empty false;};
+#act {You drink the %1}{#var jug_empty false;};
+
+#function get_jug_tag {
+
+    #var result {<129>[JUG!!]};
+
+    #if {"$jug_empty" == "false"}{
+        #var result {};
+    };
+
+    #if {"$show_jug_tag" == "false"}{
+        #var result {};
+    };
+
+};
+
 #var weakest_formie {};
 
 #var colors {
@@ -120,7 +143,7 @@
 
     };
 
-    #var result {${result}@get_sneak_tag{}};
+    #var result {${result}@get_sneak_tag{}@get_jug_tag{}};
 
 };
 

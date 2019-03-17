@@ -1,0 +1,22 @@
+#act {[BEGIN %1]}{
+    #var buffer {};
+    #act {~%*} {
+        #var {buffer} {${buffer}\n%%0};
+        #line gag;
+    }{2};
+    #line gag;
+};
+
+#act {[END %1]}{
+    #unact {~%*};
+    #class capclass kill;
+    #line gag;
+    #var buffer {${buffer}\n};
+    #delay {.1} {
+        #chat {emote} {all} {pastes:\n${buffer}};
+    };
+}{1};
+
+
+
+

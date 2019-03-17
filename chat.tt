@@ -40,11 +40,11 @@
 #action {%1 becomes very passive and starts following you.}{@add_formie{%1};};
 
 
-#list good_words create {Woop!} {Snap!} {Huzzah!} {Whoopee!} {Whoa!} {Zomg!} {Bingo!} {Whammy!} {Booyah!} {Yesss!} {Haha!} {Wowzer!} {Bam!} {Booyakasha!};
-#list bad_words create {Dang!} {Snap!} {Crap!} {Gahhh!} {Wtf!} {Shit!} {Noooo!} {Fake News!} {Fuck!} {D'oh!};
-#list start_words create {has been} {just got} {was just};
-#list good_end_words create {real hard!} {like a chump!} {in the face!} {what a loser!} { -- total jerk!} {and cried about it!} {what a dumbass!} {big time!} {and also sucks.} {bigly!} {like a turd!} {what an idiot!} { -- moron!} {and is a dumbass} {like a total dotard!} {super hard!} {what a dingbat!} {with unbelievable skill!} {what a pinhead!} {and eats shit!};
-#list bad_end_words create {and it was awful.} {how terrible!} {and needs our compassion.} {and is probably sad.} {-- somebody help!};
+#list good_words create {Woop!} {Huzzah!} {Whoopee!} {Whoa!} {Zomg!} {Bingo!} {Whammy!} {Booyah!} {Yesss!} {Haha!} {Wowzer!} {Bam!} {Booyakasha!} {Yeah!} {Winning!} {Win!};
+#list bad_words create {Dang!} {Snap!} {Crap!} {Gahhh!} {Wtf!} {Shit!} {Noooo!} {Fake News!} {Fuck!} {D'oh!} {Sad!} {Bullshit!};
+#list start_words create {has been} {just got} {was just} {was} {mostly just got} {has just been} {got} {is now};
+#list good_end_words create {real hard!} {like a chump!} {in the face!} {what a loser!} { -- total jerk!} {and cried about it!} {what a dumbass!} {big time!} {and also sucks.} {bigly!} {like a turd!} {what an idiot!} { -- moron!} {and is a dumbass} {like a total dotard!} {super hard!} {what a dingbat!} {with unbelievable skill!} {what a pinhead!} {and eats shit!} {no big deal though.} {and is worthless.} {what an empty husk.} {and should probably give up.};
+#list bad_end_words create {and it was awful.} {how terrible!} {and needs our compassion.} {and is probably sad.} {-- somebody help!} {what a total witch hunt.} {what bullshit!} {what crap!};
 
 #function {do_combatrep}{
 
@@ -172,8 +172,8 @@
 };
 
 #action {%1 is surrounded by a pink outline.} {
-    #format victim_name {%n} {%1};
-    @do_combatrep{@valence{%1}; <168>$victim_name <148>got surrounded by <158>FAERIE FIRE<148> ... meh...<088>};
+    #no #format victim_name {%n} {%1};
+    #no @do_combatrep{@valence{%1}; <168>$victim_name <148>got surrounded by <158>FAERIE FIRE<148> ... meh...<088>};
 };
 
 #action {%1 seems to be blinded!} {
@@ -220,16 +220,33 @@
     @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <118>MALEDICTED<148> @fancy_end_words{%1}<088>};   
 };
 
+#no #alias {cc %1} {;
+#no     #chat {emote} {all} {<138>[[<088> $current_hit_points_color <138>| $current_mana_color <138>]] <128>:: <178>%1 <128>::<088>};
+#no };
+
 #alias {cc %1} {
-    #chat {emote} {all} {<138>[[<088> $current_hit_points_color <138>| $current_mana_color <138>]] <128>:: <178>%1 <128>::<088>};
+    #var room_text {};
+    #if {0} { 
+      #var room_text {/$room_name}; 
+    };
+    #chat {emote} {all} {<138>[[<088> $current_hit_points_color <138>| $current_mana_color <138>]]<148>:~${room_text}<078>$ <128><178>%1 <128><088>};
+};
+
+#alias {ccemote %1} {
+    #chat {emote} {all} {%1};
+};
+
+#alias {ccsend} {
+    #var buffer {};
+    #class capclass read csend_class.tt;
+    explicit %0;
 };
 
 #alias {pm %1 %2} {
-    serv pmsg %1 {%2};
+    serv pmsg %1 %2;
 };
 
 #alias {combatrep %1}{
     @do_combatrep{%1};
 };
-
 
