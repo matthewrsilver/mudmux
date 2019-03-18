@@ -49,10 +49,9 @@
 #var zone_surveys[the truth is in there.]                                                                                                { {name}{UNKNOWN}              {type}{unknown}  };
 #var zone_surveys[you hear a chuffing-chugging-pounding-stamping-banging noise.]                                                         { {name}{UNKNOWN}              {type}{unknown}  };
 #var zone_surveys[you hear the sounds of summer festivities.]                                                                            { {name}{UNKNOWN}              {type}{unknown}  };
-#var zone_surveys[you see a shimmering, white gazebo in the midst of a beautiful garden.]                                                { {name}{UNKNOWN}              {type}{unknown}  };
 #var zone_surveys[you see a small village, but you're not sure of the gnomenclature.]                                                    { {name}{UNKNOWN}              {type}{unknown}  };
 #var zone_surveys[you see a strange monument of eggs.]                                                                                   { {name}{UNKNOWN}              {type}{unknown}  };
-#var zone_surveys[you see where a beautiful rainbow touches the ground.]                                                                 { {name}{UNKNOWN}              {type}{unknown}  };
+#var zone_surveys[you see a garden.]                                                                                                     { {name}{A Stone Garden}       {type}{unknown}  };
 
 #var zone_surveys[you sense a holy place touched by the Gods.]                                                                           { {name}{Altar}                {type}{altar}    };
 #var zone_surveys[you see the white fleck of a sail.]                                                                                    { {name}{Ship}                 {type}{ship}     };
@@ -86,6 +85,10 @@
 #var zone_surveys[you see a small house covered in icicles.]                                                                             { {name}{Christmas Holo}       {type}{holo}     };
 #var zone_surveys[you see a small, snowy town with many smoking chimneys.]	 							 { {name}{Christmas Holo}       {type}{holo}     };
 #var zone_surveys[you see a large pendulum casting a shadow over the land.]                                                              { {name}{New Years Holo}       {type}{holo}     };
+#var zone_surveys[you see where a beautiful rainbow touches the ground.]                                                                 { {name}{St. Patricks Holo}    {type}{holo}     };
+#var zone_surveys[you hear faint sounds of merriment.]                                                                                   { {name}{July 4th Holo}        {type}{holo}     };
+#var zone_surveys[a crowd has gathered around a frozen hole in the ground.]                                                              { {name}{Groundhog Holo}       {type}{holo}     };
+#var zone_surveys[you see a shimmering, white gazebo in the midst of a beautiful garden.]                                                { {name}{Valentine's Holo}     {type}{holo}     };
 #var zone_surveys[you see a small caravan of wagons protectively surrounding a campfire.]                                                { {name}{Caravan}              {type}{special}  };
 #var zone_surveys[a tall, colorful wheel rises over a hastily erected fence.]                                                            { {name}{Carnival}             {type}{special}  };
 #var zone_surveys[you see the teetering mast of a small, moored ship.]                                                                   { {name}{The Fury}             {type}{special}  };
