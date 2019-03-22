@@ -102,6 +102,20 @@
 #no Auto-detect context;
 #no;
 
+#var align_text[You are a saint]                             { {min}{901}  {max}{1000}  {align}{good}    };
+#var align_text[Goodness exudes from your body]              { {min}{701}  {max}{900}   {align}{good}    };
+#var align_text[You are very good]                           { {min}{501}  {max}{700}   {align}{good}    };
+#var align_text[You are good]                                { {min}{351}  {max}{500}   {align}{good}    };
+#var align_text[You are almost good]                         { {min}{301}  {max}{350}   {align}{neutral} };
+#var align_text[You are neutral with tendencies toward good] { {min}{101}  {max}{300}   {align}{neutral} };
+#var align_text[You are neutral]                             { {min}{-100} {max}{100}   {align}{neutral} };
+#var align_text[You are neutral with tendencies toward evil] { {min}{-300} {max}{-101}  {align}{neutral} };
+#var align_text[You are almost evil]                         { {min}{-350} {max}{-301}  {align}{neutral} };
+#var align_text[You are evil]                                { {min}{-500} {max}{-351}  {align}{evil}    };
+#var align_text[You are very evil]                           { {min}{-700} {max}{-501}  {align}{evil}    };
+#var align_text[Evil exudes from your body]                  { {min}{-900} {max}{-701}  {align}{evil}    };
+#var align_text[You are prime evil itself]                   { {min}{-1000} {max}{-901} {align}{evil}    };
+
 #variable char_name {};
 #variable char_level {};
 #variable char_class {};
@@ -111,7 +125,7 @@
     #variable char_name {%2};
     #variable char_level {%4};
     #variable char_class {%5};
-    #showme {Detected $char_name a level $char_level $char_class<148>};
+    #no #showme {Detected $char_name a level $char_level $char_class<099>};
 
 };
 
@@ -120,10 +134,15 @@
     #variable char_name {%1};
     #variable char_level {%3};
     #variable char_class {%4};
-    #showme {Detected $char_name a level $char_level $char_class<148>};
+    #no #showme {Detected $char_name a level $char_level $char_class<099>};
 
 };
 
+#action {Alignment: %1} {
+    #var align_obj $align_text[%1];
+    #variable char_align {$align_obj[align]};
+    #no #showme {Detected alignment of $char_align};
+};
 
 #no;
 #no Load component scripts;
