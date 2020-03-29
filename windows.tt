@@ -1,8 +1,8 @@
-#split;
+#split 0 1;
 
 #alias {resplit} {
     #unsplit;
-    #split;
+    #split 0 1;
 };
 
 #var {comms} {

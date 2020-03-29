@@ -181,7 +181,14 @@
     #var tag_string @cleanup_tags{%1};		
     #var spells_string @cleanup_spells{%10};
 
-    #var pretty_prompt {$tag_string<139>[[ $current_hit_points_color<179>/<149>%3 <139>| $current_mana_color<179>/<149>%5 <139>| <149>$current_move_color <139>| <149>$current_breathe_color <139>| <179>$current_align_color <139>]] $spells_string<099>};
+    #var pretty_prompt_raw {$tag_string<139>[[ $current_hit_points_color<179>/<149>%3 <139>| $current_mana_color<179>/<149>%5 <139>| <149>$current_move_color <139>| <149>$current_breathe_color <139>| <179>$current_align_color <139>]] $spells_string<099>};
+
+    #format screen_width {%C};
+    #format prompt_len {%L} {$pretty_prompt_raw};
+    #math num_spaces {$screen_width - $prompt_len}; 
+    #format pad_str {%-${num_spaces}s};
+
+    #var pretty_prompt {$pretty_prompt_raw$pad_str};
 
 };
 
@@ -200,7 +207,7 @@
 
 init;
 splitprompt;
-#prompt {%1[[ %2/%3 | %4/%5 | %6/%7 | %8 | %9 ]] [%10]} {$pretty_prompt};
-#prompt {<MedLink>} {<148><MedLink>$pretty_prompt};
+#prompt {%1[[ %2/%3 | %4/%5 | %6/%7 | %8 | %9 ]] [%10]} {$pretty_prompt} {1} {};
+#prompt {<MedLink>} {<148><MedLink>$pretty_prompt } {1} {};
 
 
