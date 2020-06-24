@@ -1,0 +1,73 @@
+#var container {hold};
+
+#alias setcontainer {
+    #var container {%1};
+    mode $container container;
+};
+
+#alias whatcontainer {
+    #showme {Container is set to: $container};
+};
+
+#alias sph {get retribution $container; hold retribution;};
+#alias mask {get alluring $container; wear alluring;};
+#alias kahn {get kahn $container; hold kahn;};
+
+
+#var base_held {bouquet};
+#alias {rehold} {hold $base_held};
+
+#alias {ec} {hold %1; use held; rem %1; map; whe; c attune %1;};
+#alias {ecfg} {c tel; get fg01 sack; get fg02 sack; ec fg01; ec fg02; put fg01 sack; put fg02 sack; hold $base_held; c s p wemic};
+#alias {eccasti} {c tel; get ca01 sack; ec ca01; put ca01 sack; hold $base_held;};
+
+
+#alias org {
+
+  stand;
+  c d i;
+
+  mode comb;
+  mode mana;
+  mode heal;
+  mode shield;
+  mode sw;
+  mode base;
+
+  put kahn $container;
+  put alluring $container;
+  put retribution $container;
+  put all.resonance $container;
+  put chameleon $container;
+  put veil $container;
+  put runed $container;
+
+  sort;
+
+  put all.fae sack;
+  put all.token sack;
+  put all.potion sack;
+  put all.flask sack;
+  put all.elixir sack;
+  put all.vial sack;
+  put all.jelly sack;
+  put all.healing sack;
+  put all.candy sack;
+  put all.broom sack;
+  put all.crystal sack;
+  put all.distilled sack;
+  put all.root sack;
+
+  put all.heal arch;
+
+};
+
+#substitute { ![ pristine] a belt pouch(invisible)}{ <128>!<088>[ <158>pristine<088>] <158>a belt pouch(invisible)<088>};
+#substitute { ![ pristine] a griffon-hide pack(invisible)}{ <128>!<088>[ <158>pristine<088>] <158>a griffon-hide pack(invisible)<088>};
+#substitute { ![ pristine] a band of skin, sewn together to form a small pouch(invisible)..humming quietly}{ <128>!<088>[ <158>pristine<088>] <158>a band of skin, sewn together to form a small pouch(invisible)..humming quietly<088>};
+#substitute { ![ pristine]%1a multi-colored key ring(invisible)}{ <128>!<088>[ <158>pristine<088>]<158>%1a multi-colored key ring(invisible)<088>};
+#substitute { ![     good]%1a flask filled with a translucent violet liquid%2}{ <128>!<088>[ <148>    good<088>]<148>%1a flask filled with a translucent violet liquid%2<088>};
+#substitute { ![ pristine]%1a flask filled with a translucent violet liquid%2}{ <128>!<088>[ <148>pristine<088>]<148>%1a flask filled with a translucent violet liquid%2<088>};
+#substitute { ![excellent]%1a flask filled with a translucent violet liquid%2}{ <128>!<088>[ <148>pristine<088>]<148>%1a flask filled with a translucent violet liquid%2<088>};
+#substitute { ![ pristine]%1a menthol potion%2}{ <128>!<088>[ <148>pristine<088>]<148>%1a menthol potion%2<088>};
+#substitute { ![ pristine] the Gem of Souls(invisible)%1}{ <128>!<088>[ <148>pristine<088>] <148>the Gem of Souls(invisible)%1<088>};
