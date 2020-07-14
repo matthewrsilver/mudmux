@@ -65,7 +65,6 @@
 #var zone_surveys[you see several columns of thick, black smoke.]                                                                        { {name}{Some Old Ruins}       {type}{other}    };
 #var zone_surveys[you see a massive castle surrounded by a river of lava hidden on a small island.]                                      { {name}{Some Island}          {type}{other}    };
 #var zone_surveys[you see a castle towering above the forest primeval.]                                                                  { {name}{Foxstalker Castle}    {type}{castle}   };
-#var zone_surveys[a large manor house is visible....]                                                                                    { {name}{Magentia's Manor}     {type}{castle}   };
 #var zone_surveys[a majestic fortress rises from the plain.]                                                                             { {name}{Castle Majestic}      {type}{castle}   };
 #var zone_surveys[you see the twin towers of a magnificent castle rising from the miasmal swamp.]                                        { {name}{Castle Prontac}       {type}{castle}   };
 #var zone_surveys[you see a mirage-like blue castle upon the barren flats.]                                                              { {name}{Castle Azure}         {type}{castle}   };
@@ -91,6 +90,7 @@
 #var zone_surveys[you see a shimmering, white gazebo in the midst of a beautiful garden.]                                                { {name}{Valentine's Holo}     {type}{holo}     };
 #var zone_surveys[you see a small caravan of wagons protectively surrounding a campfire.]                                                { {name}{Caravan}              {type}{special}  };
 #var zone_surveys[a tall, colorful wheel rises over a hastily erected fence.]                                                            { {name}{Carnival}             {type}{special}  };
+#var zone_surveys[a large manor house is visible....]                                                                                    { {name}{Magentia's Manor}     {type}{special}  };
 #var zone_surveys[you see the teetering mast of a small, moored ship.]                                                                   { {name}{The Fury}             {type}{special}  };
 #var zone_surveys[you see a massive flying citadel..]                                                                                    { {name}{Hellreaper's Citadel} {type}{special}  }; 
 #var zone_surveys[you see a massive volcano towering over the surrounding mountains, with thin rivulets of lava pouring down its sides.] { {name}{Volcano Zone Thing?}  {type}{special}  };
@@ -221,6 +221,7 @@
 #var zone_surveys[a sparkling aura surrounds the towers of a bright castle, which rises above a thick strip of barren land.]             { {name}{The Palace Celestia}  {type}{normal}   };
 #var zone_surveys[you see a forest of tall trees rise up into the sky, looming above the surrounding wilderness with majestic dignity.]  { {name}{Akenuas Glade}        {type}{normal}   };
 #var zone_surveys[you see pinpoints of phosphorescent green and yellow light prod through a canopy of forest leaves.]                    { {name}{Alendora}             {type}{normal}   };
+#var zone_surveys[a city looms on the horizon.]                                                                                          { {name}{City of Elienth}     {type}{normal}   };
 #var zone_surveys[you see that a wide belt of silvery trees lines the topmost edge of a steep, mountainous cliff.  Salty breezes push the pungent scent of menthol and a soft mist from that direction.] { 
                                                                                                                                          {name}{E'urdin Zilartzen}    {type}{normal}   };
 #action {Flying %1bound...} {
