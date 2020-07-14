@@ -1,4 +1,4 @@
-#var container {hold};
+#var container {hole};
 
 #alias setcontainer {
     #var container {%1};
@@ -12,7 +12,9 @@
 #alias sph {get retribution $container; hold retribution;};
 #alias mask {get alluring $container; wear alluring;};
 #alias kahn {get kahn $container; hold kahn;};
-
+#alias hm {get execution $container; hold execution;};
+#alias wand {get lightning $container; hold lightning;};
+#alias gem {get soulgem $container; hold soulgem;};
 
 #var base_held {bouquet};
 #alias {rehold} {hold $base_held};
@@ -28,9 +30,8 @@
   c d i;
 
   mode comb;
+  mode dragon;
   mode mana;
-  mode heal;
-  mode shield;
   mode sw;
   mode base;
 
@@ -40,7 +41,7 @@
   put all.resonance $container;
   put chameleon $container;
   put veil $container;
-  put runed $container;
+  put execution $container;
 
   sort;
 
@@ -59,6 +60,8 @@
   put all.root sack;
 
   put all.heal arch;
+  put all.bladder arch;
+  put all.lung arch;
 
 };
 
