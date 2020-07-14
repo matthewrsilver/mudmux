@@ -37,6 +37,10 @@
     #variable sneaking false;
 };
 
+#action {Your %1 decimates %2!} {
+    #variable sneaking false;
+};
+
 #action {Your %1 mutilates %2!} {
     #variable sneaking false;
 };
@@ -112,6 +116,18 @@
 #action {%1 screams in pain as %1 flesh withers away at your touch.} {
     #variable sneaking false;
 };
+
+#action {Your lightning bolt shatters %1 to pieces.} {
+    #variable sneaking false;
+};
+
+#action {The lightning bolt hits %1 with full impact.} {
+    #variable sneaking false;
+};
+
+#action {Your aim is going from bad to worse and the lightning bolt misses %1} {
+    #variable sneaking false;
+};.
 
 #action {You jump up and mount %1.} {
     #variable sneaking false;

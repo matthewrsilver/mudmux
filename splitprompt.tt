@@ -103,6 +103,7 @@
         #if {"$char" == ">" && $in_health_tag}{
             #var in_health_tag 0;
             #var form_health_tag {${form_health_tag}$char};
+            #var sneaking false;
             #continue;
         };
 
