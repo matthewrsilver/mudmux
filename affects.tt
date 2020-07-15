@@ -1,131 +1,128 @@
-#alias {af} {explicit af};
+#variable track_affects off;
 
+#alias {init_affects} {
+
+    #var affects {};
+
+    #var affects[Armor               ] { {ticks}{0} {messages}{} };
+    #var affects[Bless               ] { {ticks}{0} {messages}{} };
+    #var affects[Shield              ] { {ticks}{0} {messages}{} };
+    #var affects[Strength            ] { {ticks}{0} {messages}{} };
+    #var affects[Invisibility        ] { {ticks}{0} {messages}{} };
+    #var affects[Detect Invisibility ] { {ticks}{0} {messages}{} };
+    #var affects[Quickness           ] { {ticks}{0} {messages}{} };
+    #var affects[Infravision         ] { {ticks}{0} {messages}{} };
+    #var affects[Sense Life          ] { {ticks}{0} {messages}{} };
+    #var affects[Levitate            ] { {ticks}{0} {messages}{} };
+    #var affects[Sanctuary           ] { {ticks}{0} {messages}{} };
+
+    #if { "$char_class" == "Mage" } {
+        #var affects[Stone Skin          ] { {ticks}{0} {messages}{} };
+    };
+
+    #if { "$char_align" == "good" } {
+        #var affects[Protection from Evil] { {ticks}{0} {messages}{} };
+    };
+
+    #if { "$char_align" == "evil" } {
+        #var affects[Protection from Good] { {ticks}{0} {messages}{} };
+    };
+    
+};
+
+#alias {af} {explicit af};
 #gag {[BEGIN af]};
 #gag {[END af]};
 
-#variable track_affects off;
-
-#list ticks clear;
-#list affects create
-    {Armor               }
-    {Bless               }
-    {Shield              }
-    {Strength            }
-    {Stone Skin          }
-    {Invisibility        }
-    {Detect Invisibility }
-    {Quickness           }
-    {Infravision         }
-    {Sense Life          }
-    {Protection from Evil}
-    {Levitate            }
-    {Sanctuary           };
-
-
 #action {[BEGIN af]} {
-
     #variable track_affects on;
-
-    #no;
-    #no Initialize the tick list;
-    #no;
-
-    #list ticks clear;
-
-    #foreach $affects[%*] {a} {
-        #list ticks add {  0};
-    };
-
+    init_affects;
 };
-
-
-#action {  %1: Duration - %2 tick%3} {
-
-    #if { "$track_affects" == "on"} {
-
-        #no;
-        #no Grab the affect name and retrieve an index;
-        #no;
-
-        #variable affect {%1};
-        #list affects find {$affect} {index};
-
-        #no;
-        #no If the affect was found, store ticks;
-        #no;
-
-        #if {$index > 0} {
-            #list ticks set {$index} {%2};
-        };
-
-        #no;
-        #no Now print the line with formatting;
-        #no;
-
-        #variable affect_color {<149>};
-
-        #if {%2 <= 3} {
-            #variable affect_color {<139>};
-        };
-
-        #echo {  %c%1<149>:<099> Duration - %2 tick%3} {$affect_color};
-        #line gag;
-
-    };
-
-};
-
-
-#action {  %1: Duration - fading} {
-
-    #no;
-    #no Grab the affect name and retrieve an index;
-    #no;
-
-    #variable affect {%1};
-    #list affects find {$affect} {index};
-
-    #no;
-    #no If the affect was found, store ticks;
-    #no;
-
-    #if {$index > 0} {
-        #list ticks set {$index} {1};
-    };
-
-    #echo {  <119>%1<149>:<099> Duration - fading};
-    #line gag;
-
-};
-
 
 #action {[END af]} {
-
     #variable track_affects off;
 
-    #no;
-    #no Display affects information;
-    #no;
+    #foreach $affects[] {a} {
 
-    #list affects size numel;
+        #var ticks $affects[$a][ticks];
+	#var messages $affects[$a][messages];
 
-    #foreach $affects[%*] {a} {
-
-        #list affects find {$a} {index};
-        #list ticks get {$index} {t};
-
-        #if { $t == 0} {
-            #showme {  <119>$a<099>};
+	#if {$ticks > 3} {
+            #showme {  <149>$a<149>:<099> Duration - $ticks ticks$messages};
+	    #continue;
         };
+
+	#if {$ticks > 1} {
+	    #showme {  <139>$a<149>:<099> Duration - $ticks ticks$messages};
+	    #continue;
+        };
+
+	#if {$ticks == 1} {
+	    #showme {  <139>$a<149>:<099> Duration - $ticks tick$messages};
+	    #continue;
+        };
+
+	#if {"$ticks" == "fading"} {
+	    #showme {  <119>$a<149>:<099> Duration - fading$messages};
+	    #continue;
+        };
+
+        #showme {  <119>$a<099>};
 
     };
 
 };
+
+
+#alias process_affect {
+    #if { "$track_affects" == "on"} {
+
+        #variable affect {%1};
+	#variable ticks {%2};
+	#variable message {%3};
+
+	#variable new_message {};
+	#if {"$message" != ""} {
+            #variable cur_message {$affects[$affect][messages]};
+            #variable new_message {$cur_message,$message};
+	};
+
+        #variable affects[$affect] { {ticks}{$ticks} {messages}{$new_message} };
+	    
+	#line gag;
+    };
+};
+
+
+#action {  %1: Duration - %2 ticks,%3} {
+    process_affect {%1} {%2} {%3};
+} {1};
+
+#action {  %1: Duration - %2 tick,%3} {
+    process_affect {%1} {%2} {%3};
+} {1};
+
+#action {  %1: Duration - %2 ticks} {
+    process_affect {%1} {%2} {};
+} {2};
+
+#action {  %1: Duration - %2 tick} {
+    process_affect {%1} {%2} {};
+} {3};
+
+#action {  %1: Duration - fading} {
+    process_affect {%1} {fading} {};
+} {3};
+
+#action {  %1: Duration - fading,%2} {
+    process_affect {%1} {fading} {%2};
+} {3};
 
 
 #no;
 #no Alias for preparing all spells;
 #no;
+#no TODO: need to clean these up...;
 
 #alias {spellup} {
        c armor;
@@ -148,18 +145,22 @@
        c q; 
        c stren;
 };
-       
+
 #alias {smartspell} {
+    af;
 
-    #foreach $affects[%*] {a} {
+    #foreach $affects[] {a} {
 
-        #list affects find {$a} {index};
-        #list ticks get {$index} {t};
+        #var ticks $affects[$a][ticks];
+	#var messages $affects[$a][messages];
 
-        #if { $t < 3} {
-            cast $a;
+	#if {$ticks < 3} {
+	    #showme {Casting $a};
+	    cast $a;
         };
 
     };
+
+    af;
 
 };
