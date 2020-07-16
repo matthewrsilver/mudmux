@@ -4,8 +4,15 @@
 #config {color patch} on;
 #config charset utf-8;
 
-#tick nowhisk stat;
-#tick jugref {drink jug;} {300};
+#alias tickstart {
+  #untick nowhisk;
+  #tick nowhisk stat;
+
+  #untick jugref;
+  #tick jugref {drink jug;} {300};
+};
+
+tickstart;
 
 #no;
 #no Key aliases and interface changes;
@@ -131,4 +138,8 @@
 #no Connect!;
 #no;
 
-#session med medievia.com 4000;
+#alias connect {
+    resplit;
+    chat_connect;
+    #session med medievia.com 4000;
+};

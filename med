@@ -1,37 +1,5 @@
 #!/bin/bash
 
-if [ "$(uname)" == "Darwin" ]; then
-
-    # Tell iTerm2 to use Medievia profile
-    echo -e "\033]50;SetProfile=Medievia\a";
-
-    # Experimental iTerm2 method of changing info without a profile!
-    # But the character encoding doesn't seem to change...
-
-    #/usr/libexec/PlistBuddy                                                \
-    #    -c 'Set :"New Bookmarks":0:"Normal Font" "MedieviaSansMono 12"'    \
-    #    ~/Library/Preferences/com.googlecode.iterm2.plist
-    #
-    #/usr/libexec/PlistBuddy                                                \
-    #    -c 'Set :"New Bookmarks":0:"Non Ascii Font" "MedieviaSansMono 12"' \
-    #    ~/Library/Preferences/com.googlecode.iterm2.plist
-    #
-    #/usr/libexec/PlistBuddy                                                \
-    #    -c 'Set :"New Bookmarks":0:"Character Encoding" 1' \
-    #    ~/Library/Preferences/com.googlecode.iterm2.plist
-
-    # Run tt++ with the main configuration script
-    tt++ main.tt
-
-    # Back to default profile :)
-    echo -e "\033]50;SetProfile=Matt\a";
-
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-
-    tt++ main.tt
-
-elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
-    echo "No dice :("
-fi
+tt++ -G -r main.tt -t Medievia
 
 
