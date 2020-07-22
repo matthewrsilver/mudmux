@@ -4,15 +4,21 @@
 #config {color patch} on;
 #config charset utf-8;
 
-#alias tickstart {
-  #untick nowhisk;
-  #tick nowhisk stat;
 
-  #untick jugref;
-  #tick jugref {drink jug;} {300};
+
+#alias tickstart {
+    #tick nowhisk stat;
+    #tick jugref {drink jug;} {300};
 };
 
-tickstart;
+#alias retick {
+    --;
+    #untick nowhisk;
+    #untick jugref;
+    tickstart;
+};
+
+
 
 #no;
 #no Key aliases and interface changes;
@@ -38,6 +44,15 @@ tickstart;
 #alias {far} {c farsight};
 
 #alias {disp} {cast dispel magic};
+
+#alias {gac} {
+    #if {%1} {
+        get all %1.corpse;
+    } {
+        get all corpse;
+    };
+
+};
 
 #alias {grin} {emote grins.};
 #alias {trash} {emote magically disposes of any trash which litters the street here.};
@@ -117,6 +132,12 @@ tickstart;
     #no #showme {Detected alignment of $char_align};
 };
 
+
+#alias connect {
+    #session med medievia.com 4000;
+};
+
+
 #no;
 #no Load component scripts;
 #no;
@@ -134,12 +155,8 @@ tickstart;
 #read splitprompt.tt;
 #read inventory.tt;
 
-#no;
-#no Connect!;
-#no;
-
-#alias connect {
-    resplit;
-    chat_connect;
-    #session med medievia.com 4000;
-};
+#no start everything up...
+tickstart;
+chat_connect;
+resplit;
+connect;

@@ -7,7 +7,12 @@
     #chat initialize;
     #chat name ohr;
     #chat call chat.mikejsavage.co.uk 4050;
-}
+    #delay {2} {
+        #read {config/.credentials};
+        #chat message 1 $chat_pass;
+        #unvar chat_pass;
+    };
+};
 
 #var combat_rep_enabled false;
 #var spin_count 0;
