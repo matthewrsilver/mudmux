@@ -151,7 +151,8 @@
 #read combat_health.tt;
 #read distance.tt;
 #read affects.tt;
-#read fae.tt;
+#read fly_fae.tt;
+#read fae_orb.tt;
 #read splitprompt.tt;
 #read inventory.tt;
 

@@ -1,0 +1,43 @@
+#variable should_fly_fae {0};
+#variable faeball_distance {0};
+#variable faeball_angle {0};
+
+#gag {[BEGIN faeball]};
+#gag {[END faeball]};
+
+#alias flyfae {
+    #variable should_fly_fae {1};
+    explicit faeball;
+};
+
+#action {%1 is the distance to the ball.} {
+    #math faeball_distance {%1 / 10};
+};
+
+#action {%1 %2 is the heading towards the ball.} {
+    #variable faeball_angle {%1};
+};
+
+#action {Distance to ball: ZERO}{
+    #variable faeball_angle {0};
+    #variable faeball_distance {0};
+};
+
+#action {[END faeball]} {
+
+    #showme {\n<148>FlyFae [[ENABLED]]\n------------------<088>};
+
+    #if {$faeball_distance == 0} {
+        #showme {<148>You are at the faeball!<088>};
+    } {
+
+        #if {$should_fly_fae} {
+            #var fly_command {fly dir $faeball_angle $faeball_distance};
+            #showme {<148>Issuing command: <118>$fly_command<088>};
+            #var should_fly_fae {0};
+            $fly_command;
+        };
+
+    };
+
+};
