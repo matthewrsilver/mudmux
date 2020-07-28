@@ -1,0 +1,48 @@
+#no aliases.tt;
+
+#alias ofo {order followers %0};
+#alias daga {order %1 drop all.egg; get all.egg;};
+
+#alias j {drink jug};
+#alias t {trip};
+#alias ttt {#3 {cast minor creation trap; trap;};};
+
+#alias sr {cast shield room};
+#alias ssrr {st; sr; r;};
+#alias far {c farsight};
+#alias disp {cast dispel magic};
+
+#alias res {hold soulgem; c res};
+
+#alias run {--; q menthol};
+#alias mm {c mal; #regex {%2}{^{[}nsewud{]}$}{%2}; mal %1;};
+
+
+#alias {gac} {
+    #if {%1} {
+        get all %1.corpse;
+    } {
+        get all corpse;
+    };
+
+};
+
+#alias {grin} {emote grins.};
+#alias {trash} {emote magically disposes of any trash which litters the street here.};
+
+#no Dragons...;
+
+#tab {umount}
+#alias {umount} {dismount};
+
+#var do_on_land {stat};
+
+#act {%1 banks slowly and descends in small circles until you land.}{
+    $do_on_land;
+    #var do_on_land stat;
+};
+
+#alias {onland} {
+    #var do_on_land {%0};
+    #echo {Ok. On landing, will do "$do_on_land"};
+};

@@ -1,10 +1,10 @@
-#kill all
+#kill all;
 
 #config {repeat enter} on;
 #config {color patch} on;
 #config charset utf-8;
 
-
+#no A few tickers;
 
 #alias tickstart {
     #tick nowhisk stat;
@@ -19,60 +19,11 @@
 };
 
 
-
-#no;
 #no Key aliases and interface changes;
-#no;
 
-#action {You are hungry.} {eat food};
-#action {You are thirsty.} {drink water};
-#action {You have been idle, and are pulled into a void.} {look};
-
-#tab {umount}
-#alias {umount} {dismount};
-
-#alias ofo {order followers %0};
-#alias daga {order %1 drop all.egg; get all.egg;};
-
-#alias j {drink jug};
-#alias {t} {trip};
-#alias {ttt} {#3 {cast minor creation trap; trap;};};
-
-#alias {sr} {cast shield room};
-#alias {ssrr} {st; sr; r;};
-
-#alias {far} {c farsight};
-
-#alias {disp} {cast dispel magic};
-
-#alias {gac} {
-    #if {%1} {
-        get all %1.corpse;
-    } {
-        get all corpse;
-    };
-
-};
-
-#alias {grin} {emote grins.};
-#alias {trash} {emote magically disposes of any trash which litters the street here.};
-
-#alias {res} {hold soulgem; c res};
-
-#alias {run} {--; q menthol};
-#alias {mm} {c mal; #regex {%2}{^{[}nsewud{]}$}{%2}; mal %1;};
-
-#var do_on_land stat;
-
-#act {%1 banks slowly and descends in small circles until you land.}{
-    $do_on_land;
-    #var do_on_land stat;
-};
-
-#alias {onland} {
-    #var do_on_land {%0};
-    #echo {Ok. On landing, will do "$do_on_land"};
-};
+#action {^You are hungry.$} {eat food};
+#action {^You are thirsty.$} {drink water};
+#action {^You have been idle, and are pulled into a void.$} {look};
 
 #highlight {Obvious exits:} {<ddd>};
 #highlight {Down   - %1} {<aff>};
@@ -81,57 +32,8 @@
 
 #substitute {%1 sends you sprawling with a powerful bash.} {%1 sends you <fbc>sprawling<088> with a <fbc>powerful bash<088>.};
 
-
 #highlight {A rather shy and retiring vampire stands here.} {<faa>};
-
-#substitute {You attempt to move silently.} {<caf>You attempt to move silently.<099>};
-
-#no;
-#no Auto-detect context;
-#no;
-
-#var align_text[You are a saint]                             { {min}{901}  {max}{1000}  {align}{good}    };
-#var align_text[Goodness exudes from your body]              { {min}{701}  {max}{900}   {align}{good}    };
-#var align_text[You are very good]                           { {min}{501}  {max}{700}   {align}{good}    };
-#var align_text[You are good]                                { {min}{351}  {max}{500}   {align}{good}    };
-#var align_text[You are almost good]                         { {min}{301}  {max}{350}   {align}{neutral} };
-#var align_text[You are neutral with tendencies toward good] { {min}{101}  {max}{300}   {align}{neutral} };
-#var align_text[You are neutral]                             { {min}{-100} {max}{100}   {align}{neutral} };
-#var align_text[You are neutral with tendencies toward evil] { {min}{-300} {max}{-101}  {align}{neutral} };
-#var align_text[You are almost evil]                         { {min}{-350} {max}{-301}  {align}{neutral} };
-#var align_text[You are evil]                                { {min}{-500} {max}{-351}  {align}{evil}    };
-#var align_text[You are very evil]                           { {min}{-700} {max}{-501}  {align}{evil}    };
-#var align_text[Evil exudes from your body]                  { {min}{-900} {max}{-701}  {align}{evil}    };
-#var align_text[You are prime evil itself]                   { {min}{-1000} {max}{-901} {align}{evil}    };
-
-#variable char_name {};
-#variable char_level {};
-#variable char_class {};
-
-#action {%1 %2 the %3, Level %4 %5} {
-
-    #variable char_name {%2};
-    #variable char_level {%4};
-    #variable char_class {%5};
-    #no #showme {Detected $char_name a level $char_level $char_class<099>};
-
-};
-
-#action {%1 the %2, Level %3 %4} {
-
-    #variable char_name {%1};
-    #variable char_level {%3};
-    #variable char_class {%4};
-    #no #showme {Detected $char_name a level $char_level $char_class<099>};
-
-};
-
-#action {Alignment: %1} {
-    #var align_obj $align_text[%1];
-    #variable char_align {$align_obj[align]};
-    #no #showme {Detected alignment of $char_align};
-};
-
+#highlight {You attempt to move silently.} {<caf>};
 
 #alias connect {
     #session med medievia.com 4000;
@@ -141,7 +43,8 @@
 #no;
 #no Load component scripts;
 #no;
-
+#read aliases.tt;
+#read context.tt;
 #read survey.tt;
 #read sneak.tt;
 #read room_reader.tt;
@@ -156,7 +59,7 @@
 #read splitprompt.tt;
 #read inventory.tt;
 
-#no start everything up...
+#no start everything up...;
 tickstart;
 chat_connect;
 resplit;

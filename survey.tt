@@ -274,7 +274,7 @@
         #format printed_zone_name {%.${zone_col_width}s} {$zone_name};
  
         #var direction_info $direction_codes[$direction_text];
-	#var printed_distance $distance_amounts[$distance_text];
+        #var printed_distance $distance_amounts[$distance_text];
 
         #format printed_direction {<158>[ <169>%+3s %-8s<158> ]<099>} {$direction_info[chars]} {($distance_amounts[$distance_text])}; 
 
