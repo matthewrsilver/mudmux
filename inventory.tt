@@ -1,12 +1,22 @@
 #var container {hole};
+#var secondary_container {sack};
+#var base_held {bouquet};
+
 
 #alias setcontainer {
-    #var container {%1};
-    mode $container container;
+    #if {%2 == 2} {
+        #echo {Setting secondary container to "%1"};
+        #var secondary_container {%1};
+    } {
+        #echo {Setting primary/mode container to "%1"};
+        #var container {%1};
+        mode $container container;
+    };
 };
 
 #alias whatcontainer {
-    #showme {Container is set to: $container};
+    #echo {Primary/mode container is set to "$container"};
+    #echo {Secondary container is set to "$secondary_container"};
 };
 
 #alias sph {get retribution $container; hold retribution;};
@@ -16,52 +26,83 @@
 #alias wand {get lightning $container; hold lightning;};
 #alias gem {get soulgem $container; hold soulgem;};
 
-#var base_held {bouquet};
-#alias {rehold} {hold $base_held};
+#alias rehold {hold $base_held};
 
-#alias {ec} {hold %1; use held; rem %1; map; whe; c attune %1;};
-#alias {ecfg} {c tel; get fg01 sack; get fg02 sack; ec fg01; ec fg02; put fg01 sack; put fg02 sack; hold $base_held; c s p wemic};
-#alias {eccasti} {c tel; get ca01 sack; ec ca01; put ca01 sack; hold $base_held;};
+#alias ec {
+    hold %1;
+    use held;
+    rem %1;
+    map;
+    whe;
+    #if {"%2" == "reattune"} {
+        c attune %1;
+    };
+};
+
+#alias ecfg {
+    c tel;
+    get fg01 $secondary_container;
+    get fg02 $secondary_container;
+    ec fg01 %0;
+    ec fg02 %0;
+    put fg01 $secondary_container;
+    put fg02 $secondary_container;
+    hold $base_held;
+    c s p wemic
+};
+
+#alias eccasti {
+    c tel;
+    get ca01 $secondary_container;
+    ec ca01 %0;
+    put ca01 $secondary_container;
+    hold $base_held;
+};
 
 
 #alias org {
 
-  stand;
-  c d i;
+    stand;
+    c d i;
 
-  mode comb;
-  mode dragon;
-  mode mana;
-  mode sw;
-  mode base;
+    #if {"%1" == "full"} {
+        #no todo: detect modes automatically;
+        mode comb;
+        mode dragon;
+        mode mana;
+        mode bolt;
+        mode base;
+    };
 
-  put kahn $container;
-  put alluring $container;
-  put retribution $container;
-  put all.resonance $container;
-  put chameleon $container;
-  put veil $container;
-  put execution $container;
+    put kahn $container;
+    put alluring $container;
+    put retribution $container;
+    put all.resonance $container;
+    put chameleon $container;
+    put veil $container;
+    put execution $container;
 
-  sort;
+    sort;
 
-  put all.fae sack;
-  put all.token sack;
-  put all.potion sack;
-  put all.flask sack;
-  put all.elixir sack;
-  put all.vial sack;
-  put all.jelly sack;
-  put all.healing sack;
-  put all.candy sack;
-  put all.broom sack;
-  put all.crystal sack;
-  put all.distilled sack;
-  put all.root sack;
+    put all.fae $secondary_container;
+    put all.token $secondary_container;
+    put all.potion $secondary_container;
+    put all.flask $secondary_container;
+    put all.elixir $secondary_container;
+    put all.vial $secondary_container;
+    put all.jelly $secondary_container;
+    put all.healing $secondary_container;
+    put all.candy $secondary_container;
+    put all.broom $secondary_container;
+    put all.crystal $secondary_container;
+    put all.distilled $secondary_container;
+    put all.root $secondary_container;
+    put all.scrying $secondary_container;
+    put all.stone $secondary_container;
 
-  put all.heal arch;
-  put all.bladder arch;
-  put all.lung arch;
+    put all.heal arch;
+    put all.bladder arch;
+    put all.lung arch;
 
 };
 

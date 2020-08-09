@@ -1,2 +1,5 @@
-communications.log
-stored.log
+*.log
+*.txt
+*.json
+local
+experimental

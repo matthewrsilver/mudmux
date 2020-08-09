@@ -37,6 +37,7 @@
 
 #alias connect {
     #session med medievia.com 4000;
+    resplit;
 };
 
 
@@ -59,8 +60,4 @@
 #read splitprompt.tt;
 #read inventory.tt;
 
-#no start everything up...;
 tickstart;
-chat_connect;
-resplit;
-connect;
