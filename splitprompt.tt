@@ -2,12 +2,16 @@
 
 #var current_hit_points 0;
 #var current_hit_points_color {};
+#var prev_hit_points 0;
 
 #var current_mana 0;
 #var current_mana_color {};
+#var prev_mana 0;
 
+#no todo: convert these to 0 and 1 instead of true and false;
 #var jug_empty true;
 #var show_jug_tag true;
+#var pkness {};
 
 #act {It's empty already.}{#var jug_empty true;};
 #act {You empty a jug of bright green liquid.}{#var jug_empty true;};
@@ -90,6 +94,7 @@
     #var in_health_tag 0;
     #var form_health_tag {};
     #var current_tag {};
+    #var pkness {};
     #list tags create;
 
     #parse {%0} {char} {
@@ -136,10 +141,14 @@
 
     #foreach {$tags[%*]} {current_tag} {
         #if {&tag_strings[$current_tag]}{
-	    #no #echo $tag_strings[$current_tag];
-	    #var result {${result}$tag_strings[$current_tag]};
+            #no #echo $tag_strings[$current_tag];
+            #var result {${result}$tag_strings[$current_tag]};
+            #if {"$current_tag" == "{NPK|CPK}"} {
+                #var pkness {$current_tag};
+            };
+
         }{
-	    #var result {${result}[$current_tag]};
+            #var result {${result}[$current_tag]};
         };
 
     };
@@ -174,11 +183,18 @@
 
 #act {%1[[ %2/%3 | %4/%5 | %6/%7 | %8 | %9 ]] [%10]}{
 
+    #var prev_hit_points {$current_hit_points};
+    #var current_hit_points {%2};
     #var current_hit_points_color {@get_color{%2;%3}%2};
+
+    #var prev_mana {$current_mana};
+    #var current_mana {%4};
     #var current_mana_color {@get_color{%4;%5}%4};
     #var current_move_color {@get_color{%6;%7}%6};
+
     #var current_breathe_color {@get_color{%8;100}%8};
     #var current_align_color {@get_align_color{%9}%9};
+
     #var tag_string @cleanup_tags{%1};		
     #var spells_string @cleanup_spells{%10};
 
