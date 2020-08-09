@@ -1,16 +1,36 @@
 #no aliases.tt;
+#var targeted_player {};
 
 #alias ofo {order followers %0};
 #alias daga {order %1 drop all.egg; get all.egg;};
 
-#alias j {drink jug};
-#alias t {trip};
+#alias dj {drink jug};
 #alias ttt {#3 {cast minor creation trap; trap;};};
 
 #alias sr {cast shield room};
+#alias cs {cast sanc};
 #alias ssrr {st; sr; r;};
 #alias far {c farsight};
+
+#alias t {trip};
 #alias disp {cast dispel magic};
+#alias sw {cast shockwave};
+#alias bo {cast bolt};
+
+#alias tg {
+    #var targeted_player %1;
+    #echo {Now targeting $targeted_player};
+};
+
+#function target_default {
+    #if {@is_set{%1}}{
+        #var result {%1};
+    } {
+        #var result {$targeted_player};
+    };
+};
+
+#alias j {bo @target_default{%1};};
 
 #alias res {hold soulgem; c res};
 

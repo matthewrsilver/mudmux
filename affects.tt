@@ -45,26 +45,26 @@
     #foreach $affects[] {a} {
 
         #var ticks $affects[$a][ticks];
-	#var messages $affects[$a][messages];
+        #var messages $affects[$a][messages];
 
-	#if {$ticks > 3} {
+        #if {$ticks > 3} {
             #showme {  <149>$a<149>:<099> Duration - $ticks ticks$messages};
-	    #continue;
+            #continue;
         };
 
-	#if {$ticks > 1} {
-	    #showme {  <139>$a<149>:<099> Duration - $ticks ticks$messages};
-	    #continue;
+        #if {$ticks > 1} {
+            #showme {  <139>$a<149>:<099> Duration - $ticks ticks$messages};
+            #continue;
         };
 
-	#if {$ticks == 1} {
-	    #showme {  <139>$a<149>:<099> Duration - $ticks tick$messages};
-	    #continue;
+        #if {$ticks == 1} {
+            #showme {  <139>$a<149>:<099> Duration - $ticks tick$messages};
+            #continue;
         };
 
-	#if {"$ticks" == "fading"} {
-	    #showme {  <119>$a<149>:<099> Duration - fading$messages};
-	    #continue;
+        #if {"$ticks" == "fading"} {
+            #showme {  <119>$a<149>:<099> Duration - fading$messages};
+            #continue;
         };
 
         #showme {  <119>$a<099>};
@@ -78,18 +78,18 @@
     #if { "$track_affects" == "on"} {
 
         #variable affect {%1};
-	#variable ticks {%2};
-	#variable message {%3};
+        #variable ticks {%2};
+        #variable message {%3};
 
-	#variable new_message {};
-	#if {"$message" != ""} {
+        #variable new_message {};
+        #if {"$message" != ""} {
             #variable cur_message {$affects[$affect][messages]};
             #variable new_message {$cur_message,$message};
-	};
+        };
 
         #variable affects[$affect] { {ticks}{$ticks} {messages}{$new_message} };
 	    
-	#line gag;
+        #line gag;
     };
 };
 
@@ -147,16 +147,14 @@
 };
 
 #alias {smartspell} {
-    af;
-
     #foreach $affects[] {a} {
 
         #var ticks $affects[$a][ticks];
-	#var messages $affects[$a][messages];
+        #var messages $affects[$a][messages];
 
-	#if {$ticks < 3} {
-	    #showme {Casting $a};
-	    cast $a;
+        #if {$ticks < 3} {
+            #showme {Casting $a};
+            cast $a;
         };
 
     };
