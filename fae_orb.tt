@@ -46,8 +46,8 @@
     #math result {(%1 - $server_epoch) / 86400};
 };
 
-#action {^The current system time is %1 %2 %3 %4:%5:%6 %7} {
-    #var server_epoch @date_to_epoch{%3-%2-%7 %4:%5:%6};
+#action {^The current system time is %1 %2{[ ]{1,2}}%4 %5:%6:%7 %8$} {
+    #var server_epoch @date_to_epoch{%4-%2-%8 %5:%6:%7};
 };
 
 #action {^Next New Moon:   %w %+ %d %d:%d:%d %d Fae Clams making Frae} {
