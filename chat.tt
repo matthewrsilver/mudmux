@@ -1,3 +1,12 @@
+#no muxmed module chat.tt;
+@_module{chat};
+
+@_require{room_reader};
+@_require{splitprompt};
+
+#no todo: functions to aliases;
+#no todo: actual usage of chat stuff and reps to another module;
+
 #alias {serv %1}{
     #chat message 1 %1;
 }
@@ -45,11 +54,11 @@
 #action {%1 becomes very passive and starts following you.}{@add_formie{%1};};
 
 
-#list good_words create {Woop!} {Huzzah!} {Whoopee!} {Whoa!} {Zomg!} {Bingo!} {Whammy!} {Booyah!} {Yesss!} {Haha!} {Wowzer!} {Bam!} {Booyakasha!} {Yeah!} {Winning!} {Win!};
+#list good_words create {Woop!} {Huzzah!} {Whoopee!} {Whoa!} {Zomg!} {Bingo!} {Whammy!} {Booyah!} {Yesss!} {Haha!} {Wowzer!} {Bam!} {Booyakasha!} {Yeah!} {Winning!} {Win!} {Hell Yeah!} {YOLO!};
 #list bad_words create {Dang!} {Snap!} {Crap!} {Gahhh!} {Wtf!} {Shit!} {Noooo!} {Fake News!} {Fuck!} {D'oh!} {Sad!} {Bullshit!};
 #list start_words create {has been} {just got} {was just} {was} {mostly just got} {has just been} {got} {is now};
 #list good_end_words create {real hard!} {like a chump!} {in the face!} {what a loser!} { -- total jerk!} {and cried about it!} {what a dumbass!} {big time!} {and also sucks.} {bigly!} {like a turd!} {what an idiot!} { -- moron!} {and is a dumbass} {like a total dotard!} {super hard!} {what a dingbat!} {with unbelievable skill!} {what a pinhead!} {and eats shit!} {no big deal though.} {and is worthless.} {what an empty husk.} {and should probably give up.};
-#list bad_end_words create {and it was awful.} {how terrible!} {and needs our compassion.} {and is probably sad.} {-- somebody help!} {what a total witch hunt.} {what bullshit!} {what crap!};
+#list bad_end_words create {and it was awful.} {how terrible!} {and needs our compassion.} {and is probably sad.} {-- somebody help!} {what a total witch hunt.} {what bullshit!} {what crap!} {and I am so, so scared.} {and you hate to see it.};
 
 #function {do_combatrep}{
 
@@ -99,13 +108,18 @@
         };
     }{
 
+    #if {"%1" == "vbad"}{
+        #math word_idx 1d&bad_words[];
+        #chat {emote} {all} {<138>[[<088> <118>$bad_words[$word_idx]<088> <138>|<088> %2 <138>]]<088>};
+    }{
+
     #if {"%1" == "other"}{
         #if {"$combat_rep_enabled" == "true"}{
             #chat {emote} {all} {<138>[[<088> %2 <138>]]<088>};
         };
     };
 
-    };};};};};};
+    };};};};};};};
 
     #var result {#no};
 
@@ -147,18 +161,6 @@
 #action {You step into the portal and the world fades into the mist.}{
     #var spin_count 0;
 }
-
-#action {%1 skillfully stabs at your back with %2 and tears through your defenses, landing a devastating backstab.}{
-    @do_combatrep{bad; <168>%1 <148>just stabbed me right in the back!};
-};
-
-#action {%1's assault slices open your thigh. Your leg gives out and you crumple under your own weight.} {
-    @do_combatrep{bad; <168>%1 <148>just stabbed me right in the back!};
-};
-
-#action {The bright burst of colors has blinded you!} {
-    @do_combatrep{bad; <148>I just got <138>BLINDED<148> and can't see shit!<088>};
-};
 
 
 #function {valence}{
@@ -213,7 +215,7 @@
 #action {%1 chokes and gasps for breath.} {
     #format victim_name {%n} {%1};
     @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <128>MUFFLED<148> @fancy_end_words{%1}<088>};
-};
+cc};
 
 #action {Your supercharged bolt of pure magic shatters %1 into sparkling motes of dust.}{
     #format victim_name {%n} {%1};
@@ -224,6 +226,53 @@
     #format victim_name {%n} {%1};
     @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <118>MALEDICTED<148> @fancy_end_words{%1}<088>};   
 };
+
+#action {%1 raises %2 hands and strikes you with a burst of power.} {
+
+    #math mal_dmg {$prev_hit_points - $current_hit_points};
+    #var pk_string {};
+    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
+    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
+
+    @do_combatrep{vbad; <148>I've been <118>MALEDICTED<148> by <168>%1<148> for <118>$mal_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
+
+};
+
+#action {%1 skillfully stabs at your back with %2 and tears through your defenses, landing a devastating backstab.}{
+
+    #math stab_dmg {$prev_hit_points - $current_hit_points};
+    #var pk_string {};
+    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
+    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
+    @do_combatrep{vbad; <148>I just got <138>STABBED<148> right in the back by <168>%1 <148> for <118>$stab_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
+
+};
+
+#action {%1's assault slices open your thigh. Your leg gives out and you crumple under your own weight.} {
+
+    #math stab_dmg {$prev_hit_points - $current_hit_points};
+    #var pk_string {};
+    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
+    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
+    @do_combatrep{vbad; <148>I just got <138>STABBED<148> right in the back by <168>%1 <148> for <118>$stab_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
+
+};
+
+#action {You choke and utter some muffled noises.} {
+
+    #math plag_dmg {$prev_hit_points - $current_hit_points};
+    #var pk_string {};
+    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
+    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
+    @do_combatrep{bad; <148>I just got <158>PLAGUED<148> for <118>$plag_dmg<148> damage to ${current_hit_points_color}<148> hp @fancy_end_words{$char_name}$pk_string <088>};
+
+};
+
+
+#action {The bright burst of colors has blinded you!} {
+    @do_combatrep{bad; <148>I just got <138>BLINDED<148> and can't see shit!<088>};
+};
+
 
 #no #alias {cc %1} {;
 #no     #chat {emote} {all} {<138>[[<088> $current_hit_points_color <138>| $current_mana_color <138>]] <128>:: <178>%1 <128>::<088>};

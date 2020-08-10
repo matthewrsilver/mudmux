@@ -1,4 +1,6 @@
-#no context.tt;
+#no muxmed module context.tt;
+@_module{context};
+
 #variable char_name {};
 #variable char_level {};
 #variable char_class {};

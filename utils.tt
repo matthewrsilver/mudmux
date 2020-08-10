@@ -1,0 +1,13 @@
+#no muxmed module utils.tt;
+@_module{utils};
+
+
+#function math {
+    #math result {%0};
+};
+
+#function is_set {
+    #math result {"%1" != ""};
+};
+
+

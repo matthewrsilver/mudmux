@@ -1,3 +1,6 @@
+#no muxmed module room_reader.tt;
+@_module{room_reader};
+
 #var room_reader_debug 0;
 #var room_name {};
 
@@ -11,16 +14,16 @@
 
     #regexp {%0} {\300%+\264%*\303%+\331} {
 
-	#var room_name {&2};
-	room_reader_debug_log {Detected room name "$room_name" in map bottom.};
+        #var room_name {&2};
+        room_reader_debug_log {Detected room name "$room_name" in map bottom.};
 
     }{
 
         room_reader_debug_log {Did not detect room name in map bottom.};
 
-	#act {%*} {
+        #act {%*} {
             #var room_name {%%0};
-	    room_reader_debug_log {Detected room name "$room_name" after map.};
+            room_reader_debug_log {Detected room name "$room_name" after map.};
             #unact {%*};
         };
 

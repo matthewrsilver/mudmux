@@ -1,3 +1,9 @@
+#no muxmed module inventory.tt;
+@_module{inventory};
+
+#no todo: detect modes automatically;
+#no todo: simple interface;
+
 #var container {hole};
 #var secondary_container {sack};
 #var base_held {bouquet};
@@ -66,7 +72,6 @@
     c d i;
 
     #if {"%1" == "full"} {
-        #no todo: detect modes automatically;
         mode comb;
         mode dragon;
         mode mana;
@@ -83,6 +88,7 @@
     put execution $container;
 
     sort;
+    setitem both;
 
     put all.fae $secondary_container;
     put all.token $secondary_container;

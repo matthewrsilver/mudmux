@@ -1,3 +1,8 @@
+#no muxmed module fae_orb.tt;
+@_module{fae_orb};
+
+@_require{utils};
+
 #var server_epoch {};
 #var send_chat {0};
 #var days_until_solar_eclipse {};
@@ -21,15 +26,6 @@
         {name} {Locate Serpents}  {power} {1} {duration} {2} {frequency} {79}
     }
 
-};
-
-
-#function math {
-    #math result {%0};
-};
-
-#function is_set {
-    #math result {"%1" != ""};
 };
 
 #function date_to_epoch {
