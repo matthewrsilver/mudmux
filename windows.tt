@@ -1,9 +1,12 @@
-#split 0 1;
+#no muxmed module windows.tt;
+@_module{windows};
 
-#alias {resplit} {
-    #unsplit;
-    #split 0 1;
-};
+#no todo: functions to aliases;
+#no todo: possibly rename module;
+#no todo: add simple interface for different comms;
+#no todo: functions/aliases for storing/logging in another module;
+#no todo: this method fails to capture multiline, what was it before?;
+#no todo: remove/handle increment eq tracking stuff;
 
 #var {comms} {
     {TOWN}  {1}
@@ -44,10 +47,10 @@
 
 #function {datelog}{
     #if {$comms[%1]} {
-        #var message %2;
+        #var message {%2};
         #replace message {%} {%%%};
         #format message_with_date {<000><179>%t $message}{%y:%m:%d:%R};
-        #line log communications.log $message_with_date;
+        #line log communications.log {$message_with_date};
     };
     #return #no;
 };

@@ -1,0 +1,37 @@
+#no muxmed module management;
+#var _modules[_] {};
+
+#function _module {
+    #local module_name %1;
+    #if {!&_modules[$module_name]} {
+        #var _modules[$module_name] {};
+        #showme {Registering module "$module_name"};
+    };
+    #else {
+        #showme {Module "$module_name" is already registered};
+    };
+    #return #no;
+};
+
+#function _require {
+    #local module_name %1;
+    #if {!&_modules[$module_name]} {
+        #showme {  Reading required module "$module_name"};
+        #read {$module_name.tt};
+    };
+    #else {
+        #showme {  Required module "$module_name" is already available};
+    };
+    #return #no;
+};
+
+#function _load {
+    #local module_name %1;
+    #if {!&_modules[$module_name]} {
+        #read {$module_name.tt};
+    };
+    #else {
+        #showme {Module "$module_name" is already available};
+    };
+    #return #no;
+};

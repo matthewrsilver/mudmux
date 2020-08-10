@@ -1,3 +1,12 @@
+#no muxmed module chat.tt;
+@_module{chat};
+
+@_require{room_reader};
+@_require{splitprompt};
+
+#no todo: functions to aliases;
+#no todo: actual usage of chat stuff and reps to another module;
+
 #alias {serv %1}{
     #chat message 1 %1;
 }

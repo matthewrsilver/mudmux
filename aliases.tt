@@ -1,4 +1,8 @@
-#no aliases.tt;
+#no muxmed module aliases.tt;
+@_module{aliases};
+
+@_require{utils};
+
 #var targeted_player {};
 
 #alias ofo {order followers %0};

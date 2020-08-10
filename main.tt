@@ -1,10 +1,21 @@
-#kill all;
+#no muxmed main.tt
+#read modules.tt;
 
 #config {repeat enter} on;
 #config {color patch} on;
 #config charset utf-8;
 
-#no A few tickers;
+#split 0 1;
+
+#alias resplit {
+    #unsplit;
+    #split 0 1;
+};
+
+#alias reload {
+    #kill all;
+    #read main.tt;
+};
 
 #alias tickstart {
     #tick nowhisk stat;
@@ -18,46 +29,25 @@
     tickstart;
 };
 
-
-#no Key aliases and interface changes;
-
-#action {^You are hungry.$} {eat food};
-#action {^You are thirsty.$} {drink water};
-#action {^You have been idle, and are pulled into a void.$} {look};
-
-#highlight {Obvious exits:} {<ddd>};
-#highlight {Down   - %1} {<aff>};
-#highlight {Up     - %1} {<aff>};
-#highlight {Down   - A Powerful Waterfall} {<158>};
-
-#substitute {%1 sends you sprawling with a powerful bash.} {%1 sends you <fbc>sprawling<088> with a <fbc>powerful bash<088>.};
-
-#highlight {A rather shy and retiring vampire stands here.} {<faa>};
-#highlight {You attempt to move silently.} {<caf>};
-
 #alias connect {
-    #session med medievia.com 4000;
+    tickstart;
     resplit;
+    #session med medievia.com 4000;
 };
 
-
-#no;
 #no Load component scripts;
-#no;
-#read aliases.tt;
-#read context.tt;
-#read survey.tt;
-#read sneak.tt;
-#read room_reader.tt;
-#read chat.tt;
-#read windows.tt;
-#read spell_highlights.tt;
-#read combat_health.tt;
-#read distance.tt;
-#read affects.tt;
-#read fly_fae.tt;
-#read fae_orb.tt;
-#read splitprompt.tt;
-#read inventory.tt;
-
-tickstart;
+@_load{aliases};
+@_load{enhancements};
+@_load{context};
+@_load{survey};
+@_load{sneak};
+@_load{splitprompt};
+@_load{room_reader};
+@_load{chat};
+@_load{windows};
+@_load{spell_highlights};
+@_load{affects};
+@_load{fly_fae};
+@_load{fae_orb};
+@_load{inventory};
+#showme {\nLoading complete.\n};

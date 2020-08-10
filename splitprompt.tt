@@ -1,3 +1,12 @@
+#no muxmed module splitprompt.tt;
+@_module{splitprompt};
+
+@_require{sneak};
+
+#no todo: convert these to 0 and 1 instead of true and false;
+#no todo: move init out of this module;
+#no todo: detect prompt when dead;
+
 #var pretty_prompt {};
 
 #var current_hit_points 0;
@@ -8,7 +17,6 @@
 #var current_mana_color {};
 #var prev_mana 0;
 
-#no todo: convert these to 0 and 1 instead of true and false;
 #var jug_empty true;
 #var show_jug_tag true;
 #var pkness {};
@@ -209,22 +217,11 @@
 
 };
 
-#alias {splitprompt} {
+#alias {setprompt} {
     prompt set #b[&u]#x[&k]#y[[ #x&h#w/#b&H#y | #x&m#w/#b&M#y | #x&v/&V #y| #x&b #y| #x&A #y]] #lw[&FM&FP&FF&FI&FS&FL&FQ&FV&FW&FB&FC&FG&FO#lw];
 };
 
-#alias {cleanprompt} {
-    prompt set #b[&u]#x[&k]#y[[ #x&h#w/#b&H#y | #x&m#w/#b&M#y | #x&v #y| #x&b #y| #x&A #y]] #lw[&FM&FP&FF&FI&FS&FL&FQ&FV&FW&FB&FC&FG&FO#lw];
-};
 
-#alias {init} {   
-    sc;           
-    setitem both; 
-};                
-
-init;
-splitprompt;
+setprompt;
 #prompt {%1[[ %2/%3 | %4/%5 | %6/%7 | %8 | %9 ]] [%10]} {$pretty_prompt} {1} {};
 #prompt {<MedLink>} {<148><MedLink>$pretty_prompt } {1} {};
-
-

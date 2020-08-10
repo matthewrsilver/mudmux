@@ -1,3 +1,11 @@
+#no muxmed module affects.tt;
+@_module{affects};
+
+@_require{context};
+
+#no todo: use booleans instead of off/on;
+#no todo: need to clean up spellup aliases;
+
 #variable track_affects off;
 
 #alias {init_affects} {
@@ -122,7 +130,6 @@
 #no;
 #no Alias for preparing all spells;
 #no;
-#no TODO: need to clean these up...;
 
 #alias {spellup} {
        c armor;

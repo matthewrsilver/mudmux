@@ -1,9 +1,15 @@
+#no muxmed module sneak.tt;
+@_module{sneak};
+
+#no todo: use boolean instead of true/false;
+
 #variable sneaking false;
 #variable sneak_tag {<159>[SNEAK!!]<099>};
 
 
-#no You rush into the fray!;
-
+#action {You rush into the fray!} {
+    #variable sneaking false;
+};
 
 #action {You stop sneaking.} {
     #variable sneaking false;
@@ -125,9 +131,9 @@
     #variable sneaking false;
 };
 
-#action {Your aim is going from bad to worse and the lightning bolt misses %1} {
+#action {Your aim is going from bad to worse and the lightning bolt misses %1.} {
     #variable sneaking false;
-};.
+};
 
 #action {You jump up and mount %1.} {
     #variable sneaking false;

@@ -1,3 +1,8 @@
+#no muxmed module survey.tt;
+@_module{survey};
+
+#no todo: migrate functions to aliases;
+
 #var survey_flight 1;
 #var show_zone_names 1;
 #var zone_col_width 20;
