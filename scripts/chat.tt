@@ -5,11 +5,13 @@
 @_require{splitprompt};
 
 #no todo: functions to aliases;
-#no todo: actual usage of chat stuff and reps to another module;
+
+
+#var combat_rep_enabled false;
 
 #alias {serv %1}{
     #chat message 1 %1;
-}
+};
 
 #alias {chat_connect}{
     #chat uninitialize;
@@ -22,9 +24,6 @@
         #unvar chat_pass;
     };
 };
-
-#var combat_rep_enabled false;
-#var spin_count 0;
 
 #list formies create {};
 #action {Your formation consists of:}{#list formies clear;};
@@ -41,7 +40,7 @@
 #action {OK! %1 allows you, and you start following.}{
     #list formies clear;
     freport;
-}
+};
 
 #action {%1 starts following %2.}{
     #format lower_name {%l} {%2};
@@ -130,39 +129,6 @@
     #var result {${%1}[$word_idx]};
 };
 
-#action {You attempt to hide yourself.} {
-    #if {"$combat_rep_enabled" == "true"}{
-        #chat {emote} {all} {<138>[[<088> <148>Shhhhh.<088> <138>|<088><148> I hide. <138>]]<088>};
-    };
-};
-
-#action {You attempt to blend into your surroundings.} {
-    #if {"$combat_rep_enabled" == "true"}{
-        #chat {emote} {all} {<138>[[<088> <148>Shhhhh.<088> <138>|<088><148> I hide. <138>]]<088>};
-    };
-};
-
-#action {You try to trip %1, but %2 leaps out of the way.}{
-    #if {"$combat_rep_enabled" == "true"}{
-        @do_combatrep{bad; <168>$char_name <168>just <119>FAILED<168> to trip <168>%1.};
-    };
-};
-
-#action {You step into the portal, and the world spins madly...} {
-    #math new_count {$spin_count + 1};
-    #var spin_count $new_count;
-    #if {$spin_count < 2}{
-        @do_combatrep{bad; <168>$char_name <148>just spun, and is pretty annoyed about it.};
-    }{
-        @do_combatrep{bad; <168>$char_name <148>just spun AGAIN!!!!};
-    };
-};
-
-#action {You step into the portal and the world fades into the mist.}{
-    #var spin_count 0;
-}
-
-
 #function {valence}{
     #format lower_name {%l} {%1};
     #list formies find {$lower_name} {in_form};
@@ -177,106 +143,6 @@
         #var result @random_element{bad_end_words};
     };
 };
-
-#action {%1 is surrounded by a pink outline.} {
-    #no #format victim_name {%n} {%1};
-    #no @do_combatrep{@valence{%1}; <168>$victim_name <148>got surrounded by <158>FAERIE FIRE<148> ... meh...<088>};
-};
-
-#action {%1 seems to be blinded!} {
-    #format victim_name {%n} {%1};
-    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <138>BLINDED<148> and can't see shit!<088>};
-};
-
-#action {%1 turns %2 eyes away and screams!} {
-    #format victim_name {%n} {%1};
-    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <138>BLINDED<148> and can't see shit!<088>};
-};
-
-#action {%1 briefly reveals a red aura!} {
-    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <118>CURSED<148> @fancy_end_words{%1}<088>};
-};
-
-#action {%1 winces as the poison enters %2 body.} {
-    #format victim_name {%n} {%1};
-    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <138>POISONED<148> @fancy_end_words{%1}<088>};
-};
-
-#action {The white glow around %1's body fades.} {
-    #format victim_name {%n} {%1};
-    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <178>DISSED<148> @fancy_end_words{%1}<088>};
-};
-
-#action {%1 chokes and utters some muffled noises.} {
-    #format victim_name {%n} {%1};
-    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <158>PLAGUED<148> @fancy_end_words{%1}<088>};
-};
-
-#action {%1 chokes and gasps for breath.} {
-    #format victim_name {%n} {%1};
-    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <128>MUFFLED<148> @fancy_end_words{%1}<088>};
-cc};
-
-#action {Your supercharged bolt of pure magic shatters %1 into sparkling motes of dust.}{
-    #format victim_name {%n} {%1};
-    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <118>MALEDICTED TO DEATH<148> @fancy_end_words{%1}<088>};   
-};
-
-#action {You focus and send a deadly blast of power at %1.}{
-    #format victim_name {%n} {%1};
-    @do_combatrep{@valence{%1}; <168>$victim_name <148>@random_element{start_words} <118>MALEDICTED<148> @fancy_end_words{%1}<088>};   
-};
-
-#action {%1 raises %2 hands and strikes you with a burst of power.} {
-
-    #math mal_dmg {$prev_hit_points - $current_hit_points};
-    #var pk_string {};
-    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
-    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
-
-    @do_combatrep{vbad; <148>I've been <118>MALEDICTED<148> by <168>%1<148> for <118>$mal_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
-
-};
-
-#action {%1 skillfully stabs at your back with %2 and tears through your defenses, landing a devastating backstab.}{
-
-    #math stab_dmg {$prev_hit_points - $current_hit_points};
-    #var pk_string {};
-    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
-    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
-    @do_combatrep{vbad; <148>I just got <138>STABBED<148> right in the back by <168>%1 <148> for <118>$stab_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
-
-};
-
-#action {%1's assault slices open your thigh. Your leg gives out and you crumple under your own weight.} {
-
-    #math stab_dmg {$prev_hit_points - $current_hit_points};
-    #var pk_string {};
-    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
-    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
-    @do_combatrep{vbad; <148>I just got <138>STABBED<148> right in the back by <168>%1 <148> for <118>$stab_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
-
-};
-
-#action {You choke and utter some muffled noises.} {
-
-    #math plag_dmg {$prev_hit_points - $current_hit_points};
-    #var pk_string {};
-    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
-    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
-    @do_combatrep{bad; <148>I just got <158>PLAGUED<148> for <118>$plag_dmg<148> damage to ${current_hit_points_color}<148> hp @fancy_end_words{$char_name}$pk_string <088>};
-
-};
-
-
-#action {The bright burst of colors has blinded you!} {
-    @do_combatrep{bad; <148>I just got <138>BLINDED<148> and can't see shit!<088>};
-};
-
-
-#no #alias {cc %1} {;
-#no     #chat {emote} {all} {<138>[[<088> $current_hit_points_color <138>| $current_mana_color <138>]] <128>:: <178>%1 <128>::<088>};
-#no };
 
 #alias {cc %1} {
     #var room_text {};
@@ -304,3 +170,10 @@ cc};
     @do_combatrep{%1};
 };
 
+
+@_load{reps/misc};
+@_load{reps/defensive/mal};
+@_load{reps/defensive/stabs};
+@_load{reps/defensive/spells};
+@_load{reps/offensive/melee};
+@_load{reps/offensive/spells};

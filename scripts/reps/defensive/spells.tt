@@ -1,0 +1,22 @@
+#no muxmed module reps/defensive/spells.tt
+@_module{reps/defensive/spells};
+
+@_require{chat};
+@_require{splitprompt};
+@_require{room_reader};
+
+
+#action {You choke and utter some muffled noises.} {
+
+    #math plag_dmg {$prev_hit_points - $current_hit_points};
+    #var pk_string {};
+    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
+    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
+    @do_combatrep{bad; <148>I just got <158>PLAGUED<148> for <118>$plag_dmg<148> damage to ${current_hit_points_color}<148> hp @fancy_end_words{$char_name}$pk_string <088>};
+
+};
+
+
+#action {The bright burst of colors has blinded you!} {
+    @do_combatrep{bad; <148>I just got <138>BLINDED<148> and can't see shit!<088>};
+};

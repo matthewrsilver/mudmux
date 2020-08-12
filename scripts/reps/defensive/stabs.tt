@@ -1,0 +1,26 @@
+#no muxmed module reps/defensive/stabs.tt
+@_module{reps/defensive/stabs};
+
+@_require{chat};
+@_require{splitprompt};
+@_require{room_reader};
+
+#action {%1 skillfully stabs at your back with %2 and tears through your defenses, landing a devastating backstab.}{
+
+    #math stab_dmg {$prev_hit_points - $current_hit_points};
+    #var pk_string {};
+    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
+    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
+    @do_combatrep{vbad; <148>I just got <138>STABBED<148> right in the back by <168>%1 <148> for <118>$stab_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
+
+};
+
+#action {%1's assault slices open your thigh. Your leg gives out and you crumple under your own weight.} {
+
+    #math stab_dmg {$prev_hit_points - $current_hit_points};
+    #var pk_string {};
+    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
+    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
+    @do_combatrep{vbad; <148>I just got <138>STABBED<148> right in the back by <168>%1 <148> for <118>$stab_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
+
+};

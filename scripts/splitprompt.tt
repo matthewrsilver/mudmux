@@ -21,6 +21,8 @@
 #var show_jug_tag true;
 #var pkness {};
 
+#var prompt_rep_trigger {};
+
 #act {It's empty already.}{#var jug_empty true;};
 #act {You empty a jug of bright green liquid.}{#var jug_empty true;};
 #act {A jug of bright green liquid is filled.}{#var jug_empty false;};
@@ -214,6 +216,11 @@
     #format pad_str {%-${num_spaces}s};
 
     #var pretty_prompt {$pretty_prompt_raw$pad_str};
+
+    #if {@is_set{$prompt_rep_trigger}} {
+        #showme $prompt_rep_trigger;
+        #var prompt_rep_trigger {};
+    };
 
 };
 
