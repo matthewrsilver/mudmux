@@ -7,6 +7,7 @@
 #no todo: functions/aliases for storing/logging in another module;
 #no todo: this method fails to capture multiline, what was it before?;
 #no todo: remove/handle increment eq tracking stuff;
+#no todo: log file name to variable, and probably to config;
 
 #var {comms} {
     {TOWN}  {1}
@@ -50,14 +51,14 @@
         #var message {%2};
         #replace message {%} {%%%};
         #format message_with_date {<000><179>%t $message}{%y:%m:%d:%R};
-        #line log communications.log {$message_with_date};
+        #line log {logs/communications.log} {$message_with_date};
     };
     #return #no;
 };
 
 #alias {logcom} {
     #if {$comms[%0]} {
-        #line log communications.log;
+        #line log {logs/communications.log};
     };
 }
 

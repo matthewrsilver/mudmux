@@ -51,3 +51,6 @@
 @_load{fae_orb};
 @_load{inventory};
 #showme {\nLoading complete.\n};
+
+retick;
+resplit;

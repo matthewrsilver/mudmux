@@ -1,10 +1,10 @@
 #act {[BEGIN %1]}{
-    #log append stored.log;
+    #log append {logs/stored.log};
     #line gag;
 }
 
 #act {[END %1]}{
-    #system echo "" >> stored.log;
+    #system echo "" >> logs/stored.log;
     #class storeall kill;
     #log off;
     #line gag;
