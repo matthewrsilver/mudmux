@@ -18,12 +18,17 @@
     #chat initialize;
     #chat name ohr;
     #chat call chat.mikejsavage.co.uk 4050;
-    #delay {2} {
+};
+
+#action {<CHAT> <%1> Hey, %2! %3chat me your password.} {
+    #delay {.1} {
         #read {config/.credentials};
         #chat message 1 $chat_pass;
         #unvar chat_pass;
+        #unaction {<CHAT> <%1>> Hey, %2! /chat me your password.};
     };
 };
+
 
 #list formies create {};
 #action {Your formation consists of:}{#list formies clear;};
@@ -158,7 +163,7 @@
 
 #alias {ccsend} {
     #var buffer {};
-    #class capclass read csend_class.tt;
+    #class capclass read {scripts/csend_class.tt};
     explicit %0;
 };
 
