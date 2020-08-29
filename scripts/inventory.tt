@@ -31,6 +31,7 @@
 #alias hm {get execution $container; hold execution;};
 #alias wand {get lightning $container; hold lightning;};
 #alias gem {get soulgem $container; hold soulgem;};
+#alias helm {get marious $container; wear marious;};
 
 #alias rehold {hold $base_held};
 

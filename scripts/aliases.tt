@@ -7,14 +7,18 @@
 
 #alias ofo {order followers %0};
 #alias daga {order %1 drop all.egg; get all.egg;};
+#alias gaec {get all.egg corp};
+#alias bc {get all.egg %1; put egg sack; #3 buy copper;};
 
 #alias dj {drink jug};
+#alias fj {cast create water jug};
 #alias ttt {#3 {cast minor creation trap; trap;};};
 
 #alias sr {cast shield room};
 #alias cs {cast sanc};
 #alias ssrr {st; sr; r;};
 #alias far {c farsight};
+#alias hf {use helm};
 
 #alias t {trip};
 #alias disp {cast dispel magic};
