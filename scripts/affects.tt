@@ -2,30 +2,50 @@
 @_module{affects};
 
 @_require{context};
+@_require{utils};
 
-#no todo: use booleans instead of off/on;
 #no todo: need to clean up spellup aliases;
 
-#variable track_affects off;
+#variable track_affects 0;
+
+#var mapped_affects {
+    {REP_ROOT} {Repaerdnim Root}
+    {DETECT-INVISIBLE} {Detect Invisibility}
+    {INFRAVISION} {Infravision}
+    {SENSE-LIFE} {Sense Life}
+};
+
+
+#function normalize_affect {
+    #format result {%p} {%1};
+    #if {&mapped_affects[$result]} {
+        #var result $mapped_affects[$result];
+    };
+};
+
+#function pad_affect {
+    #format result {%-20s} {%1};
+};
+
 
 #alias {init_affects} {
 
     #var affects {};
 
-    #var affects[Armor               ] { {ticks}{0} {messages}{} };
-    #var affects[Bless               ] { {ticks}{0} {messages}{} };
-    #var affects[Shield              ] { {ticks}{0} {messages}{} };
-    #var affects[Strength            ] { {ticks}{0} {messages}{} };
-    #var affects[Invisibility        ] { {ticks}{0} {messages}{} };
-    #var affects[Detect Invisibility ] { {ticks}{0} {messages}{} };
-    #var affects[Quickness           ] { {ticks}{0} {messages}{} };
-    #var affects[Infravision         ] { {ticks}{0} {messages}{} };
-    #var affects[Sense Life          ] { {ticks}{0} {messages}{} };
-    #var affects[Levitate            ] { {ticks}{0} {messages}{} };
-    #var affects[Sanctuary           ] { {ticks}{0} {messages}{} };
+    #var affects[Armor]               { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Bless]               { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Shield]              { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Strength]            { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Invisibility]        { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Detect Invisibility] { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Quickness]           { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Infravision]         { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Sense Life]          { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Levitate]            { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Sanctuary]           { {ticks}{0} {messages}{} {eq}{0}};
 
     #if { "$char_class" == "Mage" } {
-        #var affects[Stone Skin          ] { {ticks}{0} {messages}{} };
+        #var affects[Stone Skin] { {ticks}{0} {messages}{} };
     };
 
     #if { "$char_align" == "good" } {
@@ -43,39 +63,46 @@
 #gag {[END af]};
 
 #action {[BEGIN af]} {
-    #variable track_affects on;
+    #variable track_affects 1;
     init_affects;
 };
 
 #action {[END af]} {
-    #variable track_affects off;
+    #variable track_affects 0;
 
     #foreach $affects[] {a} {
 
         #var ticks $affects[$a][ticks];
         #var messages $affects[$a][messages];
+        #var from_eq $affects[$a][eq];
 
-        #if {$ticks > 3} {
-            #showme {  <149>$a<149>:<099> Duration - $ticks ticks$messages};
+        #var tick_str {$ticks ticks};
+        #var affect_pretty @pad_affect{$a};
+        #var affect_color {<149>};
+
+        #if {$from_eq} {
+            #var affect_color {<149>};
+        };
+        #elseif {$ticks > 3} {
+            #var affect_color {<149>};
+        };
+        #elseif {$ticks > 1} {
+            #var affect_color {<139>};
+        };
+        #elseif {$ticks == 1} {
+            #var affect_color {<139>};
+            #var tick_str {$ticks tick};
+        };
+        #elseif {"$ticks" == "fading"} {
+            #var affect_color {<119>};
+            #var tick_str {fading};
+        };
+        #else {
+            #showme {  <119>$affect_pretty<099>};
             #continue;
         };
 
-        #if {$ticks > 1} {
-            #showme {  <139>$a<149>:<099> Duration - $ticks ticks$messages};
-            #continue;
-        };
-
-        #if {$ticks == 1} {
-            #showme {  <139>$a<149>:<099> Duration - $ticks tick$messages};
-            #continue;
-        };
-
-        #if {"$ticks" == "fading"} {
-            #showme {  <119>$a<149>:<099> Duration - fading$messages};
-            #continue;
-        };
-
-        #showme {  <119>$a<099>};
+        #showme {  ${affect_color}${affect_pretty}<149>:<099> Duration - ${tick_str}${messages}};
 
     };
 
@@ -83,20 +110,43 @@
 
 
 #alias process_affect {
-    #if { "$track_affects" == "on"} {
+    #if {$track_affects} {
 
-        #variable affect {%1};
+        #variable affect @normalize_affect{%1};
         #variable ticks {%2};
         #variable message {%3};
 
+        #variable cur_message {$affects[$affect][messages]};
         #variable new_message {};
-        #if {"$message" != ""} {
-            #variable cur_message {$affects[$affect][messages]};
-            #variable new_message {$cur_message,$message};
+
+        #if {"$ticks" == "eq"} {
+
+            #if {"$cur_message" == ""} {
+                #variable new_message {, $message};
+            } {
+                #variable new_message {, $message,cur_message};
+            };
+
+            #variable cur_ticks {$affects[$affect][ticks]};
+            #if {!@is_set{$cur_ticks}}{
+                #variable cur_ticks {  0};
+            };
+
+
+            #variable affects[$affect] { {ticks}{$cur_ticks} {messages}{$new_message} {eq}{1}};
         };
 
-        #variable affects[$affect] { {ticks}{$ticks} {messages}{$new_message} };
-	    
+        #else {
+
+            #if {"$message" != ""} {
+                #variable new_message {$cur_message,$message};
+            };
+
+            #variable cur_eq_val $affects[$affect][eq];
+            #variable affects[$affect] { {ticks}{$ticks} {messages}{$new_message} {eq}{$cur_eq_val}};
+
+        };
+
         #line gag;
     };
 };
@@ -126,6 +176,9 @@
     process_affect {%1} {fading} {%2};
 } {3};
 
+#action {  %1: From Equipment} {
+    process_affect {%1} {eq} {From Equipment};
+} {1};
 
 #no;
 #no Alias for preparing all spells;
@@ -149,7 +202,7 @@
        c armor;
        c bless;
        c shield;
-       c q; 
+       c q;
        c stren;
 };
 
@@ -160,8 +213,10 @@
         #var messages $affects[$a][messages];
 
         #if {$ticks < 3} {
-            #showme {Casting $a};
-            cast $a;
+            #if {"$a" != "Repaerdnim Root"} {
+                #showme {Casting $a};
+                cast $a;
+            };
         };
 
     };

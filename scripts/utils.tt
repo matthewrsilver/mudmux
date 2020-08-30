@@ -10,3 +10,36 @@
     #math result {"%1" != ""};
 };
 
+#function str_len {
+    #list seq tokenize %1;
+    #list seq size result;
+};
+
+#function max {
+    #if {%1 >= %2}{
+        #return %1;
+    };
+    #return %2;
+};
+
+#function min {
+    #if {%1 <= %2}{
+        #return %1;
+    };
+    #return %2;
+};
+
+#function join_from_reference {
+    #list referent create ${%1}[%*];
+    #local delim %2;
+    #list referent size len;
+
+    #if {$len > 0} {
+        #var result $referent[1];
+    };
+    #if {$len > 1} {
+        #loop 2 $len i {
+            #var result {${result}${delim}$referent[$i]};
+        };
+    };
+};
