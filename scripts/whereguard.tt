@@ -1,0 +1,78 @@
+#no muxmed module whereguard.tt;
+@_module{whereguard};
+
+@_require{utils}
+@_require{chat}
+
+#no todo: incorporate into chat;
+#no todo: simple interface;
+#no todo: clean up outputs;
+
+#var players_in_vicinity {};
+#var current_vicinity {};
+#var report_where_changes 0;
+
+#alias repwhere {
+    #var report_where_changes @math{!$report_where_changes};
+};
+
+#gag {[BEGIN where]};
+#gag {[END where]};
+
+#function announce_entrance {
+    #local message {<168>%1<148> has entered where.<088>};
+    #var result {<138>[[<088> $message <138>]]<088>};
+};
+
+#function announce_exit {
+    #local message {<168>%1<148> has left where.<088>};
+    #var result {<138>[[<088> $message <138>]]<088>};
+};
+
+#alias {whe} {
+    #action {^[%%1{[ ]*}] - %%3$} {
+        #var current_vicinity[%%1] {%%3};
+    };
+    page -none explicit where;
+};
+
+#action {[END where]} {
+
+    #unaction {^[%%1{[ ]*}] - %%3$};
+
+    #list player_reports create {};
+
+    #no Check for new players in current;
+    #foreach {$current_vicinity[]} {cur_player} {
+        #if { @is_set{$cur_player} && !&players_in_vicinity[$cur_player] } {
+            #var player_announcement @announce_entrance{$cur_player};
+            #list player_reports add {$player_announcement};
+            #no announce_entrance {$cur_player};
+        };
+    };
+
+
+    #no Check for players that have left;
+    #foreach {$players_in_vicinity[]} {cur_player} {
+        #if { @is_set{$cur_player} && !&current_vicinity[$cur_player] } {
+            #var player_announcement @announce_exit{$cur_player};
+            #list player_reports add {$player_announcement};
+            #no announce_exit {$cur_player};
+        };
+    };
+
+    #list player_reports size num_reports;
+    #if {$num_reports > 0} {
+        #var whereguard_update @join_from_reference{player_reports;\n};
+        #if {$report_where_changes} {
+            #chat emote all {\n$whereguard_update};
+        };
+        #else {
+            #showme $whereguard_update;
+        };
+    };
+
+    #var players_in_vicinity $current_vicinity;
+    #var current_vicinity {};
+
+};
