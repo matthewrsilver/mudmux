@@ -4,9 +4,58 @@
 @_require{context};
 @_require{utils};
 
-#no todo: need to clean up spellup aliases;
+#no TODO: clean up the should_do_spellup, spellup_threshold, etc.
+#no TODO: track the essential affects differently than additionals for spellup
 
 #variable track_affects 0;
+#variable should_do_spellup 0;
+#variable spellup_threshold_default 10000;
+#variable spellup_threshold $spellup_threshold_default;
+
+#alias {sc} {explicit sc};
+#alias {af} {explicit af};
+#gag {Spell Affects:};
+#gag {You are affected by:};
+
+#action {[BEGIN af]} {
+    #variable track_affects 1;
+    init_affects;
+    #line gag;
+};
+
+#action {[END af]} {
+    #variable track_affects 0;
+
+    #if {$should_do_spellup}{
+        #var should_do_spellup 0;
+        do_spellup;
+    };
+
+    #else {
+        #echo {<139>Spell Affects:<099>};
+        #echo {<149>You are affected by:<099>};
+        list_all_affects;
+    };
+
+    #line gag;
+};
+
+#action {[BEGIN sc]} {
+    #line gag;
+};
+
+#action {You are carrying %1 items with a weight of %2 stones} {
+    #variable track_affects 1;
+    init_affects;
+};
+
+#action {[END sc]} {
+    #if {$track_affects} {
+        #variable track_affects 0;
+        list_all_affects;
+    };
+    #line gag;
+};
 
 #var mapped_affects {
     {REP_ROOT} {Repaerdnim Root}
@@ -55,20 +104,10 @@
     #if { "$char_align" == "evil" } {
         #var affects[Protection from Good] { {ticks}{0} {messages}{} };
     };
-    
+
 };
 
-#alias {af} {explicit af};
-#gag {[BEGIN af]};
-#gag {[END af]};
-
-#action {[BEGIN af]} {
-    #variable track_affects 1;
-    init_affects;
-};
-
-#action {[END af]} {
-    #variable track_affects 0;
+#alias list_all_affects {
 
     #foreach $affects[] {a} {
 
@@ -151,6 +190,22 @@
     };
 };
 
+#alias do_spellup {
+
+    #foreach $affects[] {a} {
+
+        #var ticks $affects[$a][ticks];
+        #var messages $affects[$a][messages];
+
+        #if {$ticks < $spellup_threshold} {
+            #if {"$a" != "Repaerdnim Root"} {
+                cast $a;
+            };
+        };
+
+    };
+
+};
 
 #action {  %1: Duration - %2 ticks,%3} {
     process_affect {%1} {%2} {%3};
@@ -180,47 +235,14 @@
     process_affect {%1} {eq} {From Equipment};
 } {1};
 
-#no;
-#no Alias for preparing all spells;
-#no;
-
 #alias {spellup} {
-       c armor;
-       c bless;
-       c lev;
-       c quick;
-       c d i;
-       c sense li;
-       c infra;
-       c inv;
-       c shield;
-       c stren;
-};
-
-#alias {quickspell} {
-       c d i;
-       c armor;
-       c bless;
-       c shield;
-       c q;
-       c stren;
+    #var should_do_spellup 1;
+    #var spellup_threshold $spellup_threshold_default;
+    af;
 };
 
 #alias {smartspell} {
-    #foreach $affects[] {a} {
-
-        #var ticks $affects[$a][ticks];
-        #var messages $affects[$a][messages];
-
-        #if {$ticks < 3} {
-            #if {"$a" != "Repaerdnim Root"} {
-                #showme {Casting $a};
-                cast $a;
-            };
-        };
-
-    };
-
+    #var should_do_spellup 1;
+    #var spellup_threshold 3;
     af;
-
 };
