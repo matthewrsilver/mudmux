@@ -4,8 +4,10 @@
 @_require{context};
 @_require{utils};
 
-#no TODO: clean up the should_do_spellup, spellup_threshold, etc.
-#no TODO: track the essential affects differently than additionals for spellup
+#no TODO: clean up the should_do_spellup, spellup_threshold, etc.;
+#no TODO: track the essential affects differently than additionals for spellup;
+#no TODO: support a quick spellup?;
+#no TODO: mark affects based on use cases? so combs spells are purple and bad ones are red?;
 
 #variable track_affects 0;
 #variable should_do_spellup 0;
@@ -14,8 +16,24 @@
 
 #alias {sc} {explicit sc};
 #alias {af} {explicit af};
-#gag {Spell Affects:};
-#gag {You are affected by:};
+
+#action {Spell Affects:} {
+    #if {$track_affects} {
+        #line gag;
+    };
+};
+
+#action {You are affected by:} {
+    #if {$track_affects} {
+        #line gag;
+    };
+};
+
+#action {You are not affected by any enchantment.} {
+    #if {$track_affects} {
+        #line gag;
+    };
+};
 
 #action {[BEGIN af]} {
     #variable track_affects 1;
@@ -205,6 +223,8 @@
 
     };
 
+    af;
+
 };
 
 #action {  %1: Duration - %2 ticks,%3} {
@@ -235,14 +255,11 @@
     process_affect {%1} {eq} {From Equipment};
 } {1};
 
-#alias {spellup} {
+#alias {sp} {
     #var should_do_spellup 1;
     #var spellup_threshold $spellup_threshold_default;
-    af;
-};
-
-#alias {smartspell} {
-    #var should_do_spellup 1;
-    #var spellup_threshold 3;
+    #if {@is_set{%1}} {
+        #var spellup_threshold %1;
+    };
     af;
 };

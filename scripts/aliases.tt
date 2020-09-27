@@ -12,15 +12,22 @@
 
 #alias dj {drink jug};
 #alias fj {cast create water jug};
-#alias ttt {#3 {cast minor creation trap; trap;};};
+#alias tt {cast minor creation trap; trap;};
+#alias ttt {#3 tt;};
 
 #alias sr {cast shield room};
 #alias cs {cast sanc};
 #alias ssrr {st; sr; r;};
-#alias far {c farsight};
-#alias hf {use helm};
 
-#alias t {trip};
+#alias far {c farsight};
+#alias hf {use helm %1 brief};
+#alias hn {hf n};
+#alias hs {hf s};
+#alias he {hf e};
+#alias hw {hf w};
+#alias hu {hf u};
+#alias hd {hf d};
+
 #alias disp {cast dispel magic};
 #alias sw {cast shockwave};
 #alias bo {cast bolt};
@@ -39,6 +46,7 @@
 };
 
 #alias j {bo @target_default{%1};};
+#alias t {trip @target_default{%1};};
 
 #alias res {hold soulgem; c res};
 
