@@ -1,0 +1,204 @@
+#no muxmed module appraise.tt;
+@_module{appraise};
+
+@_require{utils};
+
+#no TODO: under development;
+
+
+
+
+#no TODO: items that are worn;
+#no TODO: brief items need all of the middle things parsed out;
+#no TODO: Egged condition requires a sequence of tokens;
+
+#var collect_item_stats 0;
+
+#alias {ap} {explicit appraise};
+
+#action {[BEGIN appraise]} {
+    #var collect_item_stats 1;
+    #var item_stats {};
+    #line gag;
+};
+
+#action {[END appraise]} {
+    #var collect_item_stats 0;
+    #line gag;
+};
+
+#action {Object: %1 [%2]} {
+    #var item_stats[name] @strip{%1};
+    #var item_stats[short_names] @strip{%2};
+} {5};
+
+#action {Object: %1 [%2] - %3} {
+    #var item_stats[name] @strip{%1};
+    #var item_stats[short_names] @strip{%2};
+    #var item_stats[dub] @strip{%3};
+} {1};
+
+#action {Item Type: %1 Effects: %2} {
+    #var item_stats[type] @strip{%1};
+    #var item_stats[effects] @strip{%2};
+};
+
+#action {Item will give you following abilities: %1} {
+    #var item_stats[affects] @strip{%1};
+};
+
+#action {Equipable Location(s): %1} {
+    #var item_stats[location] @strip{%1};
+};
+
+#action {Weight: %1 Value: %2 Level Restriction: %3} {
+    #var item_stats[weight] @strip{%1};
+    #var item_stats[values] @strip{%2};
+    #var item_stats[level] @strip{%3};
+};
+
+#action {Bound To: %1} {
+    #var item_stats[bound] @strip{%1};
+};
+
+#action {Days Left: %1} {
+    #var item_stats[days] @strip{%1};
+};
+
+#action {Focus for: %1} {
+    #var item_stats[focus] @strip{%1};
+};
+
+#action {Strength: %1} {
+    #var item_stats[focus_strength] @strip{%1};
+};
+
+#action {Class Restrictions: %1} {
+    #var item_stats[class_restrictions] @strip{%1};
+};
+
+#action {Attributes: %1} {
+    #var item_stats[attributes] @strip{%1};
+};
+
+#action {Damage Dice of %1} {
+    #var item_stats[dice] @strip{%1};
+};
+
+#action {AC-apply of %1} {
+    #var item_stats[ac-apply] @strip{%1};
+};
+
+#action {Regenerates level %1 spell%2 of %3.  Has %4 maximum charges.} {
+    #var item_stats[regen] {%3 (%4@%1)};
+};
+
+#action {Level %1 spell%2 of %3.  Holds %4 charges and has %5 charges left.} {
+    #var item_stats[spells] {%3 (%5/%4@%1)};
+} {1};
+
+#action {Level %1 spell%2 of %3} {
+    #var item_stats[spells] @strip{%3@%1};
+} {5};
+
+#action {If eaten, this will produce the effects of the %1 spell.} {
+    #var item_stats[eat_effects] @strip{%1};
+};
+
+#action {Fae Magic in orb: %1} {
+    #var item_stats[fae] @strip{%1};
+};
+
+#action {    %1 to %2} {
+    #if {&item_stats[%2]} {
+        #var item_stats[%2] {$item_stats[%2] %1};
+    };
+    #else {
+        #var item_stats[%2] {%1};
+    };
+} {5};
+
+#action {    %1 to %2 (%3)} {
+    #if {&item_stats[%2]} {
+        #var item_stats[%2] {$item_stats[%2], %1 %3};
+    };
+    #else {
+        #var item_stats[%2] {%1 %3};
+    };
+} {1};
+
+
+#action {This object has been blessed by the Gods and seems indestructible.} {
+    #var item_stats[condition] {nodet};
+};
+
+#action {The object appears to be in perfect pristine condition.} {
+    #var item_stats[condition] {pristine};
+};
+
+#action {The object appears to be in excellent condition.} {
+    #var item_stats[condition] {excellent};
+};
+
+#action {The object appears to be in good condition.} {
+    #var item_stats[condition] {good};
+};
+
+#action {The object appears to be in fair condition.} {
+    #var item_stats[condition] {fair};
+};
+
+#action {The object is in fair condition but has some scratches.} {
+    #var item_stats[condition] {scratched};
+};
+
+#action {The object clearly shows major signs of wear and tear.} {
+    #var item_stats[condition] {worn};
+};
+
+#action {The object looks as if it will fall apart any day now.} {
+    #var item_stats[condition] {any day};
+};
+
+#action {The life of this object is clearly coming to an end soon.} {
+    #var item_stats[condition] {ending};
+};
+
+#action {The object is visibly worn down with major wear.} {
+    #var item_stats[condition] {worn down};
+};
+
+#action {It is surrounded by a faint, green aura.} {
+    #var item_stats[egged] {faint green};
+};
+
+#action {It is surrounded by a bright, green aura.} {
+    #var item_stats[egged] {bright green};
+};
+
+
+#alias {||parseitems||} {
+
+    #var tokens @strtok{%0;" "};
+
+    #show $tokens;
+
+
+};
+
+#action {%1 - Lev(%2) Loc(%3) %4 Cond(%5 Days)} {
+    #var item_stats[name] @strip{%1};
+    #var item_stats[level] @strip{%2};
+    #var item_stats[location] @strip{%3};
+
+    ||parseitems|| %4;
+
+    #var tokens @strtok{%5;" "};
+    #var item_stats[days] $tokens[-1];
+    #var item_stats[condition] $tokens[1];
+
+    #if {"$tokens[3]" == "Egged"} {
+        #list tokens get 5 _egged;
+        #var item_stats[egged] $_egged;
+    };
+};
