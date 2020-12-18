@@ -1,5 +1,4 @@
 Update README
-Segmentation fault on chat call??
 Clean up various names of everything (muxmed, medmux, docker container, tmux session, etc. etc. etc.)
 set up .emacs in docker?
 upgrade tintin?
