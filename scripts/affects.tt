@@ -4,6 +4,7 @@
 @_require{context};
 @_require{utils};
 
+#no TODO: sc l triggers display of all red spells first time after logon;
 #no TODO: clean up the should_do_spellup, spellup_threshold, etc.;
 #no TODO: track the essential affects differently than additionals for spellup;
 #no TODO: support a quick spellup?;

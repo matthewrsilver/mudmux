@@ -73,9 +73,10 @@
     c d i;
 
     #if {"%1" == "full"} {
-        mode comb;
+        mode sw;
         mode dragon;
         mode mana;
+        mode comb;
         mode bolt;
         mode base;
     };

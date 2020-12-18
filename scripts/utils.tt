@@ -6,6 +6,27 @@
     #math result {%0};
 };
 
+#function strip {
+    #format result {%p} {%0};
+};
+
+#function strtok {
+    #var str %1;
+    #var delim %2;
+    #list result create {};
+    #var cur_tok {};
+    #parse {$str} {char} {
+        #if {"$char" == $delim} {
+            #list result add $cur_tok;
+            #var cur_tok {};
+        };
+        #else {
+            #var cur_tok {${cur_tok}${char}};
+        };
+    };
+    #list result add $cur_tok;
+};
+
 #function is_set {
     #math result {"%1" != ""};
 };
