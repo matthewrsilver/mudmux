@@ -1,0 +1,7 @@
+Update README
+Segmentation fault on chat call??
+Clean up various names of everything (muxmed, medmux, docker container, tmux session, etc. etc. etc.)
+set up .emacs in docker?
+upgrade tintin?
+source layout with docker...
+  - requirements for this package (docker, tmux, etc.) vs for the docker container itself (zlib, pcre, etc.)
