@@ -23,10 +23,12 @@ $ docker-compose build
 
 ## Running medmux
 
-Once the docker container has been built, medmux can be run any time simply by executing the `mexmux` bash script:
+Once the docker container has been built, medmux can be run any time simply by executing the `medmux` bash script:
 
 ```
 $ ./medmux
 ```
 
 This script creates a tmux session on the host machine with several panels: one for running tintin++ inside a `medmux-container` image, one that tails a log of in-game communications, and one running emacs to allow for editing of text files and note keeping. Each of these panels will automatically run the appropriate content. As discussed above, iTerm2 tmux integration is used, so each of the tmux panels is represented as a native iTerm2 panel, allowing for easy scrolling among many other features.
+
+![Medievia in medmux](data/Medievia in medmux.png)
