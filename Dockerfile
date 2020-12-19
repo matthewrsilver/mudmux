@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-LABEL description="muxmed tintin-based medievia environment"
+LABEL description="medmux tintin-based medievia environment"
 
 # Prepare for installs
 RUN apt-get update && apt-get -y upgrade
