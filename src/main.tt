@@ -1,5 +1,5 @@
 #no muxmed main.tt
-#read modules.tt;
+#read src/modules.tt;
 
 #config {repeat enter} on;
 #config {color patch} on;

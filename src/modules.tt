@@ -1,5 +1,5 @@
 #no muxmed module management;
-#var module_path {scripts};
+#var module_path {src/scripts};
 #var _modules[_] {};
 
 #alias read_module {

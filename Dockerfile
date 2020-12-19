@@ -11,4 +11,9 @@ RUN wget https://sourceforge.net/projects/tintin/files/TinTin%2B%2B%20Source%20C
 WORKDIR /tmp/tt/src
 RUN ./configure && make && make install
 
+# Set up working environment
+SHELL ["/bin/bash", "--login", "-c"]
+ENV PATH="$PATH:/home/med-scripts/bin"
+ENV MEDMUX_BASE_PATH="/home/med-scripts"
+ENV MEDMUX_SRC_PATH="/home/med-scripts/src"
 WORKDIR /home/med-scripts

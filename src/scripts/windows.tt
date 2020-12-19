@@ -88,6 +88,6 @@
 #act {~You hear %1 shout, %2} {@datelog{{SHOUT}{%0}};};
 
 #alias {store} {
-    #class storeall read scripts/store.tt;
+    #class storeall read src/scripts/store.tt;
     explicit %0;
 }

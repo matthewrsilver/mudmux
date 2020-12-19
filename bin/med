@@ -1,0 +1,5 @@
+#!/bin/bash
+
+tt++ -G -r ${MEDMUX_SRC_PATH}/main.tt -t Medievia
+
+

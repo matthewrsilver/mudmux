@@ -163,7 +163,7 @@
 
 #alias {ccsend} {
     #var buffer {};
-    #class capclass read {scripts/csend_class.tt};
+    #class capclass read {src/scripts/csend_class.tt};
     explicit %0;
 };
 
