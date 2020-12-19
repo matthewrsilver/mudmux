@@ -1,5 +1,6 @@
 #! /bin/bash
 
+MEDMUX_INSTALL_PATH="$(pwd)"
 DOCKER_CMD="docker run -ti --network=host -e TERM -v ${MEDMUX_INSTALL_PATH}:/home/med-scripts medmux-container:latest mm"
 RCFILE=".profile"
 

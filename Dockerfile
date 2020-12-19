@@ -14,6 +14,5 @@ RUN ./configure && make && make install
 # Set up working environment
 SHELL ["/bin/bash", "--login", "-c"]
 ENV PATH="$PATH:/home/med-scripts/bin"
-ENV MEDMUX_BASE_PATH="/home/med-scripts"
 ENV MEDMUX_SRC_PATH="/home/med-scripts/src"
 WORKDIR /home/med-scripts
