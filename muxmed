@@ -1,8 +1,0 @@
-#! /bin/bash
-
-tmux new-session -s medmux -d "bash --init-file <(echo '. ../.bashrc && sleep 1 && echo -e \"\033]50;SetProfile=med\a\" && ./med')"
-tmux split-window -h -p 25 "bash --init-file <(echo '. ../.bashrc && tail -f logs/communications.log')"
-tmux split-window -v "bash --init-file <(echo '. ../.bashrc && emacs notes.txt')"
-tmux -CC attach -t medmux -d
-
-echo -e "\033]50;SetProfile=Default\a"

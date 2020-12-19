@@ -1,5 +1,0 @@
-#!/bin/bash
-
-tt++ -G -r main.tt -t Medievia
-
-

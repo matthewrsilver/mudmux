@@ -1,0 +1,37 @@
+#no medmux module room_reader.tt;
+@_module{room_reader};
+
+#var room_reader_debug 0;
+#var room_name {};
+
+#alias room_reader_debug_log {
+    #if {$room_reader_debug}{
+        #echo {<119><ROOM READER> %1};
+    };
+};
+
+#alias extract_room_desc_from_map {
+
+    #regexp {%0} {\300%+\264%*\303%+\331} {
+
+        #var room_name {&2};
+        room_reader_debug_log {Detected room name "$room_name" in map bottom.};
+
+    }{
+
+        room_reader_debug_log {Did not detect room name in map bottom.};
+
+        #act {%*} {
+            #var room_name {%%0};
+            room_reader_debug_log {Detected room name "$room_name" after map.};
+            #unact {%*};
+        };
+
+    };
+
+};
+
+#act {^\300%1\331$} {
+    room_reader_debug_log {Detected map bottom.};
+    extract_room_desc_from_map {%0};
+};

@@ -1,0 +1,84 @@
+#no medmux module aliases.tt;
+@_module{aliases};
+
+@_require{utils};
+
+#var targeted_player {};
+
+#alias ofo {order followers %0};
+#alias daga {order %1 drop all.egg; get all.egg;};
+#alias gaec {get all.egg corp};
+#alias bc {get all.egg %1; put egg sack; #3 buy copper;};
+
+#alias dj {drink jug};
+#alias fj {cast create water jug};
+#alias tt {cast minor creation trap; trap;};
+#alias ttt {#3 tt;};
+
+#alias sr {cast shield room};
+#alias cs {cast sanc};
+#alias ssrr {st; sr; r;};
+
+#alias far {c farsight};
+#alias hf {use helm %1 brief};
+#alias hn {hf n};
+#alias hs {hf s};
+#alias he {hf e};
+#alias hw {hf w};
+#alias hu {hf u};
+#alias hd {hf d};
+
+#alias disp {cast dispel magic};
+#alias sw {cast shockwave};
+#alias bo {cast bolt};
+
+#alias tg {
+    #var targeted_player %1;
+    #echo {Now targeting $targeted_player};
+};
+
+#function target_default {
+    #if {@is_set{%1}}{
+        #var result {%1};
+    } {
+        #var result {$targeted_player};
+    };
+};
+
+#alias j {bo @target_default{%1};};
+#alias t {trip @target_default{%1};};
+
+#alias res {hold soulgem; c res};
+
+#alias run {--; q menthol};
+#alias mm {c mal; #regex {%2}{^{[}nsewud{]}$}{%2}; mal %1;};
+
+
+#alias {gac} {
+    #if {%1} {
+        get all %1.corpse;
+    } {
+        get all corpse;
+    };
+
+};
+
+#alias {grin} {emote grins.};
+#alias {trash} {emote magically disposes of any trash which litters the street here.};
+
+#no Dragons...;
+
+#tab {umount}
+#alias {umount} {dismount};
+
+#var do_on_land {stat};
+
+#act {%1 banks slowly and descends in small circles until you land.}{
+    $do_on_land;
+    #var do_on_land stat;
+};
+
+#alias {onland} {
+    #var do_on_land {%0};
+    #echo {Ok. On landing, will do "$do_on_land"};
+};

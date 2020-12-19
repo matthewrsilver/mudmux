@@ -1,0 +1,125 @@
+#no medmux module inventory.tt;
+@_module{inventory};
+
+#no todo: detect modes automatically;
+#no todo: simple interface;
+
+#var container {hole};
+#var secondary_container {sack};
+#var base_held {bouquet};
+
+
+#alias setcontainer {
+    #if {%2 == 2} {
+        #echo {Setting secondary container to "%1"};
+        #var secondary_container {%1};
+    } {
+        #echo {Setting primary/mode container to "%1"};
+        #var container {%1};
+        mode $container container;
+    };
+};
+
+#alias whatcontainer {
+    #echo {Primary/mode container is set to "$container"};
+    #echo {Secondary container is set to "$secondary_container"};
+};
+
+#alias sph {get retribution $container; hold retribution;};
+#alias mask {get alluring $container; wear alluring;};
+#alias kahn {get kahn $container; hold kahn;};
+#alias hm {get execution $container; hold execution;};
+#alias wand {get lightning $container; hold lightning;};
+#alias gem {get soulgem $container; hold soulgem;};
+#alias helm {get marious $container; wear marious;};
+
+#alias rehold {hold $base_held};
+
+#alias ec {
+    hold %1;
+    use held;
+    rem %1;
+    map;
+    whe;
+    #if {"%2" == "reattune"} {
+        c attune %1;
+    };
+};
+
+#alias ecfg {
+    c tel;
+    get fg01 $secondary_container;
+    get fg02 $secondary_container;
+    ec fg01 %0;
+    ec fg02 %0;
+    put fg01 $secondary_container;
+    put fg02 $secondary_container;
+    hold $base_held;
+    c s p wemic
+};
+
+#alias eccasti {
+    c tel;
+    get ca01 $secondary_container;
+    ec ca01 %0;
+    put ca01 $secondary_container;
+    hold $base_held;
+};
+
+
+#alias org {
+
+    stand;
+    c d i;
+
+    #if {"%1" == "full"} {
+        mode sw;
+        mode dragon;
+        mode mana;
+        mode comb;
+        mode bolt;
+        mode base;
+    };
+
+    put kahn $container;
+    put alluring $container;
+    put retribution $container;
+    put all.resonance $container;
+    put chameleon $container;
+    put veil $container;
+    put execution $container;
+
+    sort;
+    setitem both;
+
+    put all.fae $secondary_container;
+    put all.token $secondary_container;
+    put all.potion $secondary_container;
+    put all.flask $secondary_container;
+    put all.elixir $secondary_container;
+    put all.vial $secondary_container;
+    put all.jelly $secondary_container;
+    put all.healing $secondary_container;
+    put all.candy $secondary_container;
+    put all.broom $secondary_container;
+    put all.crystal $secondary_container;
+    put all.distilled $secondary_container;
+    put all.root $secondary_container;
+    put all.scrying $secondary_container;
+    put all.stone $secondary_container;
+
+    put all.heal arch;
+    put all.bladder arch;
+    put all.lung arch;
+
+};
+
+#substitute { ![ pristine] a belt pouch(invisible)}{ <128>!<088>[ <158>pristine<088>] <158>a belt pouch(invisible)<088>};
+#substitute { ![ pristine] a griffon-hide pack(invisible)}{ <128>!<088>[ <158>pristine<088>] <158>a griffon-hide pack(invisible)<088>};
+#substitute { ![ pristine] a band of skin, sewn together to form a small pouch(invisible)..humming quietly}{ <128>!<088>[ <158>pristine<088>] <158>a band of skin, sewn together to form a small pouch(invisible)..humming quietly<088>};
+#substitute { ![ pristine]%1a multi-colored key ring(invisible)}{ <128>!<088>[ <158>pristine<088>]<158>%1a multi-colored key ring(invisible)<088>};
+#substitute { ![     good]%1a flask filled with a translucent violet liquid%2}{ <128>!<088>[ <148>    good<088>]<148>%1a flask filled with a translucent violet liquid%2<088>};
+#substitute { ![ pristine]%1a flask filled with a translucent violet liquid%2}{ <128>!<088>[ <148>pristine<088>]<148>%1a flask filled with a translucent violet liquid%2<088>};
+#substitute { ![excellent]%1a flask filled with a translucent violet liquid%2}{ <128>!<088>[ <148>pristine<088>]<148>%1a flask filled with a translucent violet liquid%2<088>};
+#substitute { ![ pristine]%1a menthol potion%2}{ <128>!<088>[ <148>pristine<088>]<148>%1a menthol potion%2<088>};
+#substitute { ![ pristine] the Gem of Souls(invisible)%1}{ <128>!<088>[ <148>pristine<088>] <148>the Gem of Souls(invisible)%1<088>};

@@ -1,0 +1,43 @@
+#no medmux module reps/defensive/mal.tt
+@_module{reps/defensive/mal};
+
+@_require{chat};
+@_require{splitprompt};
+@_require{room_reader};
+
+#no todo: consolidate room type stuff
+
+
+#action {%1 raises %2 hands and strikes you with a burst of power.} {
+    #var prompt_rep_trigger {||| MALEDICTED TRIGGER:: %1.};
+};
+
+#action {||| MALEDICTED TRIGGER:: %1.} {
+
+    #math mal_dmg {$prev_hit_points - $current_hit_points};
+    #var pk_string {};
+    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
+    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
+
+    @do_combatrep{vbad; <148>I've been <118>MALEDICTED<148> by <168>%1<148> for <118>$mal_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
+
+    #line gag;
+
+};
+
+#action {%1 smiles triumphantly as the lethal bolt of magic dissolves you.} {
+    #var prompt_rep_trigger {||| MALEDICTED TO DEATH TRIGGER:: %1.};
+};
+
+#action {||| MALEDICTED TO DEATH TRIGGER:: %1.} {
+
+    #math mal_dmg {$prev_hit_points - $current_hit_points};
+    #var pk_string {};
+    #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
+    #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
+
+    @do_combatrep{vbad; <148>I've been <118>MALEDICTED TO DEATH<148> by <168>%1<148> for <118>$mal_dmg<148> damage.};
+
+    #line gag;
+
+};

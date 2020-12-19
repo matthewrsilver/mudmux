@@ -1,0 +1,106 @@
+#no medmux module fae_orb.tt;
+@_module{fae_orb};
+
+@_require{utils};
+
+#var server_epoch {};
+#var send_chat {0};
+#var days_until_solar_eclipse {};
+#var days_until_new_moon {};
+
+#var faeorb_spells {
+
+    {double_xp} {
+        {name} {Double XP}        {power} {2} {duration} {2} {frequency} {2}  {cost} {1000000}
+    }
+
+    {remove_storms} {
+        {name} {Remove Storms}    {power} {3} {duration} {6} {frequency} {90} {cost} {100000}
+    }
+
+    {create_rainstorm} {
+        {name} {Create Rainstorm} {power} {3} {duration} {1} {frequency} {63}
+    }
+
+    {locate_serpents} {
+        {name} {Locate Serpents}  {power} {1} {duration} {2} {frequency} {79}
+    }
+
+};
+
+#function date_to_epoch {
+    #var date {%1};
+    #var date_flag {};
+    #if { @is_set{$date} } {
+        #var date_flag {--date="$date"};
+    };
+    #script {result_lines} {date $date_flag +%s};
+    #var result $result_lines[1];
+};
+
+#function days_until {
+    #math result {(%1 - $server_epoch) / 86400};
+};
+
+#action {^The current system time is %1 %2{[ ]{1,2}}%4 %5:%6:%7 %8$} {
+    #var server_epoch @date_to_epoch{%4-%2-%8 %5:%6:%7};
+};
+
+#action {^Next New Moon:   %w %+ %d %d:%d:%d %d Fae Clams making Frae} {
+    #var new_moon @date_to_epoch{%3-%2-%7 %4:%5:%6};
+    #var days_until_new_moon @days_until{$new_moon};
+};
+
+#action {^Eclipse Start:   %w %+ %d %d:%d:%d %d Fae Clams making Stae} {
+    #var solar_eclipse @date_to_epoch{%3-%2-%7 %4:%5:%6};
+    #var days_until_solar_eclipse @days_until{$solar_eclipse};
+};
+
+#function faeorb_header_string {
+    #var result {<138>[<118>Fae Orb Codes<138>]  [ <118>POW  DUR  FRQ  COST<138>  ]};
+};
+
+#function faeorb_spell_string {
+
+    #var spell_key {%1};
+    #var spell {$faeorb_spells[$spell_key]};
+    #var spell_name {$spell[name]:};
+
+    #math power {$spell[power] + $days_until_solar_eclipse};
+    #math duration {$spell[duration] + $days_until_new_moon};
+
+    #if {&spell[cost]} {
+        #var spell_cost {$spell[cost]};
+    } {
+        #math spell_cost {$power * $duration * 1000};
+    };
+
+    #format code {%-5s%-5s%-5s%s} {$power} {$duration} {$spell[frequency]} {$spell_cost};
+    #format result {<148>%-17s  <178>%s<088>} {$spell_name} {$code};
+
+};
+
+#function fae_spells_string {
+    #format result {%s\n%s\n%s\n%s\n%s\n}
+        {@faeorb_header_string{}}
+        {@faeorb_spell_string{double_xp}}
+        {@faeorb_spell_string{create_rainstorm}}
+        {@faeorb_spell_string{remove_storms}}
+        {@faeorb_spell_string{locate_serpents}};
+};
+
+#alias ccfae {
+    #var send_chat {1};
+    time;
+};
+
+#action {^Medievia has 7 days a week, 5 weeks a month}{
+
+    #show @fae_spells_string{};
+
+    #if {$send_chat} {
+        #var send_chat {0};
+        #chat emote all pastes:\n\n@fae_spells_string{};
+    };
+
+} {1};

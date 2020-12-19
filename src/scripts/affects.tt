@@ -1,0 +1,266 @@
+#no medmux module affects.tt;
+@_module{affects};
+
+@_require{context};
+@_require{utils};
+
+#no TODO: sc l triggers display of all red spells first time after logon;
+#no TODO: clean up the should_do_spellup, spellup_threshold, etc.;
+#no TODO: track the essential affects differently than additionals for spellup;
+#no TODO: support a quick spellup?;
+#no TODO: mark affects based on use cases? so combs spells are purple and bad ones are red?;
+
+#variable track_affects 0;
+#variable should_do_spellup 0;
+#variable spellup_threshold_default 10000;
+#variable spellup_threshold $spellup_threshold_default;
+
+#alias {sc} {explicit sc};
+#alias {af} {explicit af};
+
+#action {Spell Affects:} {
+    #if {$track_affects} {
+        #line gag;
+    };
+};
+
+#action {You are affected by:} {
+    #if {$track_affects} {
+        #line gag;
+    };
+};
+
+#action {You are not affected by any enchantment.} {
+    #if {$track_affects} {
+        #line gag;
+    };
+};
+
+#action {[BEGIN af]} {
+    #variable track_affects 1;
+    init_affects;
+    #line gag;
+};
+
+#action {[END af]} {
+    #variable track_affects 0;
+
+    #if {$should_do_spellup}{
+        #var should_do_spellup 0;
+        do_spellup;
+    };
+
+    #else {
+        #echo {<139>Spell Affects:<099>};
+        #echo {<149>You are affected by:<099>};
+        list_all_affects;
+    };
+
+    #line gag;
+};
+
+#action {[BEGIN sc]} {
+    #line gag;
+};
+
+#action {You are carrying %1 items with a weight of %2 stones} {
+    #variable track_affects 1;
+    init_affects;
+};
+
+#action {[END sc]} {
+    #if {$track_affects} {
+        #variable track_affects 0;
+        list_all_affects;
+    };
+    #line gag;
+};
+
+#var mapped_affects {
+    {REP_ROOT} {Repaerdnim Root}
+    {DETECT-INVISIBLE} {Detect Invisibility}
+    {INFRAVISION} {Infravision}
+    {SENSE-LIFE} {Sense Life}
+};
+
+
+#function normalize_affect {
+    #format result {%p} {%1};
+    #if {&mapped_affects[$result]} {
+        #var result $mapped_affects[$result];
+    };
+};
+
+#function pad_affect {
+    #format result {%-20s} {%1};
+};
+
+
+#alias {init_affects} {
+
+    #var affects {};
+
+    #var affects[Armor]               { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Bless]               { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Shield]              { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Strength]            { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Invisibility]        { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Detect Invisibility] { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Quickness]           { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Infravision]         { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Sense Life]          { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Levitate]            { {ticks}{0} {messages}{} {eq}{0}};
+    #var affects[Sanctuary]           { {ticks}{0} {messages}{} {eq}{0}};
+
+    #if { "$char_class" == "Mage" } {
+        #var affects[Stone Skin] { {ticks}{0} {messages}{} };
+    };
+
+    #if { "$char_align" == "good" } {
+        #var affects[Protection from Evil] { {ticks}{0} {messages}{} };
+    };
+
+    #if { "$char_align" == "evil" } {
+        #var affects[Protection from Good] { {ticks}{0} {messages}{} };
+    };
+
+};
+
+#alias list_all_affects {
+
+    #foreach $affects[] {a} {
+
+        #var ticks $affects[$a][ticks];
+        #var messages $affects[$a][messages];
+        #var from_eq $affects[$a][eq];
+
+        #var tick_str {$ticks ticks};
+        #var affect_pretty @pad_affect{$a};
+        #var affect_color {<149>};
+
+        #if {$from_eq} {
+            #var affect_color {<149>};
+        };
+        #elseif {$ticks > 3} {
+            #var affect_color {<149>};
+        };
+        #elseif {$ticks > 1} {
+            #var affect_color {<139>};
+        };
+        #elseif {$ticks == 1} {
+            #var affect_color {<139>};
+            #var tick_str {$ticks tick};
+        };
+        #elseif {"$ticks" == "fading"} {
+            #var affect_color {<119>};
+            #var tick_str {fading};
+        };
+        #else {
+            #showme {  <119>$affect_pretty<099>};
+            #continue;
+        };
+
+        #showme {  ${affect_color}${affect_pretty}<149>:<099> Duration - ${tick_str}${messages}};
+
+    };
+
+};
+
+
+#alias process_affect {
+    #if {$track_affects} {
+
+        #variable affect @normalize_affect{%1};
+        #variable ticks {%2};
+        #variable message {%3};
+
+        #variable cur_message {$affects[$affect][messages]};
+        #variable new_message {};
+
+        #if {"$ticks" == "eq"} {
+
+            #if {"$cur_message" == ""} {
+                #variable new_message {, $message};
+            } {
+                #variable new_message {, $message,cur_message};
+            };
+
+            #variable cur_ticks {$affects[$affect][ticks]};
+            #if {!@is_set{$cur_ticks}}{
+                #variable cur_ticks {  0};
+            };
+
+
+            #variable affects[$affect] { {ticks}{$cur_ticks} {messages}{$new_message} {eq}{1}};
+        };
+
+        #else {
+
+            #if {"$message" != ""} {
+                #variable new_message {$cur_message,$message};
+            };
+
+            #variable cur_eq_val $affects[$affect][eq];
+            #variable affects[$affect] { {ticks}{$ticks} {messages}{$new_message} {eq}{$cur_eq_val}};
+
+        };
+
+        #line gag;
+    };
+};
+
+#alias do_spellup {
+
+    #foreach $affects[] {a} {
+
+        #var ticks $affects[$a][ticks];
+        #var messages $affects[$a][messages];
+
+        #if {$ticks < $spellup_threshold} {
+            #if {"$a" != "Repaerdnim Root"} {
+                cast $a;
+            };
+        };
+
+    };
+
+    af;
+
+};
+
+#action {  %1: Duration - %2 ticks,%3} {
+    process_affect {%1} {%2} {%3};
+} {1};
+
+#action {  %1: Duration - %2 tick,%3} {
+    process_affect {%1} {%2} {%3};
+} {1};
+
+#action {  %1: Duration - %2 ticks} {
+    process_affect {%1} {%2} {};
+} {2};
+
+#action {  %1: Duration - %2 tick} {
+    process_affect {%1} {%2} {};
+} {3};
+
+#action {  %1: Duration - fading} {
+    process_affect {%1} {fading} {};
+} {3};
+
+#action {  %1: Duration - fading,%2} {
+    process_affect {%1} {fading} {%2};
+} {3};
+
+#action {  %1: From Equipment} {
+    process_affect {%1} {eq} {From Equipment};
+} {1};
+
+#alias {sp} {
+    #var should_do_spellup 1;
+    #var spellup_threshold $spellup_threshold_default;
+    #if {@is_set{%1}} {
+        #var spellup_threshold %1;
+    };
+    af;
+};

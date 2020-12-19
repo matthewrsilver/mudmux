@@ -1,0 +1,93 @@
+#no medmux module windows.tt;
+@_module{windows};
+
+#no todo: functions to aliases;
+#no todo: possibly rename module;
+#no todo: add simple interface for different comms;
+#no todo: functions/aliases for storing/logging in another module;
+#no todo: this method fails to capture multiline, what was it before?;
+#no todo: remove/handle increment eq tracking stuff;
+#no todo: log file name to variable, and probably to config;
+
+#var {comms} {
+    {TOWN}  {1}
+    {CLAN}  {1}
+    {FORM}  {1}
+    {TALK}  {1}
+    {SHOUT} {1}
+    {IMM}   {1}
+    {BL}    {1}
+    {CHAT}  {1}
+    {TEL}   {1}
+    {SAY}   {1}
+    {SERV}  {1}
+};
+
+#alias {remcom} {
+
+    #format comm_name {%u} {%1};
+
+    #if {$comms[$comm_name]} {
+        #var comms[$comm_name] 0;
+        #showme {$comm_name will no longer be tracked.};
+    };
+};
+
+#alias {addcom} {
+
+    #format comm_name {%u} {%1};
+
+    #if {$comms[$comm_name]} {
+        #showme {$comm_name is already tracked.};
+    } {
+        #var comms[$comm_name] 1;
+        #showme {$comm_name is now tracked.};
+    };
+
+};
+
+#function {datelog}{
+    #if {$comms[%1]} {
+        #var message {%2};
+        #replace message {%} {%%%};
+        #format message_with_date {<000><179>%t $message}{%y:%m:%d:%R};
+        #line log {logs/communications.log} {$message_with_date};
+    };
+    #return #no;
+};
+
+#alias {logcom} {
+    #if {$comms[%0]} {
+        #line log {logs/communications.log};
+    };
+}
+
+#act {~%1[%2CLAN%3]%4} {@datelog{{CLAN}{%0}};};
+#act {~%1[%2TOWN%3]%4} {@datelog{{TOWN}{%0}};};
+#act {~%1[%2FORM%3]%4} {@datelog{{FORM}{%0}};};
+#act {~%1[%2IMM%3]%4} {@datelog{{IMM}{%0}};};
+#act {~%1[%2CHAT about anything%3]%4} {@datelog{{CHAT}{%1[%2CHAT%3]%4}};};
+#act {~%1<CHAT>%2} {
+
+    @datelog{{SERV}{%0}};
+    
+    #line substitute variables #line strip #var raw_text %0;
+    #regex {$raw_text} {<CHAT> NERD_RADAR turbodorks are eqing: %+}{
+        #no process_increment_list {&1};
+    };
+
+};
+#act {~%1<CHAT> You emote to everyone:%2} {@datelog{{SERV}{%1<CHAT>%2}};} {1};
+#act {~%1 telepaths you, %2} {@datelog{{TEL}{%0}};};
+#act {~%1 telepath %2, %3} {@datelog{{TEL}{%0}};};
+#act {~%1*%2 says, %3} {@datelog{{SAY}{%0}};} {1};
+#act {~*%1 say, %2} {@datelog{{SAY}{%0}};};
+#act {~*%1 says to %2, %3} {@datelog{{TALK}{%0}};};
+#act {~*%1 say to %2} {@datelog{{TALK}{%0}};};
+#act {~%1 shout, %2} {@datelog{{SHOUT}{%0}};};
+#act {~You hear %1 shout, %2} {@datelog{{SHOUT}{%0}};};
+
+#alias {store} {
+    #class storeall read src/scripts/store.tt;
+    explicit %0;
+}

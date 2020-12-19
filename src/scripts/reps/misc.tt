@@ -1,0 +1,33 @@
+#no medmux module reps/misc.tt
+@_module{reps/misc};
+
+@_require{chat};
+
+
+#var spin_count 0;
+
+#action {You attempt to hide yourself.} {
+    #if {"$combat_rep_enabled" == "true"}{
+        #chat {emote} {all} {<138>[[<088> <148>Shhhhh.<088> <138>|<088><148> I hide. <138>]]<088>};
+    };
+};
+
+#action {You attempt to blend into your surroundings.} {
+    #if {"$combat_rep_enabled" == "true"}{
+        #chat {emote} {all} {<138>[[<088> <148>Shhhhh.<088> <138>|<088><148> I hide. <138>]]<088>};
+    };
+};
+
+#action {You step into the portal, and the world spins madly...} {
+    #math new_count {$spin_count + 1};
+    #var spin_count $new_count;
+    #if {$spin_count < 2}{
+        @do_combatrep{bad; <168>$char_name <148>just spun, and is pretty annoyed about it.};
+    }{
+        @do_combatrep{bad; <168>$char_name <148>just spun AGAIN!!!!};
+    };
+};
+
+#action {You step into the portal and the world fades into the mist.}{
+    #var spin_count 0;
+}
