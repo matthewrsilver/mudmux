@@ -1,4 +1,4 @@
-#no muxmed module reps/defensive/spells.tt
+#no medmux module reps/defensive/spells.tt
 @_module{reps/defensive/spells};
 
 @_require{chat};

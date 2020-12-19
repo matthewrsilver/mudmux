@@ -1,4 +1,4 @@
-#no muxmed module whereguard.tt;
+#no medmux module whereguard.tt;
 @_module{whereguard};
 
 @_require{utils}

@@ -1,4 +1,4 @@
-#no muxmed module fae_orb.tt;
+#no medmux module fae_orb.tt;
 @_module{fae_orb};
 
 @_require{utils};

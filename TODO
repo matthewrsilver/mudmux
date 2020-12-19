@@ -1,6 +1,16 @@
-Update README
-Clean up various names of everything (muxmed, medmux, docker container, tmux session, etc. etc. etc.)
-set up .emacs in docker?
-upgrade tintin?
-requirements for this package (docker, tmux, etc.) vs for the docker container itself (zlib, pcre, etc.)
-requirements also: med font and iterm profile
+Eliminate dependency on iTerm (make this configurable?)
+ - package a portable iterm profile?
+ - use a tmux conf for cases where iterm integration isn't available
+
+Continue to improve docker usage
+ - switch back to alpine? (segfaults with #chat call)
+ - how much of the run command can be brought into docker-compose.yaml
+
+Longer term tasks:
+ - upgrade tintin?
+ - detect when tmux session already exists and reattach
+ - general configuration stuff
+    - characters
+    - credentials
+    - text editor
+    - rcfiles

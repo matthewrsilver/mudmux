@@ -1,4 +1,4 @@
-#no muxmed module spell_highlights.tt;
+#no medmux module spell_highlights.tt;
 @_module{spell_highlights};
 
 #substitute {%1 is burned by the flames of your fireball.} {

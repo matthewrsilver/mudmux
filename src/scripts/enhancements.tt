@@ -1,6 +1,5 @@
-#no muxmed module enhancements.tt;
+#no medmux module enhancements.tt;
 @_module{enhancements};
-
 
 #action {^You are hungry.$} {eat food};
 #action {^You are thirsty.$} {drink water};

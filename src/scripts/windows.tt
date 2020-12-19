@@ -1,4 +1,4 @@
-#no muxmed module windows.tt;
+#no medmux module windows.tt;
 @_module{windows};
 
 #no todo: functions to aliases;

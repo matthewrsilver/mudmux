@@ -1,4 +1,4 @@
-#no muxmed module reps/offensive/melee.tt
+#no medmux module reps/offensive/melee.tt
 @_module{reps/offensive/melee};
 
 @_require{chat};

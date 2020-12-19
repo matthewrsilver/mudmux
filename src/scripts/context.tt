@@ -1,4 +1,4 @@
-#no muxmed module context.tt;
+#no medmux module context.tt;
 @_module{context};
 
 #variable char_name {};

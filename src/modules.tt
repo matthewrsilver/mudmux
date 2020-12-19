@@ -1,4 +1,4 @@
-#no muxmed module management;
+#no medmux module management;
 #var module_path {src/scripts};
 #var _modules[_] {};
 

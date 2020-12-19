@@ -1,4 +1,4 @@
-#no muxmed module survey.tt;
+#no medmux module survey.tt;
 @_module{survey};
 
 #no todo: migrate functions to aliases;
