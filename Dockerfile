@@ -13,5 +13,4 @@ RUN ./configure && make && make install
 
 # Set up working environment
 SHELL ["/bin/bash", "--login", "-c"]
-ENV PATH="$PATH:/home/mudmux/bin"
 WORKDIR /home/mudmux

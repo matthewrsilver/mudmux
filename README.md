@@ -33,6 +33,18 @@ This script creates a tmux session on the host machine with several panels: one 
 
 ![Medievia in mudmux](data/medievia_in_mudmux.png)
 
+### Running or restarting tintin
+
+Sometimes it may be useful to run tintin by itself outside of mudmux. Alternatively, there are a variety of circumstances (crashes, accidentally sending `#end` rather than `#zap`, and so on)  under which one might need to run tintin again while the tmux session is still attached.
+
+To do so, simply run the tintin service through docker:
+
+```
+docker-compose run tintin
+```
+
+This will create and attach to the docker, run tintin, and exit once tintin finishes.
+
 ## Connecting to Medievia
 
 The full-height left panel starts tintin and loads all scripts but does not connect to Medievia, or any other game for that matter. Bcause mudmux is today heavily integrated with Medievia, commands to connect are already available. To start a session to medievia called `med`, just run the following at the tintin prompt:
@@ -48,11 +60,3 @@ chat_connect
 ```
 
 From here, interacting with tintin and Medievia occurs as normal; quit the Medievia session with tintin's `#zap` command and close tintin with `#end`.
-
-## Restarting tintin
-
-There are a variety of circumstances (crashes, accidentally sending `#end` rather than `#zap`, and so on)  under which one might need to reconnect to tintin. The normal `tt++` command will work to start a session, but to leverage all of the features of mudmux it is best to use the `bin/mm` executable, which is already available in `PATH` inside the mudmux docker container:
-
-```
-mm
-```

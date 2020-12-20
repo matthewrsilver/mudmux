@@ -20,6 +20,7 @@ Longer term tasks:
 
  - continue to improve docker usage
     - switch back to alpine? (segfaults with #chat call)
+    - use a normal user; don't like running as root
 
 Updates to README
  - Add a section on how to configure

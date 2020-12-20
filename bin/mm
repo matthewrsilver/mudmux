@@ -1,5 +1,0 @@
-#!/bin/bash
-
-tt++ -G -r ${MUDMUX_SRC_PATH}/main.tt -t mudmux
-
-

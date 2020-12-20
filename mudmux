@@ -4,7 +4,7 @@ MUDMUX_BASE_PATH="$(pwd)"
 RCFILE=".profile"
 
 # Create a tmux session and run tintin in the docker container
-DOCKER_CMD="docker-compose run mudmux mm"
+DOCKER_CMD="docker-compose run tintin"
 tmux new-session -s mudmux -d "bash --init-file <(echo '. $HOME/$RCFILE && sleep 1 && echo -e \"\033]50;SetProfile=med\a\" && ${DOCKER_CMD}')"
 
 # Prepare and split a window for tailing communications
