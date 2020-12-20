@@ -1,6 +1,12 @@
-version: '3'
+version: "3"
 
 services:
-  medievia:
-    build: '.'
-    image: mudmux-container
+  mudmux:
+    build: "."
+    image: mudmux-container:latest
+    network_mode: "host"
+    environment:
+      - TERM
+      - MUDMUX_SRC_PATH=/home/mudmux/src
+    volumes:
+      - ./:/home/mudmux

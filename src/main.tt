@@ -1,5 +1,6 @@
 #no mudmux main.tt
 #read src/modules.tt;
+#read src/chat.tt;
 
 #config {repeat enter} on;
 #config {color patch} on;

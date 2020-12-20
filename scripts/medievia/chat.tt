@@ -13,23 +13,6 @@
     #chat message 1 %1;
 };
 
-#alias {chat_connect}{
-    #chat uninitialize;
-    #chat initialize;
-    #chat name ohr;
-    #chat call chat.mikejsavage.co.uk 4050;
-};
-
-#action {<CHAT> <%1> Hey, %2! %3chat me your password.} {
-    #delay {.1} {
-        #read {config/.credentials};
-        #chat message 1 $chat_pass;
-        #unvar chat_pass;
-        #unaction {<CHAT> <%1>> Hey, %2! /chat me your password.};
-    };
-};
-
-
 #list formies create {};
 #action {Your formation consists of:}{#list formies clear;};
 

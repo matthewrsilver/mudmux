@@ -1,0 +1,21 @@
+#no mudmux module management;
+
+#alias {chat_connect}{
+
+    #chat uninitialize;
+
+    #read {config/.chat_config};
+
+    #action {$chat_config[trigger]} {
+        #delay {.1} {
+            #chat message 1 $chat_config[pass];
+            #unaction {$chat_config[trigger]};
+            #unvar chat_config;
+        };
+    };
+
+    #chat initialize $chat_config[port];
+    #chat name $chat_config[name];
+    #chat call $chat_config[url] $chat_config[port];
+
+};

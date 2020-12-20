@@ -1,0 +1,7 @@
+#var chat_config {
+  {name}    {<your chat name>}
+  {url}     {<url of chat server>}
+  {port}    {<port for chat server>}
+  {pass}    {<your chat password>}
+  {trigger} {<an action for tintin to match to send your password>}
+};
