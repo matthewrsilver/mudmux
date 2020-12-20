@@ -1,7 +1,7 @@
-#no mudmux module reps/offensive/spells.tt
-@_module{reps/offensive/spells};
+#no mudmux module medievia/reps/offensive/spells.tt
+@_module{medievia/reps/offensive/spells};
 
-@_require{chat};
+@_require{medievia/chat};
 
 
 #action {%1 seems to be blinded!} {

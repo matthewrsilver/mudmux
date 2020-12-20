@@ -1,5 +1,5 @@
-#no mudmux module room_reader.tt;
-@_module{room_reader};
+#no mudmux module medievia/room_reader.tt;
+@_module{medievia/room_reader};
 
 #var room_reader_debug 0;
 #var room_name {};

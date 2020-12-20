@@ -1,5 +1,5 @@
-#no mudmux module fly_fae.tt;
-@_module{fly_fae};
+#no mudmux module medievia/fly_fae.tt;
+@_module{medievia/fly_fae};
 
 #variable should_fly_fae {0};
 #variable faeball_distance {0};

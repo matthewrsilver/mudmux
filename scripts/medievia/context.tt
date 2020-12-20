@@ -1,5 +1,5 @@
-#no mudmux module context.tt;
-@_module{context};
+#no mudmux module medievia/context.tt;
+@_module{medievia/context};
 
 #variable char_name {};
 #variable char_level {};

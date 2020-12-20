@@ -1,9 +1,9 @@
-#no mudmux module reps/defensive/stabs.tt
-@_module{reps/defensive/stabs};
+#no mudmux module medievia/reps/defensive/stabs.tt
+@_module{medievia/reps/defensive/stabs};
 
-@_require{chat};
-@_require{splitprompt};
-@_require{room_reader};
+@_require{medievia/chat};
+@_require{medievia/splitprompt};
+@_require{medievia/room_reader};
 
 #no todo: add colors for stab strengths
 #no todo: add stabbed to death and attempted to stab

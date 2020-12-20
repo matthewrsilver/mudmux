@@ -1,7 +1,3 @@
-Split tintin code for med from tintincode for mudmux
- - think about med scripts as a module that can be configured in and loaded separately from mudmux
- - will need global vars that provide paths etc.
-
 Eliminate dependency on iTerm (make this configurable?)
  - package a portable iterm profile?
  - use a tmux conf for cases where iterm integration isn't available

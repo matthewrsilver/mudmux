@@ -1,6 +1,7 @@
-#no mudmux module utils.tt;
-@_module{utils};
+#no mudmux module medievia/utils.tt;
+@_module{medievia/utils};
 
+#no todo: consider moving this outside the medievia portion of scripts
 
 #function math {
     #math result {%0};

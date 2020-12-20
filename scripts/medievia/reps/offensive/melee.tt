@@ -1,7 +1,7 @@
-#no mudmux module reps/offensive/melee.tt
-@_module{reps/offensive/melee};
+#no mudmux module medievia/reps/offensive/melee.tt
+@_module{medievia/reps/offensive/melee};
 
-@_require{chat};
+@_require{medievia/chat};
 
 #action {You try to trip %1, but %2 leaps out of the way.}{
     #if {"$combat_rep_enabled" == "true"}{

@@ -1,9 +1,9 @@
-#no mudmux module reps/defensive/spells.tt
-@_module{reps/defensive/spells};
+#no mudmux module medievia/reps/defensive/spells.tt
+@_module{medievia/reps/defensive/spells};
 
-@_require{chat};
-@_require{splitprompt};
-@_require{room_reader};
+@_require{medievia/chat};
+@_require{medievia/splitprompt};
+@_require{medievia/room_reader};
 
 
 #action {You choke and utter some muffled noises.} {

@@ -1,0 +1,39 @@
+#no mudmux medievia/main.tt
+
+#alias tickstart {
+    #tick nowhisk stat;
+    #tick jugref {drink jug;} {300};
+};
+
+#alias retick {
+    --;
+    #untick nowhisk;
+    #untick jugref;
+    tickstart;
+};
+
+#alias connect {
+    tickstart;
+    resplit;
+    #session med medievia.com 4000;
+};
+
+#no Load component scripts;
+@_load{medievia/aliases};
+@_load{medievia/enhancements};
+@_load{medievia/context};
+@_load{medievia/survey};
+@_load{medievia/sneak};
+@_load{medievia/splitprompt};
+@_load{medievia/room_reader};
+@_load{medievia/chat};
+@_load{medievia/windows};
+@_load{medievia/spell_highlights};
+@_load{medievia/affects};
+@_load{medievia/fly_fae};
+@_load{medievia/fae_orb};
+@_load{medievia/inventory};
+#showme {\nLoading complete.\n};
+
+retick;
+resplit;

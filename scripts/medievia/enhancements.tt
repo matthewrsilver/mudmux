@@ -1,5 +1,5 @@
-#no mudmux module enhancements.tt;
-@_module{enhancements};
+#no mudmux module medievia/enhancements.tt;
+@_module{medievia/enhancements};
 
 #action {^You are hungry.$} {eat food};
 #action {^You are thirsty.$} {drink water};

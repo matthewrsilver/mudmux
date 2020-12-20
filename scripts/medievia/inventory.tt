@@ -1,5 +1,5 @@
-#no mudmux module inventory.tt;
-@_module{inventory};
+#no mudmux module medievia/inventory.tt;
+@_module{medievia/inventory};
 
 #no todo: detect modes automatically;
 #no todo: simple interface;

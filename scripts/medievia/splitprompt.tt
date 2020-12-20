@@ -1,7 +1,7 @@
-#no mudmux module splitprompt.tt;
-@_module{splitprompt};
+#no mudmux module medievia/splitprompt.tt;
+@_module{medievia/splitprompt};
 
-@_require{sneak};
+@_require{medievia/sneak};
 
 #no todo: convert these to 0 and 1 instead of true and false;
 #no todo: move init out of this module;

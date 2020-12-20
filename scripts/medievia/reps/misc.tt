@@ -1,7 +1,7 @@
-#no mudmux module reps/misc.tt
-@_module{reps/misc};
+#no mudmux module medievia/reps/misc.tt
+@_module{medievia/reps/misc};
 
-@_require{chat};
+@_require{medievia/chat};
 
 
 #var spin_count 0;

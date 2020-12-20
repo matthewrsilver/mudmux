@@ -1,8 +1,8 @@
-#no mudmux module chat.tt;
-@_module{chat};
+#no mudmux module medievia/chat.tt;
+@_module{medievia/chat};
 
-@_require{room_reader};
-@_require{splitprompt};
+@_require{medievia/room_reader};
+@_require{medievia/splitprompt};
 
 #no todo: functions to aliases;
 
@@ -163,7 +163,7 @@
 
 #alias {ccsend} {
     #var buffer {};
-    #class capclass read {src/scripts/csend_class.tt};
+    #class capclass read {${base_script_path}/medievia/csend_class.tt};
     explicit %0;
 };
 
@@ -176,9 +176,9 @@
 };
 
 
-@_load{reps/misc};
-@_load{reps/defensive/mal};
-@_load{reps/defensive/stabs};
-@_load{reps/defensive/spells};
-@_load{reps/offensive/melee};
-@_load{reps/offensive/spells};
+@_load{medievia/reps/misc};
+@_load{medievia/reps/defensive/mal};
+@_load{medievia/reps/defensive/stabs};
+@_load{medievia/reps/defensive/spells};
+@_load{medievia/reps/offensive/melee};
+@_load{medievia/reps/offensive/spells};

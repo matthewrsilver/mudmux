@@ -1,5 +1,5 @@
-#no mudmux module sneak.tt;
-@_module{sneak};
+#no mudmux module medievia/sneak.tt;
+@_module{medievia/sneak};
 
 #no todo: use boolean instead of true/false;
 

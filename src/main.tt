@@ -14,43 +14,7 @@
 
 #alias reload {
     #kill all;
-    #read main.tt;
+    #read src/main.tt;
 };
 
-#alias tickstart {
-    #tick nowhisk stat;
-    #tick jugref {drink jug;} {300};
-};
-
-#alias retick {
-    --;
-    #untick nowhisk;
-    #untick jugref;
-    tickstart;
-};
-
-#alias connect {
-    tickstart;
-    resplit;
-    #session med medievia.com 4000;
-};
-
-#no Load component scripts;
-@_load{aliases};
-@_load{enhancements};
-@_load{context};
-@_load{survey};
-@_load{sneak};
-@_load{splitprompt};
-@_load{room_reader};
-@_load{chat};
-@_load{windows};
-@_load{spell_highlights};
-@_load{affects};
-@_load{fly_fae};
-@_load{fae_orb};
-@_load{inventory};
-#showme {\nLoading complete.\n};
-
-retick;
-resplit;
+@_load{medievia/main};

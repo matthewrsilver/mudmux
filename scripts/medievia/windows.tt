@@ -1,5 +1,5 @@
-#no mudmux module windows.tt;
-@_module{windows};
+#no mudmux module medievia/windows.tt;
+@_module{medievia/windows};
 
 #no todo: functions to aliases;
 #no todo: possibly rename module;
@@ -88,6 +88,6 @@
 #act {~You hear %1 shout, %2} {@datelog{{SHOUT}{%0}};};
 
 #alias {store} {
-    #class storeall read src/scripts/store.tt;
+    #class storeall read ${base_script_path}/medievia/store.tt;
     explicit %0;
 }

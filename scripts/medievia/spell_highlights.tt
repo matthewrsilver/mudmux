@@ -1,5 +1,5 @@
-#no mudmux module spell_highlights.tt;
-@_module{spell_highlights};
+#no mudmux module medievia/spell_highlights.tt;
+@_module{medievia/spell_highlights};
 
 #substitute {%1 is burned by the flames of your fireball.} {
     %1 is <fca>burned<099> by the flames of your <fca>fireball<099>.
