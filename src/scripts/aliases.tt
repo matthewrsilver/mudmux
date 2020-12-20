@@ -1,4 +1,4 @@
-#no medmux module aliases.tt;
+#no mudmux module aliases.tt;
 @_module{aliases};
 
 @_require{utils};

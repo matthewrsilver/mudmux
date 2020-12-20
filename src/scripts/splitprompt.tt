@@ -1,4 +1,4 @@
-#no medmux module splitprompt.tt;
+#no mudmux module splitprompt.tt;
 @_module{splitprompt};
 
 @_require{sneak};

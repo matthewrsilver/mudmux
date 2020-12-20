@@ -1,4 +1,4 @@
-#no medmux main.tt
+#no mudmux main.tt
 #read src/modules.tt;
 
 #config {repeat enter} on;

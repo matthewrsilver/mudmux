@@ -1,4 +1,4 @@
-#no medmux module inventory.tt;
+#no mudmux module inventory.tt;
 @_module{inventory};
 
 #no todo: detect modes automatically;

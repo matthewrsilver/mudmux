@@ -1,4 +1,4 @@
-#no medmux module enhancements.tt;
+#no mudmux module enhancements.tt;
 @_module{enhancements};
 
 #action {^You are hungry.$} {eat food};

@@ -1,4 +1,4 @@
-#no medmux module sneak.tt;
+#no mudmux module sneak.tt;
 @_module{sneak};
 
 #no todo: use boolean instead of true/false;

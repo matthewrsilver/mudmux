@@ -1,4 +1,4 @@
-#no medmux module affects.tt;
+#no mudmux module affects.tt;
 @_module{affects};
 
 @_require{context};

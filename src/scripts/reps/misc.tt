@@ -1,4 +1,4 @@
-#no medmux module reps/misc.tt
+#no mudmux module reps/misc.tt
 @_module{reps/misc};
 
 @_require{chat};

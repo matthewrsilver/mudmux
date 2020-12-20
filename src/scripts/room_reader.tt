@@ -1,4 +1,4 @@
-#no medmux module room_reader.tt;
+#no mudmux module room_reader.tt;
 @_module{room_reader};
 
 #var room_reader_debug 0;

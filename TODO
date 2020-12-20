@@ -1,7 +1,5 @@
-Change all to mudmux to make generic
-
-Split tintin code for med from tintincode for medmux
- - think about med scripts as a module that can be configured in and loaded separately from medmux
+Split tintin code for med from tintincode for mudmux
+ - think about med scripts as a module that can be configured in and loaded separately from mudmux
  - will need global vars that provide paths etc.
 
 Eliminate dependency on iTerm (make this configurable?)
@@ -24,4 +22,4 @@ Longer term tasks:
 
 Updates to README
  - Add a section on how to configure
- - Add a section on how to leverage medmux features when scripting
+ - Add a section on how to leverage mudmux features when scripting

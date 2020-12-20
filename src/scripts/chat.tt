@@ -1,4 +1,4 @@
-#no medmux module chat.tt;
+#no mudmux module chat.tt;
 @_module{chat};
 
 @_require{room_reader};

@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-LABEL description="medmux tintin-based medievia environment"
+LABEL description="mudmux tintin-based medievia environment"
 
 # Prepare for installs
 RUN apt-get update && apt-get -y upgrade
@@ -13,6 +13,6 @@ RUN ./configure && make && make install
 
 # Set up working environment
 SHELL ["/bin/bash", "--login", "-c"]
-ENV PATH="$PATH:/home/med-scripts/bin"
-ENV MEDMUX_SRC_PATH="/home/med-scripts/src"
-WORKDIR /home/med-scripts
+ENV PATH="$PATH:/home/mudmux/bin"
+ENV MUDMUX_SRC_PATH="/home/mudmux/src"
+WORKDIR /home/mudmux

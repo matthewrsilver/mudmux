@@ -1,4 +1,4 @@
-#no medmux module fly_fae.tt;
+#no mudmux module fly_fae.tt;
 @_module{fly_fae};
 
 #variable should_fly_fae {0};

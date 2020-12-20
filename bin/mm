@@ -1,5 +1,5 @@
 #!/bin/bash
 
-tt++ -G -r ${MEDMUX_SRC_PATH}/main.tt -t Medievia
+tt++ -G -r ${MUDMUX_SRC_PATH}/main.tt -t mudmux
 
 

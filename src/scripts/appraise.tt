@@ -1,4 +1,4 @@
-#no medmux module appraise.tt;
+#no mudmux module appraise.tt;
 @_module{appraise};
 
 @_require{utils};
