@@ -10,6 +10,8 @@ The mudmux environment runs inside an ubuntu docker container and is indended to
 * the [medievia font](http://www.medievia.com/fonts.html) greatly enhances gameplay
 * [iTerm2](https://iterm2.com) which makes everything wonderful
 * [emacs](https://www.gnu.org/software/emacs/) is currently required though the editor should be made configurable in the future
+* [tmuxp==1.3.2](https://github.com/tmux-python/tmuxp) is used to read the appropriate panel layout for tmux from a yaml file, but must be pinned to this version to avoid some issues
+* [click==7.1.2](https://pypi.org/project/click/) is a dependency of tmuxp, but must be pinned to this version to avoid some issues
 
 Note that, at present, useage of certain features of [iTerm2](https://iterm2.com) -- notably its [awesome tmux integration](https://iterm2.com/documentation-tmux-integration.html) and profile switching through [escape codes](https://iterm2.com/documentation-escape-codes.html) -- is hard-coded into mudmux, violating the notions of portability described above. A future revision will allow for the configurable usage of these features.
 

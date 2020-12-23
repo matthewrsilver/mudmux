@@ -1,0 +1,28 @@
+session_name: mudmux
+
+windows:
+
+  - window_name: base
+    layout: main-vertical
+
+    options:
+      main-pane-width: 75
+
+    panes:
+
+      - shell_command:
+        - docker-compose run tintin
+        focus: true
+
+      - shell_command:
+        - tail -f ${PWD}/logs/communications.log
+        - tmux select-layout main-horizontal
+
+      - shell_command:
+
+        # This delay is important for opening emacs, which fails without. It also
+        # allows the window time to open, which makes profile switching work.
+        - sleep 1
+
+        - echo -e "\033]50;SetProfile=med\a"
+        - emacs ${PWD}/data/notes.txt

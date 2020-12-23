@@ -1,22 +1,3 @@
-#! /bin/bash
+#! /bin/sh
 
-MUDMUX_BASE_PATH="$(pwd)"
-RCFILE=".profile"
-
-# Create a tmux session and run tintin in the docker container
-DOCKER_CMD="docker-compose run tintin"
-tmux new-session -s mudmux -d "bash --init-file <(echo '. $HOME/$RCFILE && sleep 1 && echo -e \"\033]50;SetProfile=med\a\" && ${DOCKER_CMD}')"
-
-# Prepare and split a window for tailing communications
-COMMS_LOG_FILE="${MUDMUX_BASE_PATH}/logs/communications.log"
-touch "${COMMS_LOG_FILE}"
-tmux split-window -h -p 25 "bash --init-file <(echo '. $HOME/$RCFILE && tail -f ${COMMS_LOG_FILE}')"
-
-# Prepare and split a window for notes
-NOTES_FILE="${MUDMUX_BASE_PATH}/data/notes.txt"
-touch "${NOTES_FILE}"
-tmux split-window -v "bash --init-file <(echo '. $HOME/$RCFILE && emacs ${NOTES_FILE}')"
-
-tmux -u -CC attach -t mudmux -d
-
-echo -e "\033]50;SetProfile=Default\a"
+tmuxp load -d config/tmux.yaml && tmux -CC attach -t mudmux
