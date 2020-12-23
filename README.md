@@ -7,21 +7,20 @@ The mudmux environment runs inside an ubuntu docker container and is indended to
 
 * [docker](https://www.docker.com/) is relied upon heavily to run tintin++ and connect to Medievia
 * [tmux](https://en.wikipedia.org/wiki/Tmux) is necessary to leverage the full mudmux environment
-* the [medievia font](http://www.medievia.com/fonts.html) greatly enhances gameplay
-* [iTerm2](https://iterm2.com) which makes everything wonderful
-* [emacs](https://www.gnu.org/software/emacs/) is currently required though the editor should be made configurable in the future
-* [tmuxp==1.3.2](https://github.com/tmux-python/tmuxp) is used to read the appropriate panel layout for tmux from a yaml file, but must be pinned to this version to avoid some issues
-* [click==7.1.2](https://pypi.org/project/click/) is a dependency of tmuxp, but must be pinned to this version to avoid some issues
+* [tmuxp==1.3.2](https://github.com/tmux-python/tmuxp) is used to read the appropriate panel layout for tmux from a yaml file, but must be pinned to this version to avoid [issues attaching to sessions created with tmuxp](https://github.com/tmux-python/tmuxp/issues/364).
+* [click==7.1.2](https://pypi.org/project/click/) is a dependency of tmuxp, but must be pinned to this version to avoid some [tmuxp issues with terminal colors](https://github.com/tmux-python/tmuxp/issues/649).
 
-Note that, at present, useage of certain features of [iTerm2](https://iterm2.com) -- notably its [awesome tmux integration](https://iterm2.com/documentation-tmux-integration.html) and profile switching through [escape codes](https://iterm2.com/documentation-escape-codes.html) -- is hard-coded into mudmux, violating the notions of portability described above. A future revision will allow for the configurable usage of these features.
+### Supporting aspects of the environment not contained in this repository
 
-## Building the Docker Container
+Note that, at present, useage of certain features of [iTerm2](https://iterm2.com) -- notably its [awesome tmux integration](https://iterm2.com/documentation-tmux-integration.html) and profile switching through [escape codes](https://iterm2.com/documentation-escape-codes.html) -- is hard-coded into mudmux, violating the notions of portability described above. A future revision will allow for the configurable usage of these features. In the mean time, this means iTerm2 is required.
 
-In the top level directory of mudmux, build the `mudmux-container` docker container through `docker-compose.yaml` as follows:
+When leveraging iTerm2's features, it's valuable to have a game-specific profile configured for use within mudmux. There are a handful of requirements placed on iTerm2 settings and on this profile that help:
 
-```
-$ docker-compose build
-```
+* Tell iTerm2 not to always switch to the tmux profile (Preferences -> General -> tmux) as described in [this iTerm2 thread](https://gitlab.com/gnachman/iterm2/-/issues/4543).
+* The `LANG` environment variable (and [possibly others in Mac OS](https://stackoverflow.com/questions/7165108/in-os-x-lion-lang-is-not-set-to-utf-8-how-to-fix-it)) must be correctly set to `en_US.UTF-8` (with appropriate region) to avoid [issues with tmuxp creating sessions](https://github.com/tmux-python/libtmux/issues/265).
+* For Medievia, specifically, the [medievia font](http://www.medievia.com/fonts.html) greatly enhances gameplay, and can be set as the default font in the profile
+
+Further, [emacs](https://www.gnu.org/software/emacs/) is currently required though the editor should be made configurable in the future
 
 ## Running mudmux
 

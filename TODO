@@ -7,12 +7,13 @@ Longer term tasks:
 
  - detect when tmux session already exists and reattach
 
-- general configuration stuff
+ - general configuration stuff
     - characters
     - credentials
     - text editor
     - rcfiles
     - iterm configurable (as above)
+    - consider running a script first (mudmux executable or in tmux.yaml?) to bring in environment variables with profile names etc.
 
  - eliminate dependency on iTerm (make this configurable?)
     - package a portable iterm profile?
@@ -22,21 +23,15 @@ Longer term tasks:
     - switch back to alpine? (segfaults with #chat call)
     - use a normal user; don't like running as root
 
+ - additional tmuxp improvements
+    - maybe switch to tmuxinator??
+    - can't use -CC directly with tmuxp, need to create a detached session and then attach with tmux -CC
+      - consider pushing changes to upstream tmuxp to add this functionality
+      - https://github.com/tmux-python/tmuxp/issues/171
+      - "no previous window" error from tmux, currently addressed by pinning the version of tmuxp==1.3.2, has workarounds and issues:
+         - https://github.com/tmux-python/tmuxp/issues/364#issuecomment-584617782
+         - note adding a second window in the background may address this
+
 Updates to README
  - Add a section on how to configure
  - Add a section on how to leverage mudmux features when scripting
- - Document all the crap that needs to happen to get tmuxp (https://github.com/tmux-python/tmuxp) working....
-   - pin the version of click==7.1.2
-     - https://github.com/tmux-python/tmuxp/issues/649
-   - pin the version of tmuxp==1.3.2
-     - "no previous window" error from tmux
-     - https://github.com/tmux-python/tmuxp/issues/364
-       - https://github.com/tmux-python/tmuxp/issues/364#issuecomment-584617782
-     - note adding a second window in the background may address this
-   - set the LANG environment variable (and CL something?)
-     - https://github.com/tmux-python/libtmux/issues/265
-     - https://stackoverflow.com/questions/7165108/in-os-x-lion-lang-is-not-set-to-utf-8-how-to-fix-it
-   - can't use -CC directly with tmuxp, need to create a detached session and then attach with tmux -CC
-     - https://github.com/tmux-python/tmuxp/issues/171
-   - tell iTerm2 not to always switch to the tmux profile (Preferences -> General -> tmux)
-     - https://gitlab.com/gnachman/iterm2/-/issues/4543
