@@ -1,0 +1,5 @@
+editor: "emacs"
+tmux_session_name: "mudmux-tmux-session"
+iterm:
+  mudmux_iterm_profile: "med"
+  enable_tmux_integration: Yes

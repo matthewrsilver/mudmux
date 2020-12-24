@@ -10,3 +10,11 @@ services:
     volumes:
       - ./:/home/mudmux
     command: "tt++ -G -r /home/mudmux/src/main.tt -t mudmux"
+  bash:
+    build: "."
+    image: mudmux-container:latest
+    network_mode: "host"
+    environment:
+      - TERM
+    volumes:
+      - ./:/home/mudmux

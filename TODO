@@ -5,19 +5,9 @@ Longer term tasks:
 
  - upgrade tintin?
 
- - detect when tmux session already exists and reattach
-
  - general configuration stuff
     - characters
     - credentials
-    - text editor
-    - rcfiles
-    - iterm configurable (as above)
-    - consider running a script first (mudmux executable or in tmux.yaml?) to bring in environment variables with profile names etc.
-
- - eliminate dependency on iTerm (make this configurable?)
-    - package a portable iterm profile?
-    - use a tmux conf for cases where iterm integration isn't available
 
  - continue to improve docker usage
     - switch back to alpine? (segfaults with #chat call)
@@ -33,5 +23,8 @@ Longer term tasks:
          - note adding a second window in the background may address this
 
 Updates to README
- - Add a section on how to configure
  - Add a section on how to leverage mudmux features when scripting
+
+Other iTerm-related changes
+ - package a portable iterm profile?
+ - use a tmux conf for cases where iterm integration isn't available

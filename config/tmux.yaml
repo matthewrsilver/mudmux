@@ -1,4 +1,4 @@
-session_name: mudmux
+session_name: ${MUDMUX_TMUX_SESSION_NAME}
 
 windows:
 
@@ -24,5 +24,5 @@ windows:
         # allows the window time to open, which makes profile switching work.
         - sleep 1
 
-        - echo -e "\033]50;SetProfile=med\a"
-        - emacs ${PWD}/data/notes.txt
+        - echo -e ${MUDMUX_PROFILE_ESC}
+        - ${MUDMUX_EDITOR} ${PWD}/data/notes.txt
