@@ -8,7 +8,6 @@ The mudmux environment leverages an ubuntu docker container and is indended to b
 * [docker](https://www.docker.com/) is relied upon heavily to run tintin++ and connect to Medievia
 * [tmux](https://en.wikipedia.org/wiki/Tmux) is necessary to leverage the full mudmux environment
 * [tmuxp==1.3.2](https://github.com/tmux-python/tmuxp) is used to read the appropriate panel layout for tmux from a yaml file, but must be pinned to this version to avoid [issues attaching to sessions created with tmuxp](https://github.com/tmux-python/tmuxp/issues/364).
-* [click==7.1.2](https://pypi.org/project/click/) is a dependency of tmuxp, but must be pinned to this version to avoid some [tmuxp issues with terminal colors](https://github.com/tmux-python/tmuxp/issues/649).
 
 Note there are a few issues with `tmuxp` that also may require adjustment of environment variables:
 
