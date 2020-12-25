@@ -19,11 +19,13 @@ setup(
     package_data={
         'mudmux': [
             'config/*',
+            'data/README.md',
             'data/notes.txt',
+            'logs/README.md',
             'logs/communications.log',
             'src/*',
             'Dockerfile',
-            'docker-compose.yaml'
+            'docker-compose.yaml',
         ] + ALL_SCRIPT_FILES
     },
     include_package_data=True,

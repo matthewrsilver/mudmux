@@ -4,7 +4,7 @@
 
     #chat uninitialize;
 
-    #read {config/.chat_config};
+    #read {config/chat_config.tt};
 
     #action {$chat_config[trigger]} {
         #delay {.1} {

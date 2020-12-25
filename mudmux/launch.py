@@ -9,9 +9,11 @@ that leverages those environment variables, and launches the tmux session.
 """
 
 import os
+import pathlib
 import yaml
 
 from typing import Optional
+
 
 MUDMUX_BASE_PATH = os.path.dirname(__file__)
 os.environ['MUDMUX_BASE_PATH'] = MUDMUX_BASE_PATH
@@ -19,6 +21,9 @@ os.environ['COMPOSE_FILE'] = f'{MUDMUX_BASE_PATH}/docker-compose.yaml'
 
 CONFIG_FILE_PATH = f'{MUDMUX_BASE_PATH}/config/config.yaml'
 TMUX_CONFIG_PATH = f'{MUDMUX_BASE_PATH}/config/tmux.yaml'
+
+pathlib.Path(f'{MUDMUX_BASE_PATH}/logs/communications.log').touch()
+pathlib.Path(f'{MUDMUX_BASE_PATH}/data/notes.txt').touch()
 
 
 def construct_profile_escape(profile_name: Optional[str] = None) -> str:
