@@ -9,6 +9,8 @@
 #no todo: remove/handle increment eq tracking stuff;
 #no todo: log file name to variable, and probably to config;
 
+#var comms_log_file {/home/files/communications.log};
+
 #var {comms} {
     {TOWN}  {1}
     {CLAN}  {1}
@@ -51,14 +53,14 @@
         #var message {%2};
         #replace message {%} {%%%};
         #format message_with_date {<000><179>%t $message}{%y:%m:%d:%R};
-        #line log {logs/communications.log} {$message_with_date};
+        #line log {$comms_log_file} {$message_with_date};
     };
     #return #no;
 };
 
 #alias {logcom} {
     #if {$comms[%0]} {
-        #line log {logs/communications.log};
+        #line log {$comms_log_file};
     };
 }
 

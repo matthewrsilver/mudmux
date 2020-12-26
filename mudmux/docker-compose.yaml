@@ -9,6 +9,8 @@ services:
       - TERM
     volumes:
       - ./:/home/mudmux
+      - ${MUDMUX_COMMS_LOG}:/home/files/communications.log
+      - ${MUDMUX_CHAT_CONFIG_FILE}:/home/files/chat_config.tt
     command: "tt++ -G -r /home/mudmux/src/main.tt -t mudmux"
   bash:
     build: "."
