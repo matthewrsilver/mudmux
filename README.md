@@ -7,15 +7,20 @@ The mudmux environment leverages an ubuntu docker container and is indended to b
 
 * [docker](https://www.docker.com/) is relied upon heavily to run tintin++ and connect to Medievia
 * [tmux](https://en.wikipedia.org/wiki/Tmux) is necessary to leverage the full mudmux environment
-* [tmuxp==1.3.2](https://github.com/tmux-python/tmuxp) is used to read the appropriate panel layout for tmux from a yaml file, but must be pinned to this version to avoid [issues attaching to sessions created with tmuxp](https://github.com/tmux-python/tmuxp/issues/364).
 
 Note there are a few issues with `tmuxp` that also may require adjustment of environment variables:
 
 * The `LANG` environment variable (and [possibly others in Mac OS](https://stackoverflow.com/questions/7165108/in-os-x-lion-lang-is-not-set-to-utf-8-how-to-fix-it)) must be set to `en_US.UTF-8` (or with appropriate region) to avoid [issues with tmuxp creating sessions](https://github.com/tmux-python/libtmux/issues/265). Just add the following to your `.zshrc` or `.bashrc` file:
 
 ```
-export LANG=en.US.utf8
+export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+```
+
+With those requirements satisfied, the latest version of mudmux can be install via pip directly from github:
+
+```
+python -m pip install git+https://github.com/matthewrsilver/mudmux.git
 ```
 
 ### Using iTerm2's tmux integration and profiles
@@ -29,13 +34,13 @@ When leveraging iTerm2's features, it's valuable to have a game-specific profile
 
 ## Running mudmux
 
-Once the docker container has been built, mudmux can be run any time simply by executing the `mudmux` script:
+Once installed via pip, mudmux can be run from the command line:
 
 ```
-$ ./mudmux
+$ mudmux
 ```
 
-This script creates a tmux session on the host machine with several panes: one for running tintin++ inside a `mudmux-container` image, one that tails a log of in-game communications, and one running emacs to allow for editing of text files and note keeping. Each of these panels will automatically run the appropriate content. As discussed above, iTerm2 tmux integration is used, so each of the tmux panels is represented as a native iTerm2 panel, allowing for easy scrolling among many other features.
+This script creates a tmux session on the host machine with several panes: one for running tintin++ inside a `mudmux-container` image, one that tails a log of in-game communications, and one running an editor to allow for note keeping. Each of these panes will automatically run the appropriate content. As discussed above, iTerm2 tmux integration is used, so each of the tmux panes is represented as a native iTerm2 pane, allowing for easy scrolling among many other features.
 
 ![Medievia in mudmux](data/medievia_in_mudmux.png)
 
@@ -43,17 +48,19 @@ This script creates a tmux session on the host machine with several panes: one f
 
 Sometimes it may be useful to run tintin by itself outside of mudmux. Alternatively, there are a variety of circumstances (crashes, accidentally sending `#end` rather than `#zap`, and so on)  under which one might need to run tintin again while the tmux session is still attached.
 
-To do so, simply run the tintin service through docker:
+To do so, simply run the tintin service through docker from the nested `mudmux` directory:
 
 ```
-docker-compose run tintin
+$ docker-compose run tintin
 ```
 
 This will create and attach to the docker, run tintin, and exit once tintin finishes.
 
+Note that there are a number of environment variables that are not correctly set under these conditions, so this should be used with care.
+
 ## Connecting to Medievia
 
-The full-height left panel starts tintin and loads all scripts but does not connect to Medievia, or any other game for that matter. Bcause mudmux is today heavily integrated with Medievia, commands to connect are already available. To start a session to medievia called `med`, just run the following at the tintin prompt:
+The full-height left pane starts tintin and loads all scripts but does not connect to Medievia, or any other game for that matter. Bcause mudmux is today heavily integrated with Medievia, commands to connect are already available. To start a session to medievia called `med`, just run the following at the tintin prompt:
 
 ```
 connect
@@ -69,14 +76,18 @@ From here, interacting with tintin and Medievia occurs as normal; quit the Medie
 
 ## Configuring mudmux
 
-The main flexible configurations are stored in the `config/config.yaml` file. A sample of the most relevant and commonly configured fields:
+All configuration is handled in the `mudmux/config` directory; values that might reasonably be changed are in the `config.yaml` file.
+
+But once mudmux is installed via pip, configuration files are pretty buried. To make configuration easier, mudmux supports user configs which override the default config. To override, create a directory in `$HOME` called `.mudmux.d` and add a `config.yaml` file there. An example user config could look like:
 
 ```
-editor: "emacs"
-
+editor: "nano"
 iterm:
-  mudmux_iterm_profile: "med"
+  mudmux_iterm_profile: "mud_profile"
   enable_tmux_integration: Yes
+chat_config_dir: "${MUDMUX_USER_DIR}"
+log_dir: "${MUDMUX_USER_DIR}"
+notes_file_dir: "${MUDMUX_USER_DIR}"
 ```
 
-Here, the editor can be changed from `emacs` to whatever inferior editor might be preferred. Also, iTerm2 tmux integration can be disabled, and the name of the iTerm2 profile to be used can be set (or left blank to prevent switching.
+Here, the editor can be changed from `emacs` to whatever inferior editor might be preferred. Also, iTerm2 tmux integration can be disabled, and the name of the iTerm2 profile to be used can be set (or left blank to prevent switching. Further, chat configuration, log files, and notes files, can all live in arbitrary locations. Absolute paths are necessary, and the $MUDMUX_USER_DIR environment variable, pointing to `$HOME/.mudmux.d` is available when this config is loaded.

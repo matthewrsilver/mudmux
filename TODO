@@ -4,11 +4,6 @@ Remaining script reorganization
    - everything that interacts with windows/panes
  - consider a constants module?
 
-pip installable package
-  - just depends on config stuff to be clean
-  - README.md should reflect how to pip install straight from github
-    - https://adamj.eu/tech/2019/03/11/pip-install-from-a-git-repository/
-
 Longer term tasks:
 
  - upgrade tintin?
@@ -17,7 +12,7 @@ Longer term tasks:
     - switch back to alpine? (segfaults with #chat call)
     - use a normal user; don't like running as root
     - fix bash service so the appropriate environment variables have been loaded
-    - the usage of /home/files is weird. should audit and clean up volumes...
+    - the usage of /home/fil[<8;17;9mes is weird. should audit and clean up volumes...
 
  - additional tmuxp improvements
     - maybe switch to tmuxinator??
@@ -29,6 +24,10 @@ Longer term tasks:
            - https://github.com/tmux-python/tmuxp/issues/364#issuecomment-584617782
          - note adding a second window in the background may address this
 
+ - Generalize
+   - add ability for multiple, named chat connections
+   - gracefully handle different script dir trees i.e. for different games?
+
 Updates to README
  - Add a section on how to leverage mudmux features when scripting
 
@@ -36,6 +35,6 @@ Other iTerm-related changes
  - package a portable iterm profile?
  - use a tmux conf for cases where iterm integration isn't available
 
-Generalize
- - add ability for multiple, named chat connections
- - gracefully handle different script dir trees i.e. for different games?
+Cleanup
+ - deal with inner data directory
+   - will need to consider where default notes lives, and be sure it's available to touch
