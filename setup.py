@@ -19,8 +19,6 @@ setup(
     package_data={
         'mudmux': [
             'config/*',
-            'data/README.md',
-            'data/notes.txt',
             'logs/README.md',
             'logs/communications.log',
             'src/*',

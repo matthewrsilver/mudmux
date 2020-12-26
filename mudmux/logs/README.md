@@ -1,3 +1,3 @@
-This directory is intentionally left blank, and stores communication logs.
+This directory is intentionally left blank, and stores communication logs and notes.
 
-In the future, users could configure a separate logs directory e.g. something like ~/.mudmux.d
+In general, users should configure a separate logs directory e.g. something like ~/.mudmux.d

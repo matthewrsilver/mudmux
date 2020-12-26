@@ -8,7 +8,7 @@ The mudmux environment leverages an ubuntu docker container and is indended to b
 * [docker](https://www.docker.com/) is relied upon heavily to run tintin++ and connect to Medievia
 * [tmux](https://en.wikipedia.org/wiki/Tmux) is necessary to leverage the full mudmux environment
 
-Note there are a few issues with `tmuxp` that also may require adjustment of environment variables:
+Note there are a few issues with the [`tmuxp`](https://github.com/tmux-python/tmuxp) library that's used to handle interaction with tmux that also may require adjustment of environment variables:
 
 * The `LANG` environment variable (and [possibly others in Mac OS](https://stackoverflow.com/questions/7165108/in-os-x-lion-lang-is-not-set-to-utf-8-how-to-fix-it)) must be set to `en_US.UTF-8` (or with appropriate region) to avoid [issues with tmuxp creating sessions](https://github.com/tmux-python/libtmux/issues/265). Just add the following to your `.zshrc` or `.bashrc` file:
 
