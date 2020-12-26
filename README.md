@@ -8,15 +8,6 @@ The mudmux environment leverages an ubuntu docker container and is indended to b
 * [docker](https://www.docker.com/) is relied upon heavily to run tintin++ and connect to Medievia
 * [tmux](https://en.wikipedia.org/wiki/Tmux) is necessary to leverage the full mudmux environment
 
-Note there are a few issues with the [`tmuxp`](https://github.com/tmux-python/tmuxp) library that's used to handle interaction with tmux that also may require adjustment of environment variables:
-
-* The `LANG` environment variable (and [possibly others in Mac OS](https://stackoverflow.com/questions/7165108/in-os-x-lion-lang-is-not-set-to-utf-8-how-to-fix-it)) must be set to `en_US.UTF-8` (or with appropriate region) to avoid [issues with tmuxp creating sessions](https://github.com/tmux-python/libtmux/issues/265). Just add the following to your `.zshrc` or `.bashrc` file:
-
-```
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-```
-
 With those requirements satisfied, the latest version of mudmux can be install via pip directly from github:
 
 ```
@@ -81,10 +72,10 @@ All configuration is handled in the `mudmux/config` directory; values that might
 But once mudmux is installed via pip, configuration files are pretty buried. To make configuration easier, mudmux supports user configs which override the default config. To override, create a directory in `$HOME` called `.mudmux.d` and add a `config.yaml` file there. An example user config could look like:
 
 ```
-editor: "nano"
+matt@computer:~$ cat ~/.mudmux.d/config.yaml
+editor: "emacs"
 iterm:
-  mudmux_iterm_profile: "mud_profile"
-  enable_tmux_integration: Yes
+  mudmux_iterm_profile: "med"
 chat_config_dir: "${MUDMUX_USER_DIR}"
 log_dir: "${MUDMUX_USER_DIR}"
 notes_file_dir: "${MUDMUX_USER_DIR}"

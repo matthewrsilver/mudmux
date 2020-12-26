@@ -32,3 +32,4 @@ Updates to README
 Other iTerm-related changes
  - package a portable iterm profile?
  - use a tmux conf for cases where iterm integration isn't available
+ - warn on non UTF-8 LANG env var instead of cryptic session_id message from tmuxp
