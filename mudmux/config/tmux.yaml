@@ -15,7 +15,8 @@ windows:
         focus: true
 
       - shell_command:
-        - tail -f ${PWD}/logs/communications.log
+        - clear
+        - tail -n50 -f ${MUDMUX_COMMS_LOG}
         - tmux select-layout main-horizontal
 
       - shell_command:
@@ -25,4 +26,4 @@ windows:
         - sleep 1
 
         - echo -e ${MUDMUX_PROFILE_ESC}
-        - ${MUDMUX_EDITOR} ${PWD}/data/notes.txt
+        - ${MUDMUX_EDITOR} ${MUDMUX_NOTES_FILE}

@@ -1,10 +1,12 @@
 #no mudmux module management;
 
+#var chat_config_file {/home/files/chat_config.tt};
+
 #alias {chat_connect}{
 
     #chat uninitialize;
 
-    #read {config/.chat_config};
+    #read {$chat_config_file};
 
     #action {$chat_config[trigger]} {
         #delay {.1} {

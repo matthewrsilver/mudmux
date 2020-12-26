@@ -1,0 +1,11 @@
+editor: "emacs"
+tmux_session_name: "mudmux-tmux-session"
+iterm:
+  mudmux_iterm_profile: "med"
+  enable_tmux_integration: Yes
+chat_config_dir: "${MUDMUX_BASE_PATH}/config"
+chat_config_file_name: "chat_config.tt"
+log_dir: "${MUDMUX_BASE_PATH}/logs"
+log_file_name: "communications.log"
+notes_file_dir: "${MUDMUX_BASE_PATH}/data"
+notes_file_name: "notes.txt"
