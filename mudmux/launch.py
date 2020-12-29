@@ -152,38 +152,33 @@ def set_environment(cfg: dict, args: argparse.Namespace) -> None:
 def _parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-v', '--verbose',
-        help="verbose output",
-        action='count',
-        default=0
-    )
-    parser.add_argument(
         '-s', '--service',
-        help="specify the docker service to run, default tintin",
+        help="Docker service to run (defaults to 'tintin').",
         default='tintin',
         choices={'tintin', 'bash'},
     )
     parser.add_argument(
         '-x', '--no-tmux',
-        help="launch mudmux without a surrounding tmux context",
+        help="Launch without a surrounding tmux context.",
         dest='use_tmux',
         action='store_false',
     )
-    parser.add_argument( # TODO
-        '-t', '--tintin-only',
-        help="only launch tintin; same as --service=tintin --no-tmux",
-        action='store_true',
-    )
     parser.add_argument(
         '-i', '--no-iterm',
-        help="launch without any iterm integration",
+        help="Launch without any iterm integration.",
         dest='use_iterm',
         action='store_false',
     )
     parser.add_argument(
         '-d', '--development',
-        help="launch mudmux in a development container",
+        help="Launch in a development docker container and tmux session.",
         action="store_true",
+    )
+    parser.add_argument(
+        '-v', '--verbose',
+        help="Verbose output.",
+        action='count',
+        default=0,
     )
 
     return parser.parse_args()

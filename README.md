@@ -38,7 +38,14 @@ This script creates a tmux session on the host machine with several panes: one f
 
 ### Running or restarting tintin
 
-Sometimes it may be useful to run tintin by itself outside of mudmux. Alternatively, there are a variety of circumstances (crashes, accidentally sending `#end` rather than `#zap`, and so on)  under which one might need to run tintin again while the tmux session is still attached.
+Sometimes it may be useful to run tintin by itself, without other features of mudmux. To attach to the docker, run tintin, and exit once finished without tmux, use:
+
+```
+$ mudmux --no-tmux
+```
+
+
+Alternatively, there are a variety of circumstances (crashes, accidentally sending `#end` rather than `#zap`, and so on)  under which one might need to run tintin again while a tmux session is attached.
 
 To do so, simply run the tintin service through docker from the nested `mudmux` directory:
 
@@ -47,8 +54,6 @@ $ docker-compose run tintin
 ```
 
 This will create and attach to the docker, run tintin, and exit once tintin finishes.
-
-Note that there are a number of environment variables that are not correctly set under these conditions, so this should be used with care.
 
 ## Connecting to Medievia
 

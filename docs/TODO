@@ -13,7 +13,6 @@ Longer term tasks:
  - continue to improve docker usage
     - switch back to alpine? (segfaults with #chat call)
     - use a normal user; don't like running as root
-    - fix bash service so the appropriate environment variables have been loaded
     - the usage of /home/files is weird. should audit and clean up volumes...
 
  - additional tmuxp improvements
