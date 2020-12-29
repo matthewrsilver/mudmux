@@ -1,7 +1,7 @@
 #no mudmux module medievia/aliases.tt;
 @_module{medievia/aliases};
 
-@_require{medievia/utils};
+@_require{utils};
 
 #var targeted_player {};
 

@@ -1,7 +1,7 @@
 #no mudmux module medievia/appraise.tt;
 @_module{medievia/appraise};
 
-@_require{medievia/utils};
+@_require{utils};
 
 #no TODO: under development;
 

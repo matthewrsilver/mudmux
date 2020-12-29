@@ -1,7 +1,7 @@
 #no mudmux module medievia/fae_orb.tt;
 @_module{medievia/fae_orb};
 
-@_require{medievia/utils};
+@_require{utils};
 
 #var server_epoch {};
 #var send_chat {0};

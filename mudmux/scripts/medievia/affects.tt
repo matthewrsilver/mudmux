@@ -2,7 +2,7 @@
 @_module{medievia/affects};
 
 @_require{medievia/context};
-@_require{medievia/utils};
+@_require{utils};
 
 #no TODO: sc l triggers display of all red spells first time after logon;
 #no TODO: clean up the should_do_spellup, spellup_threshold, etc.;
