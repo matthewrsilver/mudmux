@@ -1,5 +1,12 @@
 session_name: ${MUDMUX_TMUX_SESSION_NAME}
 
+environment:
+  MUDMUX_DOCKER_SERVICE: ${MUDMUX_DOCKER_SERVICE}
+  MUDMUX_COMMS_LOG: ${MUDMUX_COMMS_LOG}
+  MUDMUX_PROFILE_ESC: ${MUDMUX_PROFILE_ESC}
+  MUDMUX_EDITOR: ${MUDMUX_EDITOR}
+  MUDMUX_NOTES_FILE: ${MUDMUX_NOTES_FILE}
+
 windows:
 
   - window_name: base
@@ -11,7 +18,7 @@ windows:
     panes:
 
       - shell_command:
-        - docker-compose run tintin
+        - docker-compose run ${MUDMUX_DOCKER_SERVICE}
         focus: true
 
       - shell_command:

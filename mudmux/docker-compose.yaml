@@ -3,7 +3,7 @@ version: "3"
 services:
   tintin:
     build: "."
-    image: mudmux-container:latest
+    image: ${MUDMUX_DOCKER_IMAGE}
     network_mode: "host"
     environment:
       - TERM
@@ -14,7 +14,7 @@ services:
     command: "tt++ -G -r /home/mudmux/src/main.tt -t mudmux"
   bash:
     build: "."
-    image: mudmux-container:latest
+    image: ${MUDMUX_DOCKER_IMAGE}
     network_mode: "host"
     environment:
       - TERM

@@ -5,6 +5,7 @@ A containerized environment with scripts for playing the text-based RPG [Medievi
 
 The mudmux environment leverages an ubuntu docker container and is indended to be portable, running in both Mac OS and various linux distributions (but see below). While the dependencies for running the game are managed inside the docker container, there are a number of dependencies on the system in which mudmux is installed:
 
+* [python](https://www.python.org/) is used to install, launch and manage mudmux; developed on 3.9
 * [docker](https://www.docker.com/) is relied upon heavily to run tintin++ and connect to Medievia
 * [tmux](https://en.wikipedia.org/wiki/Tmux) is necessary to leverage the full mudmux environment
 
@@ -71,7 +72,7 @@ All configuration is handled in the `mudmux/config` directory; values that might
 
 But once mudmux is installed via pip, configuration files are pretty buried. To make configuration easier, mudmux supports user configs which override the default config. To override, create a directory in `$HOME` called `.mudmux.d` and add a `config.yaml` file there. An example user config could look like:
 
-```
+```shell
 matt@computer:~$ cat ~/.mudmux.d/config.yaml
 editor: "emacs"
 iterm:
