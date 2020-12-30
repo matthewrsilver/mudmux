@@ -1,0 +1,59 @@
+#no mudmux module comms.tt;
+@_module{comms};
+
+@_require{utils};
+
+#no todo: functions to aliases;
+#no todo: add simple interface for different comms;
+#no todo: this method fails to capture multiline, what was it before?;
+
+#var comms_log_file {/home/files/communications.log};
+#var comm_channels[_] { {trigger} {} {reformatter} {} priority {} };
+
+#alias {remcom} {
+
+    #format comm_name {%u} {%1};
+
+    #if {$comm_channels[$comm_name]} {
+        #var comm_channels[$comm_name] 0;
+        #showme {$comm_name will no longer be tracked.};
+    };
+};
+
+#alias {addcom} {
+
+    #format comm_name {%u} {%1};
+    #local trigger {%2};
+    #local reformatter {%3};
+    #local priority @get_or_default{%4;5};
+
+    #local already_tracked &comm_channels[$comm_name];
+    #no #var comm_channels[$comm_name] {;
+    #no     {trigger}{$trigger} {reformatter}{$reformatter} {priority}{$priority};
+    #no };
+    #no;
+    #no #act {$trigger} {@datelog{{$comm_name}{$reformatter}};} {$priority};
+
+    #if {$already_tracked} {
+        #showme {$comm_name is already tracked, but will be updated};
+    };
+    #else {
+        #showme {$comm_name is now tracked.};
+    };
+
+};
+
+#function {datelog}{
+    #no; #if {$comm_channels[%1]} {};
+        #var message {%2};
+        #replace message {%} {%%%};
+        #format message_with_date {<000><179>%t $message}{%y:%m:%d:%R};
+        #line log {$comms_log_file} {$message_with_date};
+    #no {};
+    #return #no;
+};
+
+#alias {store} {
+    #class storeall read ${base_script_path}/store.tt;
+    explicit %0;
+};

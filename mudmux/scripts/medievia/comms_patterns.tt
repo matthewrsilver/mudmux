@@ -1,0 +1,21 @@
+#no mudmux module medievia/comms_patterns.tt;
+@_module{medievia/comms_patterns};
+
+@_require{comms};
+
+#act {~%1[%2CLAN%3]%4} {@datelog{{CLAN}{%0}};};
+#act {~%1[%2TOWN%3]%4} {@datelog{{TOWN}{%0}};};
+#act {~%1[%2FORM%3]%4} {@datelog{{FORM}{%0}};};
+#act {~%1[%2IMM%3]%4} {@datelog{{IMM}{%0}};};
+#act {~%1[%2CHAT about anything%3]%4} {@datelog{{CHAT}{%1[%2CHAT%3]%4}};};
+#act {~%1<CHAT>%2} {@datelog{{SERV}{%0}};};
+#no addcom {SERV} {~%1<CHAT>%2} {%0};
+#act {~%1<CHAT> You emote to everyone:%2} {@datelog{{SERV}{%1<CHAT>%2}};} {1};
+#act {~%1 telepaths you, %2} {@datelog{{TEL}{%0}};};
+#act {~%1 telepath %2, %3} {@datelog{{TEL}{%0}};};
+#act {~%1*%2 says, %3} {@datelog{{SAY}{%0}};} {1};
+#act {~*%1 say, %2} {@datelog{{SAY}{%0}};};
+#act {~*%1 says to %2, %3} {@datelog{{TALK}{%0}};};
+#act {~*%1 say to %2} {@datelog{{TALK}{%0}};};
+#act {~%1 shout, %2} {@datelog{{SHOUT}{%0}};};
+#act {~You hear %1 shout, %2} {@datelog{{SHOUT}{%0}};};

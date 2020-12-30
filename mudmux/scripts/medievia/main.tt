@@ -27,7 +27,7 @@
 @_load{medievia/splitprompt};
 @_load{medievia/room_reader};
 @_load{medievia/chat};
-@_load{medievia/windows};
+@_load{medievia/comms_patterns};
 @_load{medievia/spell_highlights};
 @_load{medievia/affects};
 @_load{medievia/fly_fae};

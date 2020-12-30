@@ -30,6 +30,13 @@
     #math result {"%1" != ""};
 };
 
+#function get_or_default {
+    #if {@is_set{%1}} {
+        #return %1;
+    };
+    #return %2;
+};
+
 #function str_len {
     #list seq tokenize %1;
     #list seq size result;

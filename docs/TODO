@@ -5,6 +5,8 @@ Remaining script reorganization
  - consider a constants module?
  - add ability for multiple, named chat connections
  - gracefully handle different script dir trees i.e. for different games?
+ - verbosity of script logs
+ - treat stored.log like communications.log
 
 Longer term tasks:
 
