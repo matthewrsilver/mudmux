@@ -1,7 +1,5 @@
-#no mudmux module medievia/utils.tt;
-@_module{medievia/utils};
-
-#no todo: consider moving this outside the medievia portion of scripts
+#no mudmux module utils.tt;
+@_module{utils};
 
 #function math {
     #math result {%0};
@@ -30,6 +28,13 @@
 
 #function is_set {
     #math result {"%1" != ""};
+};
+
+#function get_or_default {
+    #if {@is_set{%1}} {
+        #return %1;
+    };
+    #return %2;
 };
 
 #function str_len {

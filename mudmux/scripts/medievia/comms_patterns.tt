@@ -1,0 +1,38 @@
+#no mudmux module medievia/comms_patterns.tt;
+@_module{medievia/comms_patterns};
+
+@_require{comms};
+
+addcomm CLAN;
+#act {~%1[%2CLAN%3]%4} {sendcomm {CLAN} {%0}};
+
+addcomm TOWN;
+#act {~%1[%2TOWN%3]%4} {sendcomm {TOWN} {%0}};
+
+addcomm {FORM};
+#act {~%1[%2FORM%3]%4} {sendcomm {FORM} {%0}};
+
+addcomm IMM;
+#act {~%1[%2IMM%3]%4} {sendcomm {IMM} {%0}};
+
+addcomm CHAT;
+#act {~%1[%2CHAT about anything%3]%4} {sendcomm {CHAT} {%1[%2CHAT%3]%4}};
+
+addcomm SERV;
+#act {~%1<CHAT>%2} {sendcomm {SERV} {%0}};
+#act {~%1<CHAT> You emote to everyone:%2} {sendcomm {SERV} {%1<CHAT>%2}} {1};
+
+addcomm TEL;
+#act {~%1 telepaths you, %2} {sendcomm {TEL} {%0}};
+#act {~%1 telepath %2, %3} {sendcomm {TEL} {%0}};
+
+addcomm SAY;
+#act {~*%1 say, %2} {sendcomm {SAY} {%0}} {1};
+
+addcomm TALK;
+#act {~*%1 says to %2, %3} {sendcomm {TALK} {%0}};
+#act {~*%1 say to %2} {sendcomm {TALK} {%0}};
+
+addcomm SHOUT;
+#act {~%1 shout, %2} {sendcomm {SHOUT} {%0}};
+#act {~You hear %1 shout, %2} {sendcomm {SHOUT} {%0}};

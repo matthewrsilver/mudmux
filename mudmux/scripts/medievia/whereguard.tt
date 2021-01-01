@@ -1,7 +1,7 @@
 #no mudmux module medievia/whereguard.tt;
 @_module{medievia/whereguard};
 
-@_require{medievia/utils}
+@_require{utils}
 @_require{medievia/chat}
 
 #no todo: incorporate into chat;
