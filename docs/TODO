@@ -1,7 +1,4 @@
 Remaining script reorganization
- - utils belongs in scripts, outside medievia?
-   - also chat and other logging capabilities should be generalized
-   - everything that interacts with windows/panes
  - consider a constants module?
  - add ability for multiple, named chat connections
  - gracefully handle different script dir trees i.e. for different games?
