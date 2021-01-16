@@ -1,4 +1,4 @@
-#no mudmux main.tt
+#no mudmux main.tt;
 #read src/modules.tt;
 #read src/chat.tt;
 

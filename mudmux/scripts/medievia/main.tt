@@ -1,4 +1,4 @@
-#no mudmux medievia/main.tt
+#no mudmux medievia/main.tt;
 
 #alias tickstart {
     #tick nowhisk stat;
@@ -35,5 +35,4 @@
 @_load{medievia/inventory};
 #showme {\nLoading complete.\n};
 
-retick;
 resplit;

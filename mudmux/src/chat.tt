@@ -1,10 +1,27 @@
 #no mudmux module management;
 
+#no Retrieve the chat config from a set path in the docker container, pointing to
+#no the actual configured location in mudmux;
 #var chat_config_file {/home/files/chat_config.tt};
+#var chat_initialized 0;
+
+#alias {chat_init} {
+
+    #local port {%1};
+
+    #if {$chat_initialized} {
+       #delay {.1};
+       #chat uninitialize;
+       #var chat_initialized 0;
+    };
+
+    #delay {.1};
+    #chat initialize $port;
+    #var chat_initialized 1;
+};
 
 #alias {chat_connect}{
 
-    #chat uninitialize;
 
     #read {$chat_config_file};
 
@@ -16,8 +33,10 @@
         };
     };
 
-    #chat initialize $chat_config[port];
+    chat_init $chat_config[port];
+    #delay {.1};
     #chat name $chat_config[name];
+    #delay {.1};
     #chat call $chat_config[url] $chat_config[port];
 
 };

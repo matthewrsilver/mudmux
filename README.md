@@ -1,12 +1,12 @@
 # mudmux
-A containerized environment with scripts for playing the text-based RPG [Medievia](http://www.medievia.com/), leveraging [tintin++](https://sourceforge.net/projects/tintin/) and tmux.
+A containerized environment with scripts for playing the text-based RPG [Medievia](http://www.medievia.com/), leveraging [TinTin++](https://sourceforge.net/projects/tintin/) and tmux.
 
 ## Installation and Requirements
 
 The mudmux environment leverages an ubuntu docker container and is indended to be portable, running in both Mac OS and various linux distributions (but see below). While the dependencies for running the game are managed inside the docker container, there are a number of dependencies on the system in which mudmux is installed:
 
 * [python](https://www.python.org/) is used to install, launch and manage mudmux; developed on 3.9
-* [docker](https://www.docker.com/) is relied upon heavily to run tintin++ and connect to Medievia
+* [docker](https://www.docker.com/) is relied upon heavily to run TinTin++ and connect to Medievia
 * [tmux](https://en.wikipedia.org/wiki/Tmux) is necessary to leverage the full mudmux environment
 
 With those requirements satisfied, the latest version of mudmux can be install via pip directly from github:
@@ -14,6 +14,8 @@ With those requirements satisfied, the latest version of mudmux can be install v
 ```
 python -m pip install git+https://github.com/matthewrsilver/mudmux.git
 ```
+
+There is no need to install TinTin++ itself because TinTin++ v2.02.00 that is installed in the, docker container.
 
 ### Using iTerm2's tmux integration and profiles
 
@@ -32,32 +34,32 @@ Once installed via pip, mudmux can be run from the command line:
 $ mudmux
 ```
 
-This script creates a tmux session on the host machine with several panes: one for running tintin++ inside a `mudmux-container` image, one that tails a log of in-game communications, and one running an editor to allow for note keeping. Each of these panes will automatically run the appropriate content. As discussed above, iTerm2 tmux integration is used, so each of the tmux panes is represented as a native iTerm2 pane, allowing for easy scrolling among many other features.
+This script creates a tmux session on the host machine with several panes: one for running TinTin++ inside a `mudmux-container` image, one that tails a log of in-game communications, and one running an editor to allow for note keeping. Each of these panes will automatically run the appropriate content. As discussed above, iTerm2 tmux integration is used, so each of the tmux panes is represented as a native iTerm2 pane, allowing for easy scrolling among many other features.
 
 ![Medievia in mudmux](data/medievia_in_mudmux.png)
 
-### Running or restarting tintin
+### Running or restarting TinTin
 
-Sometimes it may be useful to run tintin by itself, without other features of mudmux. To attach to the docker, run tintin, and exit once finished without tmux, use:
+Sometimes it may be useful to run TinTin by itself, without other features of mudmux. To attach to the docker, run TinTin, and exit once finished without tmux, use:
 
 ```
 $ mudmux --no-tmux
 ```
 
 
-Alternatively, there are a variety of circumstances (crashes, accidentally sending `#end` rather than `#zap`, and so on)  under which one might need to run tintin again while a tmux session is attached.
+Alternatively, there are a variety of circumstances (crashes, accidentally sending `#end` rather than `#zap`, and so on)  under which one might need to run TinTin again while a tmux session is attached.
 
-To do so, simply run the tintin service through docker from the nested `mudmux` directory:
+To do so, simply run the TinTin service through docker from the nested `mudmux` directory:
 
 ```
-$ docker-compose run tintin
+$ docker-compose run TinTin
 ```
 
-This will create and attach to the docker, run tintin, and exit once tintin finishes.
+This will create and attach to the docker, run TinTin, and exit once TinTin finishes.
 
 ## Connecting to Medievia
 
-The full-height left pane starts tintin and loads all scripts but does not connect to Medievia, or any other game for that matter. Bcause mudmux is today heavily integrated with Medievia, commands to connect are already available. To start a session to medievia called `med`, just run the following at the tintin prompt:
+The full-height left pane starts TinTin and loads all scripts but does not connect to Medievia, or any other game for that matter. Bcause mudmux is today heavily integrated with Medievia, commands to connect are already available. To start a session to medievia called `med`, just run the following at the TinTin prompt:
 
 ```
 connect
@@ -69,7 +71,7 @@ If credentials have been provided in the `config` directory (as described below)
 chat_connect
 ```
 
-From here, interacting with tintin and Medievia occurs as normal; quit the Medievia session with tintin's `#zap` command and close tintin with `#end`.
+From here, interacting with TinTin and Medievia occurs as normal; quit the Medievia session with TinTin's `#zap` command and close TinTin with `#end`.
 
 ## Configuring mudmux
 

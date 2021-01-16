@@ -5,11 +5,12 @@
 #function _read {
     #local module_name %1;
     #read {${base_script_path}/${module_name}.tt};
+    #return #no;
 };
 
 #alias read_module {
     #local module_name %1;
-    #local prefix %2;
+    #local prefix {%2};
     #showme {${prefix}Reading module "$module_name"};
     @_read{$module_name};
 };
@@ -18,10 +19,6 @@
     #local module_name %1;
     #if {!&_modules[$module_name]} {
         #var _modules[$module_name] {};
-        #no #showme {Registering module "$module_name"};
-    };
-    #else {
-        #no #showme {Module "$module_name" is already registered};
     };
     #return #no;
 };
@@ -31,9 +28,6 @@
     #local prefix {  + };
     #if {!&_modules[$module_name]} {
         read_module {$module_name} {$prefix};
-    };
-    #else {
-        #no #showme {${prefix}Required module "$module_name" is already available};
     };
     #return #no;
 };

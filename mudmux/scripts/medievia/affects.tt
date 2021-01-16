@@ -128,7 +128,7 @@
 
 #alias list_all_affects {
 
-    #foreach $affects[] {a} {
+    #foreach *affects[] {a} {
 
         #var ticks $affects[$a][ticks];
         #var messages $affects[$a][messages];
@@ -211,7 +211,7 @@
 
 #alias do_spellup {
 
-    #foreach $affects[] {a} {
+    #foreach *affects[] {a} {
 
         #var ticks $affects[$a][ticks];
         #var messages $affects[$a][messages];

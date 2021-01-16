@@ -1,13 +1,17 @@
+Making development easier
+ - Configure mudmux scripts directory path, rather than installed path
+ - relaunch flag, for use once env is already set but tintin has been closed with #end
+ - make it easier to clean up tmux. with -CC I often detatch but really just want to kill
+
 Remaining script reorganization
  - consider a constants module?
  - add ability for multiple, named chat connections
  - gracefully handle different script dir trees i.e. for different games?
  - verbosity of script logs
  - treat stored.log like communications.log
+ - pull out mudmux-linked components from splitprompt (e.g. as in context.tt)
 
 Longer term tasks:
-
- - upgrade tintin?
 
  - continue to improve docker usage
     - switch back to alpine? (segfaults with #chat call)

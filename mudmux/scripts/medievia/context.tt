@@ -1,23 +1,25 @@
 #no mudmux module medievia/context.tt;
 @_module{medievia/context};
 
+@_require{medievia/splitprompt};
+
 #variable char_name {};
 #variable char_level {};
 #variable char_class {};
 
-#var align_text[You are a saint]                             { {min}{901}  {max}{1000}  {align}{good}    };
-#var align_text[Goodness exudes from your body]              { {min}{701}  {max}{900}   {align}{good}    };
-#var align_text[You are very good]                           { {min}{501}  {max}{700}   {align}{good}    };
-#var align_text[You are good]                                { {min}{351}  {max}{500}   {align}{good}    };
-#var align_text[You are almost good]                         { {min}{301}  {max}{350}   {align}{neutral} };
-#var align_text[You are neutral with tendencies toward good] { {min}{101}  {max}{300}   {align}{neutral} };
-#var align_text[You are neutral]                             { {min}{-100} {max}{100}   {align}{neutral} };
-#var align_text[You are neutral with tendencies toward evil] { {min}{-300} {max}{-101}  {align}{neutral} };
-#var align_text[You are almost evil]                         { {min}{-350} {max}{-301}  {align}{neutral} };
-#var align_text[You are evil]                                { {min}{-500} {max}{-351}  {align}{evil}    };
-#var align_text[You are very evil]                           { {min}{-700} {max}{-501}  {align}{evil}    };
-#var align_text[Evil exudes from your body]                  { {min}{-900} {max}{-701}  {align}{evil}    };
-#var align_text[You are prime evil itself]                   { {min}{-1000} {max}{-901} {align}{evil}    };
+#var align_text[You are a saint]                             { {min}{901}   {max}{1000}  {align}{good}    };
+#var align_text[Goodness exudes from your body]              { {min}{701}   {max}{900}   {align}{good}    };
+#var align_text[You are very good]                           { {min}{501}   {max}{700}   {align}{good}    };
+#var align_text[You are good]                                { {min}{351}   {max}{500}   {align}{good}    };
+#var align_text[You are almost good]                         { {min}{301}   {max}{350}   {align}{neutral} };
+#var align_text[You are neutral with tendencies toward good] { {min}{101}   {max}{300}   {align}{neutral} };
+#var align_text[You are neutral]                             { {min}{-100}  {max}{100}   {align}{neutral} };
+#var align_text[You are neutral with tendencies toward evil] { {min}{-300}  {max}{-101}  {align}{neutral} };
+#var align_text[You are almost evil]                         { {min}{-350}  {max}{-301}  {align}{neutral} };
+#var align_text[You are evil]                                { {min}{-500}  {max}{-351}  {align}{evil}    };
+#var align_text[You are very evil]                           { {min}{-700}  {max}{-501}  {align}{evil}    };
+#var align_text[Evil exudes from your body]                  { {min}{-900}  {max}{-701}  {align}{evil}    };
+#var align_text[You are prime evil itself]                   { {min}{-1000} {max}{-901}  {align}{evil}    };
 
 #action {%1 %2 the %3, Level %4 %5} {
     #variable char_name {%2};
@@ -37,10 +39,12 @@
 };
 
 #action {You are the %2 person to connect since %2.} {
+  setprompt;
   score;
 };
 
 #action {^Reconnecting.$} {
+  setprompt;
   score;
 };
 

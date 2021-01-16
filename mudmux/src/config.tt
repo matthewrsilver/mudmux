@@ -1,0 +1,11 @@
+#no mudmux module management;
+
+#function config {
+    #local arg %1;
+    #local default %2;
+
+    #script {result} {python config_get.py %1 %2};
+
+    #showme $result[1];
+
+;}
