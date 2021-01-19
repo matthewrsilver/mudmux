@@ -52,7 +52,7 @@ Alternatively, there are a variety of circumstances (crashes, accidentally sendi
 To do so, simply run the TinTin service through docker from the nested `mudmux` directory:
 
 ```
-$ docker-compose run TinTin
+$ docker-compose run tintin
 ```
 
 This will create and attach to the docker, run TinTin, and exit once TinTin finishes.

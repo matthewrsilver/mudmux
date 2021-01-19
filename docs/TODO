@@ -10,6 +10,7 @@ Remaining script reorganization
  - verbosity of script logs
  - treat stored.log like communications.log
  - pull out mudmux-linked components from splitprompt (e.g. as in context.tt)
+ - separate core medievia/chat.tt logic from enablement for reps
 
 Longer term tasks:
 

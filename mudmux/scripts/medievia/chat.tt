@@ -113,8 +113,9 @@
 };
 
 #function {random_element}{
-    #math word_idx 1d&{%1}[];
-    #var result {${%1}[$word_idx]};
+    #list %1 size max_elem;
+    #math word_idx 1d${max_elem};
+    #list %1 get $word_idx result;
 };
 
 #function {valence}{
