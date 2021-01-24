@@ -1,4 +1,4 @@
-#no mudmux module medievia/reps/misc.tt
+#no mudmux module medievia/reps/misc.tt;
 @_module{medievia/reps/misc};
 
 @_require{medievia/chat};
@@ -22,9 +22,9 @@
     #math new_count {$spin_count + 1};
     #var spin_count $new_count;
     #if {$spin_count < 2}{
-        @do_combatrep{bad; <168>$char_name <148>just spun, and is pretty annoyed about it.};
+        combatrep {bad} {<168>$char_name <148>just spun, and is pretty annoyed about it.};
     }{
-        @do_combatrep{bad; <168>$char_name <148>just spun AGAIN!!!!};
+        combatrep {bad} {<168>$char_name <148>just spun AGAIN!!!!};
     };
 };
 

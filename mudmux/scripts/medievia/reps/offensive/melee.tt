@@ -1,11 +1,11 @@
-#no mudmux module medievia/reps/offensive/melee.tt
+#no mudmux module medievia/reps/offensive/melee.tt;
 @_module{medievia/reps/offensive/melee};
 
 @_require{medievia/chat};
 
 #action {You try to trip %1, but %2 leaps out of the way.}{
     #if {"$combat_rep_enabled" == "true"}{
-        @do_combatrep{bad; <168>$char_name <168>just <119>FAILED<168> to trip <168>%1.};
+        combatrep {bad} {<168>$char_name <168>just <119>FAILED<168> to trip <168>%1.};
     };
 };
 

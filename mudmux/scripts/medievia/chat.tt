@@ -1,11 +1,9 @@
 #no mudmux module medievia/chat.tt;
 @_module{medievia/chat};
 
+@_require{utils};
 @_require{medievia/room_reader};
 @_require{medievia/splitprompt};
-
-#no todo: functions to aliases;
-
 
 #var combat_rep_enabled false;
 
@@ -16,13 +14,12 @@
 #list formies create {};
 #action {Your formation consists of:}{#list formies clear;};
 
-#function {add_formie}{
+#alias add_formie {
     #format formie_name {%p} {%1};
     #if {"$formie_name" != "$char_name"}{
         #format lower_name {%l} {$formie_name};
         #list formies insert {-1} {$lower_name};
     };
-    #var result {#no;};
 };
 
 #action {OK! %1 allows you, and you start following.}{
@@ -37,8 +34,8 @@
 };
 
 
-#action {%1 [%2][%3][%4| %5/%6hp %7/%8m %9]}{@add_formie{%2};};
-#action {%1 becomes very passive and starts following you.}{@add_formie{%1};};
+#action {%1 [%2][%3][%4| %5/%6hp %7/%8m %9]}{add_formie {%2}};
+#action {%1 becomes very passive and starts following you.}{add_formie {%1}};
 
 
 #list good_words create {Woop!} {Huzzah!} {Whoopee!} {Whoa!} {Zomg!} {Bingo!} {Whammy!} {Booyah!} {Yesss!} {Haha!} {Wowzer!} {Bam!} {Booyakasha!} {Yeah!} {Winning!} {Win!} {Hell Yeah!} {YOLO!};
@@ -47,7 +44,7 @@
 #list good_end_words create {real hard!} {like a chump!} {in the face!} {what a loser!} { -- total jerk!} {and cried about it!} {what a dumbass!} {big time!} {and also sucks.} {bigly!} {like a turd!} {what an idiot!} { -- moron!} {and is a dumbass} {like a total dotard!} {super hard!} {what a dingbat!} {with unbelievable skill!} {what a pinhead!} {and eats shit!} {no big deal though.} {and is worthless.} {what an empty husk.} {and should probably give up.};
 #list bad_end_words create {and it was awful.} {how terrible!} {and needs our compassion.} {and is probably sad.} {-- somebody help!} {what a total witch hunt.} {what bullshit!} {what crap!} {and I am so, so scared.} {and you hate to see it.};
 
-#function {do_combatrep}{
+#alias combatrep {
 
     #if {"%1" == "enable"}{
         #if {"$combat_rep_enabled" == "false"}{
@@ -108,23 +105,15 @@
 
     };};};};};};};
 
-    #var result {#no};
-
 };
 
-#function {random_element}{
-    #list %1 size max_elem;
-    #math word_idx 1d${max_elem};
-    #list %1 get $word_idx result;
-};
-
-#function {valence}{
+#function valence {
     #format lower_name {%l} {%1};
     #list formies find {$lower_name} {in_form};
     #if {$in_form}{#var result bad;}{#var result good;};
 };
 
-#function {fancy_end_words}{
+#function fancy_end_words {
     #format victim_name {%n} {%1};
     #if {"@valence{%1}" == "good"}{
         #var result @random_element{good_end_words};
@@ -153,10 +142,6 @@
 
 #alias {pm %1 %2} {
     serv pmsg %1 %2;
-};
-
-#alias {combatrep %1}{
-    @do_combatrep{%1};
 };
 
 

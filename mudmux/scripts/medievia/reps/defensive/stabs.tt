@@ -1,12 +1,12 @@
-#no mudmux module medievia/reps/defensive/stabs.tt
+#no mudmux module medievia/reps/defensive/stabs.tt;
 @_module{medievia/reps/defensive/stabs};
 
 @_require{medievia/chat};
 @_require{medievia/splitprompt};
 @_require{medievia/room_reader};
 
-#no todo: add colors for stab strengths
-#no todo: add stabbed to death and attempted to stab
+#no todo: add colors for stab strengths;
+#no todo: add stabbed to death and attempted to stab;
 
 
 #list stab_strengths create;
@@ -72,7 +72,7 @@
     #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
     #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
 
-    @do_combatrep{vbad; <148>I just got <138>STABBED<148> @stab_strength_string{}<148>right in the back by <168>%1<148> for <118>$stab_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
+    combatrep {vbad} {<148>I just got <138>STABBED<148> @stab_strength_string{}<148>right in the back by <168>%1<148> for <118>$stab_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
 
     clear_stab_data;
     #line gag;

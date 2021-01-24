@@ -56,6 +56,11 @@
     #return %2;
 };
 
+#function random_element {
+    #list %1 size max_elem;
+    #list %1 get @math{1d${max_elem}} result;
+};
+
 #function join_from_reference {
     #list referent create ${%1}[%*];
     #local delim %2;

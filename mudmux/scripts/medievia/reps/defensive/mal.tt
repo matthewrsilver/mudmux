@@ -1,11 +1,11 @@
-#no mudmux module medievia/reps/defensive/mal.tt
+#no mudmux module medievia/reps/defensive/mal.tt;
 @_module{medievia/reps/defensive/mal};
 
 @_require{medievia/chat};
 @_require{medievia/splitprompt};
 @_require{medievia/room_reader};
 
-#no todo: consolidate room type stuff
+#no todo: consolidate room type stuff;
 
 
 #action {%1 raises %2 hands and strikes you with a burst of power.} {
@@ -19,7 +19,7 @@
     #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
     #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
 
-    @do_combatrep{vbad; <148>I've been <118>MALEDICTED<148> by <168>%1<148> for <118>$mal_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
+    combatrep {vbad} {<148>I've been <118>MALEDICTED<148> by <168>%1<148> for <118>$mal_dmg<148> damage to ${current_hit_points_color}<148> hp!$pk_string<088>};
 
     #line gag;
 
@@ -36,7 +36,7 @@
     #if {"$pkness" == "NPK"} {#var pk_string {<138> | NPK<088>};};
     #if {"$pkness" == "CPK"} {#var pk_string {<138> | <118>CPK<088>};};
 
-    @do_combatrep{vbad; <148>I've been <118>MALEDICTED TO DEATH<148> by <168>%1<148> for <118>$mal_dmg<148> damage.};
+    combatrep {vbad} {<148>I've been <118>MALEDICTED TO DEATH<148> by <168>%1<148> for <118>$mal_dmg<148> damage.};
 
     #line gag;
 
