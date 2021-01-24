@@ -5,6 +5,8 @@ iterm:
   enable_tmux_integration: Yes
 chat_config_dir: "${MUDMUX_BASE_PATH}/config"
 chat_config_file_name: "chat_config.tt"
+src_dir_path: "${MUDMUX_BASE_PATH}/src"
+scripts_dir_path: "${MUDMUX_BASE_PATH}/scripts"
 log_dir: "${MUDMUX_BASE_PATH}/logs"
 log_file_name: "communications.log"
 notes_file_dir: "${MUDMUX_BASE_PATH}/logs"

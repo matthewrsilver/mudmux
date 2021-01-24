@@ -136,6 +136,12 @@ def set_environment(cfg: dict, args: argparse.Namespace) -> None:
     iterm_profile = cfg['iterm'].get('mudmux_iterm_profile')
     os.environ['MUDMUX_PROFILE_ESC'] = construct_profile_escape(iterm_profile)
 
+    src_dir_path = os.path.expandvars(cfg['src_dir_path'])
+    os.environ['MUDMUX_SRC_DIR'] = src_dir_path
+
+    scripts_dir_path = os.path.expandvars(cfg['scripts_dir_path'])
+    os.environ['MUDMUX_SCRIPTS_DIR'] = scripts_dir_path
+
     comms_log_path = os.path.expandvars(cfg['log_dir'])
     comms_log_name = cfg['log_file_name']
     os.environ['MUDMUX_COMMS_LOG'] = f'{comms_log_path}/{comms_log_name}'

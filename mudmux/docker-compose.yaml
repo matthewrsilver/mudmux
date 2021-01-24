@@ -8,7 +8,9 @@ services:
     environment:
       - TERM
     volumes:
-      - ./:/home/mudmux
+      - ${MUDMUX_BASE_PATH}/launch.py:/home/mudmux/launch.py
+      - ${MUDMUX_SRC_DIR}:/home/mudmux/src
+      - ${MUDMUX_SCRIPTS_DIR}:/home/mudmux/scripts
       - ${MUDMUX_COMMS_LOG}:/home/files/communications.log
       - ${MUDMUX_CHAT_CONFIG_FILE}:/home/files/chat_config.tt
     command: "tt++ -G -r /home/mudmux/src/main.tt -t mudmux"
@@ -19,4 +21,8 @@ services:
     environment:
       - TERM
     volumes:
-      - ./:/home/mudmux
+      - ${MUDMUX_BASE_PATH}/launch.py:/home/mudmux/launch.py
+      - ${MUDMUX_SRC_DIR}:/home/mudmux/src
+      - ${MUDMUX_SCRIPTS_DIR}:/home/mudmux/scripts
+      - ${MUDMUX_COMMS_LOG}:/home/files/communications.log
+      - ${MUDMUX_CHAT_CONFIG_FILE}:/home/files/chat_config.tt
