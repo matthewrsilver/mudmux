@@ -24,7 +24,7 @@ By default, certain features of [iTerm2](https://iterm2.com) -- notably its [awe
 When leveraging iTerm2's features, it's valuable to have a game-specific profile configured for use within mudmux. There are a handful of requirements placed on iTerm2 settings and on this profile that help:
 
 * Tell iTerm2 not to automatically switch to the tmux profile (Preferences -> General -> tmux) as described in [this iTerm2 thread](https://gitlab.com/gnachman/iterm2/-/issues/4543#note_326526076).
-* For Medievia, specifically, the [medievia font](http://www.medievia.com/fonts.html) greatly enhances gameplay, and can be set as the default font in the profile
+* For Medievia, specifically, the [medievia font](http://www.medievia.com/fonts.html) greatly enhances gameplay, and can be set as the default font in the profile. Note that per Medievia announcement 952 (`page -none announcement 952`) the font is only fully utilized if the CP437 encoding, or IBM Extended ASCII, is used. I can't find that in iTerm2, but Windows Latin 1 works reasonably well.
 
 ## Running mudmux
 
