@@ -1,7 +1,7 @@
 Making development easier
- - Configure mudmux scripts directory path, rather than installed path
  - relaunch flag, for use once env is already set but tintin has been closed with #end
  - make it easier to clean up tmux. with -CC I often detatch but really just want to kill
+ - display the config to make it easy to retrieve and modify in local configs
 
 Remaining script reorganization
  - consider a constants module?
@@ -18,6 +18,7 @@ Longer term tasks:
     - switch back to alpine? (segfaults with #chat call)
     - use a normal user; don't like running as root
     - the usage of /home/files is weird. should audit and clean up volumes...
+    - add argument to launch to not use docker
 
  - additional tmuxp improvements
     - maybe switch to tmuxinator??
@@ -31,6 +32,7 @@ Longer term tasks:
 
 Updates to README
  - Add a section on how to leverage mudmux features when scripting
+ - Be sure to mention configurable scripts and src locations
 
 Other iTerm-related changes
  - package a portable iterm profile?

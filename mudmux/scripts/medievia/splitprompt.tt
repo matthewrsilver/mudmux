@@ -3,8 +3,6 @@
 
 @_require{medievia/sneak};
 
-#no todo: convert these to 0 and 1 instead of true and false;
-#no todo: move init out of this module;
 #no todo: detect prompt when dead;
 
 #var pretty_prompt {};
@@ -17,27 +15,27 @@
 #var current_mana_color {};
 #var prev_mana 0;
 
-#var jug_empty true;
-#var show_jug_tag true;
+#var jug_empty 1;
+#var show_jug_tag 1;
 #var pkness {};
 
 #var prompt_rep_trigger {};
 
-#act {It's empty already.}{#var jug_empty true;};
-#act {You empty a jug of bright green liquid.}{#var jug_empty true;};
-#act {A jug of bright green liquid is filled.}{#var jug_empty false;};
-#act {You fill a jug of bright green liquid with %1.}{#var jug_empty false;};
-#act {You drink the %1}{#var jug_empty false;};
+#act {It's empty already.}{#var jug_empty 1;};
+#act {You empty a jug of bright green liquid.}{#var jug_empty 1;};
+#act {A jug of bright green liquid is filled.}{#var jug_empty 0;};
+#act {You fill a jug of bright green liquid with %1.}{#var jug_empty 0;};
+#act {You drink the %1}{#var jug_empty 1;};
 
 #function get_jug_tag {
 
     #var result {<129>[JUG!!]};
 
-    #if {"$jug_empty" == "false"}{
+    #if {!$jug_empty}{
         #var result {};
     };
 
-    #if {"$show_jug_tag" == "false"}{
+    #if {!$show_jug_tag}{
         #var result {};
     };
 
@@ -118,7 +116,7 @@
         #if {"$char" == ">" && $in_health_tag}{
             #var in_health_tag 0;
             #var form_health_tag {${form_health_tag}$char};
-            #var sneaking false;
+            #var sneaking 0;
             #continue;
         };
 
@@ -208,14 +206,7 @@
     #var tag_string @cleanup_tags{%1};		
     #var spells_string @cleanup_spells{%10};
 
-    #var pretty_prompt_raw {$tag_string<139>[[ $current_hit_points_color<179>/<149>%3 <139>| $current_mana_color<179>/<149>%5 <139>| <149>$current_move_color <139>| <149>$current_breathe_color <139>| <179>$current_align_color <139>]] $spells_string<099>};
-
-    #screen get cols screen_width;
-    #format prompt_len {%L} {$pretty_prompt_raw};
-    #math num_spaces {$screen_width - $prompt_len}; 
-    #format pad_str {%-${num_spaces}s};
-
-    #var pretty_prompt {$pretty_prompt_raw$pad_str};
+    #var pretty_prompt {$tag_string<139>[[ $current_hit_points_color<179>/<149>%3 <139>| $current_mana_color<179>/<149>%5 <139>| <149>$current_move_color <139>| <149>$current_breathe_color <139>| <179>$current_align_color <139>]] $spells_string<099>};
 
     #if {@is_set{$prompt_rep_trigger}} {
         #showme $prompt_rep_trigger;

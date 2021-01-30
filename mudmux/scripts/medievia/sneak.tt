@@ -1,153 +1,151 @@
 #no mudmux module medievia/sneak.tt;
 @_module{medievia/sneak};
 
-#no todo: use boolean instead of true/false;
-
-#variable sneaking false;
+#variable sneaking 0;
 #variable sneak_tag {<159>[SNEAK!!]<099>};
 
 
 #action {You rush into the fray!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {You stop sneaking.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {~You attempt to move silently.} {
-    #variable sneaking true;
+    #variable sneaking 1;
 };
 
 #action {Your %1 misses %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 maims %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 devastates %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 eviscerates %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 disembowels %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 decapitates %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 decimates %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 mutilates %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 dismembers %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 pulverizes %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 demolishes %2!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {You dodge %1 attack.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {You parry %1 attack.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {%1 dodges your attack.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {%1 parries your attack.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your %1 kills %3!} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your beautiful full-circle kick misses %1 by a mile.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your boots need polishing again - blood all over.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {%1 is shaken violently from the force of the tremor.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {You send a bolt of acid at %1 from your fingertip, striking %2.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {You channel a powerful shockwave at %1.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your shockwave hits %1 with full force, causing an immediate death.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {You raise your hands to the heavens and %1 is consumed in a column of flame.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {You hold your hands out and release a barrage of frost shards at %1.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {You lay a hand upon %1 and the remaining flesh withers away.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {%1 screams in pain as %1 flesh withers away at your touch.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your lightning bolt shatters %1 to pieces.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {The lightning bolt hits %1 with full impact.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {Your aim is going from bad to worse and the lightning bolt misses %1.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {You jump up and mount %1.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #action {You jump down and dismount %1.} {
-    #variable sneaking false;
+    #variable sneaking 0;
 };
 
 #function get_sneak_tag {
 
     #var result $sneak_tag;
 
-    #if {"$sneaking" == "true"}{
+    #if {$sneaking}{
         #var result {};
     };
 
