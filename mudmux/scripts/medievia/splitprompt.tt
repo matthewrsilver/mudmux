@@ -3,7 +3,6 @@
 
 @_require{medievia/sneak};
 
-#no todo: detect prompt when dead;
 
 #var pretty_prompt {};
 
@@ -21,6 +20,9 @@
 
 #var prompt_rep_trigger {};
 
+#var weakest_formie {};
+
+
 #act {It's empty already.}{#var jug_empty 1;};
 #act {You empty a jug of bright green liquid.}{#var jug_empty 1;};
 #act {A jug of bright green liquid is filled.}{#var jug_empty 0;};
@@ -31,17 +33,11 @@
 
     #var result {<129>[JUG!!]};
 
-    #if {!$jug_empty}{
-        #var result {};
-    };
-
-    #if {!$show_jug_tag}{
+    #if {!$jug_empty || !$show_jug_tag}{
         #var result {};
     };
 
 };
-
-#var weakest_formie {};
 
 #var colors {
     {0} {<118>}
@@ -52,7 +48,7 @@
 };
 
 #var align_colors {
-    {0} {<faa>}       
+    {0} {<faa>}
     {1} {<ebb>}
     {2} {<dcc>}
     {3} {<ccc>}
@@ -124,7 +120,7 @@
             #var form_health_tag {${form_health_tag}$char};
             #continue;
         };
-	
+
         #if {"$char" == "]"}{
             #if {"$current_tag" != ""}{
                 #list tags add $current_tag;
@@ -132,7 +128,7 @@
             };
             #continue;
         };
-	    
+
         #if {"$char" != "["}{
             #var current_tag {${current_tag}$char};
         };
@@ -187,7 +183,7 @@
 #function {get_align_color}{
     #format current_align_idx %d {(((%1+1000)*100)/2000) / 12.5};
     #var result {$align_colors[$current_align_idx]};
-}; 
+};
 
 #act {%1[[ %2/%3 | %4/%5 | %6/%7 | %8 | %9 ]] [%10]}{
 
@@ -203,7 +199,7 @@
     #var current_breathe_color {@get_color{%8;100}%8};
     #var current_align_color {@get_align_color{%9}%9};
 
-    #var tag_string @cleanup_tags{%1};		
+    #var tag_string @cleanup_tags{%1};
     #var spells_string @cleanup_spells{%10};
 
     #var pretty_prompt {$tag_string<139>[[ $current_hit_points_color<179>/<149>%3 <139>| $current_mana_color<179>/<149>%5 <139>| <149>$current_move_color <139>| <149>$current_breathe_color <139>| <179>$current_align_color <139>]] $spells_string<099>};
@@ -220,4 +216,5 @@
 };
 
 #prompt {%1[[ %2/%3 | %4/%5 | %6/%7 | %8 | %9 ]] [%10]} {$pretty_prompt} {-2} {};
+#prompt {<%1hp %2m %3mv %4br>} {<118>[CORPSE]<148><%1hp %2m %3mv %4br><099>} {-2} {};
 #prompt {<MedLink>} {<148><MedLink>$pretty_prompt } {-2} {};
