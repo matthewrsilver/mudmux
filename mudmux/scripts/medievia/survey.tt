@@ -1,8 +1,6 @@
 #no mudmux module medievia/survey.tt;
 @_module{medievia/survey};
 
-#no todo: migrate functions to aliases;
-
 #var survey_flight 1;
 #var show_zone_names 1;
 #var zone_col_width 20;
@@ -253,7 +251,7 @@
     #line gag;
 };
 
-#function {summarize_direction}{ 
+#function summarize_direction {
     #format raw_direction_text %l {%1};
     #var direction_info $direction_codes[$raw_direction_text];
     #format result {<158>[ <169>%+3s %s<158> ]<099>} {$direction_info[chars]} {$direction_info[symbols]}; 
@@ -263,7 +261,7 @@
     #if {$in_flight} {#line gag;};
 };
 
-#function {fancy_survey}{
+#alias fancy_survey {
 
     #var zone_name %1;
     #var zone_type %2;
@@ -289,10 +287,9 @@
     };
         
     #line gag;
-    #var result {#no;};
 };
 
-#function {fancy_survey_if_possible}{
+#alias fancy_survey_if_possible {
 	  
     #var survey_text %1;
     #var direction_text %2;
@@ -304,18 +301,17 @@
         #var zone $zone_surveys[$survey_text];
         #var zone_name $zone[name];
         #var zone_type $zone[type];
-        @fancy_survey{$zone_name;$zone_type;$direction_text;$distance_text;$survey_text};
-    }{
+        fancy_survey {$zone_name} {$zone_type} {$direction_text} {$distance_text} {$survey_text};
+    }
+    #else {
         #regex {$survey_text} {you see the silhouette of a %+.} {
-	    @fancy_survey{Ship;ship;$direction_text;$distance_text;$survey_text};
+            fancy_survey {Ship} {ship} {$direction_text} {$distance_text} {$survey_text};
         }{
-	    #regex {$survey_text} {you see the %+. She's %+. %+.} {
-	        @fancy_survey{Ship;ship;$direction_text;$distance_text;$survey_text};
+            #regex {$survey_text} {you see the %+. She's %+. %+.} {
+                fancy_survey {Ship} {ship} {$direction_text} {$distance_text} {$survey_text};
             };
         };
     };
-
-    #var result {#no;};
 };
 
 #action {In the immediate area, %1}{
@@ -324,7 +320,7 @@
     #format distance_text %l {In the immediate area};
     #format survey_text %s {%1};
 
-    @fancy_survey_if_possible{$survey_text;$direction_text;$distance_text};
+    fancy_survey_if_possible {$survey_text} {$direction_text} {$distance_text};
  
 };
 
@@ -342,6 +338,6 @@
     };
 
     #if {"$survey_text" != ""}{
-        @fancy_survey_if_possible{$survey_text;$direction_text;$distance_text;};
+        fancy_survey_if_possible {$survey_text} {$direction_text} {$distance_text};
     };
 };
