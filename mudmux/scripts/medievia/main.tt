@@ -13,8 +13,6 @@
 };
 
 #alias connect {
-    tickstart;
-    resplit;
     #session med medievia.com 4000;
 };
 

@@ -19,3 +19,7 @@
 };
 
 @_load{medievia/main};
+
+#prompt {||mudmux||} {||mudmux||};
+#show {||mudmux||};
+

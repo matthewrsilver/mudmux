@@ -39,13 +39,15 @@
 };
 
 #action {You are the %2 person to connect since %2.} {
-  setprompt;
-  score;
+    setprompt;
+    score;
+    tickstart;
 };
 
 #action {^Reconnecting.$} {
-  setprompt;
-  score;
+    setprompt;
+    score;
+    tickstart;
 };
 
 #action {Also try 'SCORE Z' or L or O or A as well as the GAMEINFO command} {

@@ -1,6 +1,7 @@
 #no mudmux module medievia/splitprompt.tt;
 @_module{medievia/splitprompt};
 
+@_require{utils};
 @_require{medievia/sneak};
 
 
@@ -175,34 +176,39 @@
 
 };
 
-#function {get_color}{
+#function get_color {
     #math current_value_idx {((%1*100)/%2) / 25};
     #var result {$colors[$current_value_idx]};
 };
 
-#function {get_align_color}{
+#function get_align_color {
     #format current_align_idx %d {(((%1+1000)*100)/2000) / 12.5};
     #var result {$align_colors[$current_align_idx]};
 };
 
 #act {%1[[ %2/%3 | %4/%5 | %6/%7 | %8 | %9 ]] [%10]}{
 
+    #no store previous, current and colorized hit points for use in other scripts;
     #var prev_hit_points {$current_hit_points};
     #var current_hit_points {%2};
     #var current_hit_points_color {@get_color{%2;%3}%2};
+    #local hp {$current_hit_points_color<179>/<149>%3<139>};
 
+    #no store previous, current and colorized mana for use in other scripts;
     #var prev_mana {$current_mana};
     #var current_mana {%4};
     #var current_mana_color {@get_color{%4;%5}%4};
-    #var current_move_color {@get_color{%6;%7}%6};
+    #local mn {$current_mana_color<179>/<149>%5<139>};
 
-    #var current_breathe_color {@get_color{%8;100}%8};
-    #var current_align_color {@get_align_color{%9}%9};
+    #no compute several other local values;
+    #local mv {@get_color{%6;%7}%6<139>};
+    #local br {@get_color{%8;100}%8<139>};
+    #local al {@get_align_color{%9}%9<139>};
 
-    #var tag_string @cleanup_tags{%1};
-    #var spells_string @cleanup_spells{%10};
+    #var tag_string {@cleanup_tags{%1}<139>};
+    #var spells_string {@cleanup_spells{%10}<099>};
 
-    #var pretty_prompt {$tag_string<139>[[ $current_hit_points_color<179>/<149>%3 <139>| $current_mana_color<179>/<149>%5 <139>| <149>$current_move_color <139>| <149>$current_breathe_color <139>| <179>$current_align_color <139>]] $spells_string<099>};
+    #var pretty_prompt {${tag_string}[[ $hp | $mn | $mv | $br | $al ]] ${spells_string}};
 
     #if {@is_set{$prompt_rep_trigger}} {
         #showme $prompt_rep_trigger;

@@ -1,8 +1,8 @@
 #no mudmux module medievia/affects.tt;
 @_module{medievia/affects};
 
-@_require{medievia/context};
 @_require{utils};
+@_require{medievia/context};
 
 #no TODO: sc l triggers display of all red spells first time after logon;
 #no TODO: clean up the should_do_spellup, spellup_threshold, etc.;
