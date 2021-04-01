@@ -15,7 +15,7 @@ With those requirements satisfied, the latest version of mudmux can be install v
 python -m pip install git+https://github.com/matthewrsilver/mudmux.git
 ```
 
-There is no need to install TinTin++ itself because TinTin++ v2.02.00 that is installed in the, docker container.
+There is no need to install TinTin++ itself because TinTin++ v2.02.00 is installed in the docker container.
 
 ### Using iTerm2's tmux integration and profiles
 
