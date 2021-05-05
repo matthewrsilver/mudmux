@@ -170,7 +170,8 @@
 #var zone_surveys[you see a dark tower piercing through the thick forest canopy.]                                                        { {name}{Tower of Reclasta}    {type}{normal}   };
 #var zone_surveys[you see a small, run down shack atop a grassy hill.]                                                                   { {name}{Crime Underground}    {type}{normal}   };
 #var zone_surveys[you see a ragged cliff rise like a dark scar across the landscape.]                                                    { {name}{Dark Escarpment}      {type}{normal}   };
-#var zone_surveys[you see a ruined stone structure jutting from the swamp.]                                                              { {name}{Ruins of Stornaway}   {type}{normal}   };                     
+#var zone_surveys[you see a ruined stone structure jutting from the swamp.]                                                              { {name}{Ruins of Stornaway}   {type}{normal}   };
+#var zone_surveys[an inferno burns.]                                                                                                     { {name}{Deddo Supirittsu Cr.} {type}{normal}   };
 #var zone_surveys[you see the mist-shrouded peak of a mountain top.]                                                                     { {name}{Courrain Island}      {type}{normal}   };
 #var zone_surveys[you see the gleaming white walls and towers of a desert city.]                                                         { {name}{El Cantara}           {type}{normal}   };
 #var zone_surveys[you see the weather-worn stone walls of a city at the base of the volcano.]                                            { {name}{New Ashton}           {type}{normal}   };
