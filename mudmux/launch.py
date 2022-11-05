@@ -89,7 +89,7 @@ def load_user_config_override() -> dict:
         logger.info(f'Loading user configs from {user_config_file}')
         return _load_config_yaml(user_config_file)
     else:
-        logger.debyg('No config is present, so nothing was loaded')
+        logger.debug('No config is present, so nothing was loaded')
     return {}
 
 
